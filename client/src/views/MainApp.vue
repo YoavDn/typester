@@ -14,16 +14,14 @@ console.log(testRef);
 </script>
 
 <template>
-    <h2>hii</h2>
-    <pre>{{testRef}}</pre>
+    <h2>main app</h2>
 </template>
 
     
 <style lang="scss" scoped>
 @import '@/assets/style/main.scss';
+
 h2 {
     color: $text
 }
-
-
 </style>
