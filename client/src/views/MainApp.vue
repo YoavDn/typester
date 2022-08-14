@@ -19,5 +19,11 @@ console.log(testRef);
 </template>
 
     
-<style>
+<style lang="scss" scoped>
+@import '@/assets/style/main.scss';
+h2 {
+    color: $text
+}
+
+
 </style>
