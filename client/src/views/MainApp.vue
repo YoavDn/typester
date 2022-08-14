@@ -3,11 +3,19 @@
 import { useTestStore } from '@/stores/test';
 
 const test = useTestStore()
+test.loadTest()
+
+
+const testRef = test.getTest
+console.log(testRef);
+
+
 
 </script>
 
 <template>
-    <h2>hello world</h2>
+    <h2>hii</h2>
+    <pre>{{testRef}}</pre>
 </template>
 
     

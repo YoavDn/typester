@@ -1,11 +1,11 @@
 
-type latterType = {
+export type latterType = {
     latter: string,
     isPassed: boolean
 }
 
-type wordType = {
-    wordType: string,
+export type wordType = {
+    word: string,
     isPassed: boolean,
     latters: latterType[]
 }
