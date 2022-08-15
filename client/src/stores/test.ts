@@ -15,6 +15,10 @@ export const useTestStore = defineStore({
     actions: {
         loadTest() {
             this.test = testService.generateNewTest()
+        },
+
+        activateTest() {
+            this.isActive = true
         }
     }
 })

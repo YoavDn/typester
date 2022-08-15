@@ -1,10 +1,27 @@
+import type { caretPosType } from '@/types'
+import type MainAppVue from '@/views/MainApp.vue'
+import type { HtmlAttributes } from 'csstype'
 import { ref, onMounted, onUnmounted } from 'vue'
 
-export function useLatterPos(latter: HTMLElement) {
-    const offsets = latter.getBoundingClientRect()
+type functionResType = caretPosType | null
+type htmlType = HTMLElement | null
 
-    return {
-        top: offsets.top,
-        left: offsets.left
+export function useLatterPos(latter: HTMLElement, mainContainer: htmlType): functionResType {
+    if (typeof mainContainer !== null) {
+        const latterPos = latter.getBoundingClientRect()
+        const containerPos = mainContainer!.getBoundingClientRect()
+
+        const relativePos: caretPosType = {
+            top: latterPos.top - containerPos.top,
+            bottom: latterPos.bottom - containerPos.bottom,
+            right: latterPos.right - containerPos.right,
+            left: latterPos.left - containerPos.left
+        }
+
+        return relativePos
+    } else {
+
+        return null
     }
+
 }

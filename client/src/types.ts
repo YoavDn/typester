@@ -17,3 +17,11 @@ export type testType = {
     currLatter: number,
     txt: wordType[]
 } | null
+
+
+export type caretPosType = {
+    top: number,
+    left: number,
+    right: number,
+    bottom: number
+}

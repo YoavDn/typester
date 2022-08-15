@@ -1,26 +1,32 @@
     
 <script setup lang='ts'>
 import Word from '@/components/Word.vue';
-import { useLatterPos } from '@/features/useLatterPos'
 import Caret from '@/components/Caret.vue'
+import { useLatterPos } from '@/features/useLatterPos'
 import { useTestStore } from '@/stores/test';
 import { ref, onMounted } from 'vue';
+import type { caretPosType } from '@/types'
 
 const test = useTestStore()
 test.loadTest()
-const gameInput = ref<null | HTMLInputElement>(null)
-const activeLatter = ref<null | HTMLElement>(null)
-// const carotPos = useLatterPos()
-
-onMounted(() => {
-    if (gameInput.value !== null) {
-        gameInput.value.focus()
-    }
-
-})
 
 const testRef = test.getTest
-console.log(testRef);
+const gameInput = ref<null | HTMLInputElement>(null)
+const mainContainer = ref<HTMLElement | null>(null)
+const wordRefs = ref([])
+
+let caretPos = ref<caretPosType | null>(null)
+
+
+onMounted(() => {
+    gameInput.value?.focus()
+    if (typeof mainContainer !== null
+        && typeof caretPos !== null) {
+        caretPos.value = useLatterPos(wordRefs.value[3], mainContainer.value)
+    }
+    test.activateTest()
+})
+
 
 
 function handleInput() {
@@ -37,12 +43,11 @@ function inputFocus() {
 
 <template>
 
-    <div class="words-wapper" @click="inputFocus">
-        <caret />
+    <div class="words-wapper" @click="inputFocus" ref="mainContainer">
+        <Caret v-if="test.isActive && caretPos" :caretPos="caretPos" />
         <input class="game-input" ref="gameInput" @input="handleInput" type="text">
         <main class="word-container flex">
-            <div class="word flex" v-for="(wordObj, idx) in testRef?.txt" :ref="(el) => `word-${idx}`"
-                :key="wordObj.word">
+            <div class="word flex" v-for="(wordObj, idx) in testRef?.txt" ref="wordRefs" :key="wordObj.word">
                 <Word :word="wordObj" />
             </div>
         </main>
