@@ -8,20 +8,20 @@ export const useCaretStore = defineStore({
     id: 'caret',
     state: () => ({
         caretPos: null as initalCaretpos,
-        isLtr: true
+        isLatterEnd: false
     }),
     getters: {
         getCaretPos: ({ caretPos }) => caretPos,
-        getIsltr: ({ isLtr }) => isLtr
+        getIslatterEnd: ({ isLatterEnd }) => isLatterEnd
     },
     actions: {
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
             this.caretPos = useLatterPos(htmlChild, htmlParant)
         },
 
-        toggleLTR() {
+        setLatterEnd(isEnd: boolean) {
             console.log('hello toogle caret');
-            this.isLtr = !this.isLtr
+            this.isLatterEnd = isEnd
         }
     }
 })

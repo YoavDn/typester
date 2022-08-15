@@ -27,15 +27,21 @@ export const useTestStore = defineStore({
         handleType(latter: string) {
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
+
+            //hadle game start
+            if (currLatter.idx === 0 && currWord.idx === 0) {
+                const caretStore = useCaretStore()
+                this.isActive = true
+            }
+
+
             // when correct
             if (latter === this.test?.currLatter.str) {
                 if (currLatter.str === 'space') this.setNextWord(true)
-                else if (currLatter.idx === currWord.str.length - 1) this.finishWord(true)
                 else this.setLatterNewStatus(true)
 
             } else { //when wrong
                 if (currLatter.str === 'space') this.setNextWord(false)
-                else if (currLatter.idx === currWord.str.length - 1) this.finishWord(false)
                 else this.setLatterNewStatus(false)
             }
         },
@@ -46,7 +52,7 @@ export const useTestStore = defineStore({
             const caretStore = useCaretStore()
 
             currLatter.str = 'space'
-            caretStore.toggleLTR()
+            caretStore.setLatterEnd(true)
 
             //chacking if the word is correct
             if (this.test!.txt[currWord.idx].latters.every(l => l.isCorrect)) {
@@ -61,7 +67,7 @@ export const useTestStore = defineStore({
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
             const caretStore = useCaretStore()
-            caretStore.toggleLTR()
+            caretStore.setLatterEnd(false)
 
             currWord.idx++
             currWord.str = this.test!.txt[currWord.idx].word
@@ -73,10 +79,15 @@ export const useTestStore = defineStore({
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
 
-            currLatter.idx++
-            currLatter.str = currWord.str[currLatter.idx]
-            console.log(currLatter.str);
             this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = correct ? true : false
+            if (currLatter.idx === currWord.str.length - 1) {
+                this.finishWord(correct)
+            } else {
+
+                currLatter.idx++
+                currLatter.str = currWord.str[currLatter.idx]
+                console.log(currLatter.str);
+            }
 
         }
     }

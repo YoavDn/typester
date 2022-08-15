@@ -9,7 +9,6 @@ export function useLatterPos(latter: HTMLElement, mainContainer: htmlType) {
     if (mainContainer !== null) {
         const latterPos = latter.getBoundingClientRect()
         const containerPos = mainContainer.getBoundingClientRect()
-        console.log(latterPos);
 
         const relativePos: caretPosType = reactive({
             top: latterPos.top - containerPos.top,

@@ -22,14 +22,16 @@ const wordRefs = ref<HTMLElement[]>([])
 
 
 onMounted(() => {
-    startTest()
+
+    gameInput.value?.focus()
+    caretStore.setLatterEnd(false)
+    updateCaret()
 })
 
-function startTest() {
-    gameInput.value?.focus()
-    testStore.activateTest()
-    updateCaret()
-}
+// function startTest() {
+// }
+
+
 
 
 function handleInput() {
@@ -63,7 +65,7 @@ function inputFocus() {
 <template>
 
     <div class="words-wapper" @click="inputFocus" ref="mainContainer">
-        <Caret v-if="testStore.isActive" />
+        <Caret />
         <input class="game-input" ref="gameInput" @input="handleInput" type="text">
         <main class="word-container flex">
             <div class="word flex" v-for="wordObj in testRef?.txt" ref="wordRefs" :key="wordObj.word">
