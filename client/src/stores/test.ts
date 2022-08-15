@@ -19,6 +19,10 @@ export const useTestStore = defineStore({
 
         activateTest() {
             this.isActive = true
+        },
+
+        handleType(latter: string) {
+
         }
     }
 })

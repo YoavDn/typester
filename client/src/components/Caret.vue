@@ -9,7 +9,6 @@ const caretCssPos = computed(() => {
     const { top, left } = caretPos
     return { top: top + 'px', left: left + 'px' }
 })
-console.log(caretCssPos);
 </script>
 
 

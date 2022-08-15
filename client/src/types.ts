@@ -13,8 +13,8 @@ export type wordType = {
 export type testType = {
     wpm: number,
     acc: number,
-    currWord: number,
-    currLatter: number,
+    currWord: { idx: number, str: string },
+    currLatter: { idx: number, str: string },
     txt: wordType[]
 } | null
 

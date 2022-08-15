@@ -14,7 +14,7 @@ function generateNewTest(lang = 'english') {
             isPassed: false,
             latters: word.split('').map(latter => {
                 return {
-                    latter,
+                    latter: latter,
                     isPassed: false,
                 }
             })
@@ -22,8 +22,8 @@ function generateNewTest(lang = 'english') {
     })
 
     const test: testType = {
-        currLatter: 0,
-        currWord: 0,
+        currLatter: { idx: 0, str: wordsMap[0].latters[0].latter },
+        currWord: { idx: 0, str: wordsMap[0].word },
         acc: 0,
         wpm: 0,
         txt: wordsMap

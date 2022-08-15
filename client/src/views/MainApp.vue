@@ -1,31 +1,42 @@
     
 <script setup lang='ts'>
-import Word from '@/components/Word.vue';
-import Caret from '@/components/Caret.vue'
+
+import { ref, onMounted, computed } from 'vue';
 import { useLatterPos } from '@/features/useLatterPos'
 import { useTestStore } from '@/stores/test';
-import { ref, onMounted } from 'vue';
 import type { caretPosType } from '@/types'
 
-const test = useTestStore()
-test.loadTest()
+//cmps
+import Word from '@/components/Word.vue';
+import Caret from '@/components/Caret.vue'
 
-const testRef = test.getTest
+const testStore = useTestStore()
+testStore.loadTest()
+
+const testRef = testStore.getTest
 const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
-const wordRefs = ref([])
+const wordRefs = ref<HTMLElement[]>([])
 
 let caretPos = ref<caretPosType | null>(null)
 
 
 onMounted(() => {
-    gameInput.value?.focus()
+    startTest()
+
     if (typeof mainContainer !== null
         && typeof caretPos !== null) {
-        caretPos.value = useLatterPos(wordRefs.value[3], mainContainer.value)
+        const { currWord, currLatter } = testRef!
+
+        caretPos.value = useLatterPos(wordRefs.value[currWord.idx].children[currLatter.idx] as HTMLElement, mainContainer.value as HTMLElement)
     }
-    test.activateTest()
+    testStore.activateTest()
 })
+
+function startTest() {
+    gameInput.value?.focus()
+
+}
 
 
 
@@ -44,10 +55,10 @@ function inputFocus() {
 <template>
 
     <div class="words-wapper" @click="inputFocus" ref="mainContainer">
-        <Caret v-if="test.isActive && caretPos" :caretPos="caretPos" />
+        <Caret v-if="testStore.isActive && caretPos" :caretPos="caretPos" />
         <input class="game-input" ref="gameInput" @input="handleInput" type="text">
         <main class="word-container flex">
-            <div class="word flex" v-for="(wordObj, idx) in testRef?.txt" ref="wordRefs" :key="wordObj.word">
+            <div class="word flex" v-for="(wordObj) in testRef?.txt" ref="wordRefs" :key="wordObj.word">
                 <Word :word="wordObj" />
             </div>
         </main>
