@@ -1,12 +1,12 @@
 
 export type latterType = {
     latter: string,
-    isPassed: boolean
+    isCorrect: boolean
 }
 
 export type wordType = {
     word: string,
-    isPassed: boolean,
+    isCorrect: boolean,
     latters: latterType[]
 }
 

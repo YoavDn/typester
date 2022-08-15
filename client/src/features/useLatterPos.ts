@@ -7,7 +7,7 @@ type functionResType = caretPosType | null
 type htmlType = HTMLElement | null
 
 export function useLatterPos(latter: HTMLElement, mainContainer: htmlType): functionResType {
-    if (typeof mainContainer !== null) {
+    if (mainContainer !== null) {
         const latterPos = latter.getBoundingClientRect()
         const containerPos = mainContainer!.getBoundingClientRect()
 
@@ -17,11 +17,8 @@ export function useLatterPos(latter: HTMLElement, mainContainer: htmlType): func
             right: latterPos.right - containerPos.right,
             left: latterPos.left - containerPos.left
         }
-
         return relativePos
-    } else {
 
-        return null
-    }
+    } else return null
 
 }
