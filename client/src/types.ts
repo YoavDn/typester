@@ -23,5 +23,6 @@ export type caretPosType = {
     top: number,
     left: number,
     right: number,
-    bottom: number
+    bottom: number,
+    leftEnd: number,
 }

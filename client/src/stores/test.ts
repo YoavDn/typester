@@ -27,14 +27,15 @@ export const useTestStore = defineStore({
         handleType(latter: string) {
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
-
             // when correct
             if (latter === this.test?.currLatter.str) {
-                if (currLatter.idx === currWord.str.length - 1) this.finishWord(true)
+                if (currLatter.str === 'space') this.setNextWord(true)
+                else if (currLatter.idx === currWord.str.length - 1) this.finishWord(true)
                 else this.setLatterNewStatus(true)
 
             } else { //when wrong
-                if (currLatter.idx === currWord.str.length - 1) this.finishWord(false)
+                if (currLatter.str === 'space') this.setNextWord(false)
+                else if (currLatter.idx === currWord.str.length - 1) this.finishWord(false)
                 else this.setLatterNewStatus(false)
             }
         },
@@ -49,7 +50,6 @@ export const useTestStore = defineStore({
 
             //chacking if the word is correct
             if (this.test!.txt[currWord.idx].latters.every(l => l.isCorrect)) {
-                console.log('hi2')
                 this.test.txt[currWord.idx].isCorrect = true
             } else {
                 this.test.txt[currWord.idx].isCorrect = false
@@ -57,7 +57,7 @@ export const useTestStore = defineStore({
 
         },
 
-        setNextWord() {
+        setNextWord(correct: boolean) {
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
             const caretStore = useCaretStore()
@@ -72,8 +72,6 @@ export const useTestStore = defineStore({
         setLatterNewStatus(correct: boolean) {
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
-            console.log(currLatter.idx === currWord.str.length - 1);
-
 
             currLatter.idx++
             currLatter.str = currWord.str[currLatter.idx]

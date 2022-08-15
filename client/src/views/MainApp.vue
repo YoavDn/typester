@@ -33,18 +33,22 @@ function startTest() {
 
 
 function handleInput() {
-    if (!gameInput || !testRef || wordRefs.value.length < 1) return
+    if (gameInput === null || !testRef || wordRefs.value.length < 1) return
     testStore.handleType(gameInput.value!.value)
     gameInput.value!.value = ''
 
-    //update caret
-
+    //update care
     updateCaret()
 }
 
 function updateCaret() {
     if (mainContainer !== null && testRef !== null) {
         const { currWord, currLatter } = testRef!
+        // if (currLatter.idx + 1 === currWord.str.length) {
+        //     console.log(currLatter.idx, currWord.str.length);
+        //     caretStore.toggleLTR()
+        // }
+
         const latterRef = wordRefs.value[currWord.idx].children[currLatter.idx]
         caretStore.updatedCaretPos(latterRef as HTMLElement, mainContainer.value as HTMLElement)
     }
@@ -101,7 +105,7 @@ function inputFocus() {
 
         .word {
             display: flex;
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             letter-spacing: .1rem;
             margin: .6rem
         }
