@@ -5,11 +5,16 @@ import { useCaretStore } from '@/stores/caret'
 
 const caretStore = useCaretStore()
 const caretPos = computed(() => caretStore.getCaretPos)
+const isLtr = computed(() => caretStore.getIsltr)
+console.log(isLtr.value);
+
+console.log(caretPos.value);
 
 const caretCssPos = computed(() => {
     if (caretPos.value !== null) {
-        const { top, left } = caretPos.value!
-        return { top: top + 'px', left: left + 'px' }
+        const { top, left, right } = caretPos.value!
+        if (isLtr.value) return { top: top + 'px', left: left + 'px' }
+        return { top: top + 'px', right: right + 'px' }
     }
 })
 </script>

@@ -36,9 +36,9 @@ function handleInput() {
     if (!gameInput || !testRef || wordRefs.value.length < 1) return
     testStore.handleType(gameInput.value!.value)
     gameInput.value!.value = ''
-    console.log(testRef);
 
     //update caret
+
     updateCaret()
 }
 

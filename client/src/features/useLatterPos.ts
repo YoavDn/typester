@@ -13,8 +13,8 @@ export function useLatterPos(latter: HTMLElement, mainContainer: htmlType) {
 
         const relativePos: caretPosType = reactive({
             top: latterPos.top - containerPos.top,
-            bottom: latterPos.bottom - containerPos.bottom,
-            right: latterPos.right - containerPos.right,
+            bottom: (latterPos.bottom - containerPos.bottom) * -1,
+            right: (latterPos.right - containerPos.right) * -1,
             left: latterPos.left - containerPos.left
         })
         return relativePos
