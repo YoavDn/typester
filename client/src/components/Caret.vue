@@ -1,13 +1,17 @@
 
 <script setup lang='ts'>
 import { computed } from 'vue';
-const { caretPos } = defineProps<{ caretPos: { top: number, left: number } }>()
+import { useCaretStore } from '@/stores/caret'
 
+const caretStore = useCaretStore()
+const caretPos = computed(() => caretStore.getCaretPos)
 console.log(caretPos);
 
 const caretCssPos = computed(() => {
-    const { top, left } = caretPos
-    return { top: top + 'px', left: left + 'px' }
+    if (caretPos.value !== null) {
+        const { top, left } = caretPos.value!
+        return { top: top + 'px', left: left + 'px' }
+    }
 })
 </script>
 

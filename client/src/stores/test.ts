@@ -24,13 +24,13 @@ export const useTestStore = defineStore({
         },
 
         handleType(latter: string) {
-            console.log(latter);
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
 
             // when correct
             if (latter === this.test?.currLatter.str) {
                 // when finish a word 
+
                 if (currLatter.idx === currWord.str.length) {
                     this.finishWord()
                 } else {
@@ -59,10 +59,10 @@ export const useTestStore = defineStore({
             //chacking if the word is correct
             if (this.test!.txt[currWord.idx].latters.every(l => l.isCorrect)) {
                 this.test.txt[currWord.idx].isCorrect = true
-
             } else {
                 this.test.txt[currWord.idx].isCorrect = false
             }
+            //seting the new postion
             currWord.idx++
             currWord.str = this.test!.txt[currWord.idx].word
             currLatter.idx = 0
