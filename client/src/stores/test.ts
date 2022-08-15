@@ -29,44 +29,49 @@ export const useTestStore = defineStore({
 
             // when correct
             if (latter === this.test?.currLatter.str) {
-                // when finish a word 
+                this.setLatterNewStatus(true)
+                if (currLatter.idx === currWord.str.length) this.finishWord()
 
-                if (currLatter.idx === currWord.str.length) {
-                    this.finishWord()
-                } else {
-                    currLatter.idx++
-                    currLatter.str = currWord.str[currLatter.idx]
-                    this.getWordFromTxt?.latters
-                    //seting the latter status
-                    this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = true
-                }
-                //when wrong
-            } else {
-
-                if (currLatter.idx === currWord.str.length) {
-                    this.finishWord()
-                }
-                //seting the latter status
-                this.test!.txt[currWord.idx].latters[currLatter.idx].isCorrect = false
-
+            } else { //when wrong
+                this.setLatterNewStatus(false)
+                if (currLatter.idx === currWord.str.length) this.finishWord()
             }
         },
 
         finishWord() {
+
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
+            console.log('hi');
 
             //chacking if the word is correct
             if (this.test!.txt[currWord.idx].latters.every(l => l.isCorrect)) {
+                console.log('hi2')
                 this.test.txt[currWord.idx].isCorrect = true
             } else {
+                console.log('hi');
                 this.test.txt[currWord.idx].isCorrect = false
             }
-            //seting the new postion
+        },
+
+        setNextWord() {
+            if (this.test === null) return
+            const { currLatter, currWord } = this.test!
             currWord.idx++
             currWord.str = this.test!.txt[currWord.idx].word
             currLatter.idx = 0
             currLatter.str = currWord.str[0]
+        },
+
+        setLatterNewStatus(isCorrect: boolean) {
+            if (this.test === null) return
+            const { currLatter, currWord } = this.test!
+
+            currLatter.idx++
+            currLatter.str = currWord.str[currLatter.idx]
+            this.getWordFromTxt?.latters
+            this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = isCorrect ? true : false
+
         }
     }
 })

@@ -7,3 +7,4 @@ defineProps<{ latter: latterType }>()
     <p>{{ latter.latter }}</p>
 </template>
     
+        

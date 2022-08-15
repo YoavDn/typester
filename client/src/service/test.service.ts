@@ -11,11 +11,11 @@ function generateNewTest(lang = 'english') {
     const wordsMap = randomTxt().map(word => {
         return {
             word,
-            isPassed: false,
+            isCorrect: false,
             latters: word.split('').map(latter => {
                 return {
                     latter: latter,
-                    isPassed: false,
+                    isCorrect: false,
                 }
             })
         }

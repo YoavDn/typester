@@ -17,8 +17,11 @@ defineProps<{ word: wordType }>()
 @import '@/assets/style/main.scss';
 
 .latter {
+
     p {
         color: $text-dull
     }
+
+    border-bottom: .05em solid transparent;
 }
 </style>

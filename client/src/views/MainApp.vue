@@ -97,10 +97,12 @@ function inputFocus() {
         flex-wrap: wrap;
         width: 100%;
         z-index: 99;
+        padding-bottom: 1em;
 
         .word {
             display: flex;
             font-size: 2.6rem;
+            letter-spacing: .1rem;
             margin: .6rem
         }
     }

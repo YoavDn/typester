@@ -5,7 +5,6 @@ import { useCaretStore } from '@/stores/caret'
 
 const caretStore = useCaretStore()
 const caretPos = computed(() => caretStore.getCaretPos)
-console.log(caretPos);
 
 const caretCssPos = computed(() => {
     if (caretPos.value !== null) {
@@ -25,11 +24,12 @@ const caretCssPos = computed(() => {
 <style lang="scss" >
 .caret {
     position: absolute;
-    width: 2px;
+    width: 3px;
+    border-radius: 2px;
     // top: 10px;
-    height: 2.7rem;
+    height: 3rem;
     transform: translateY(20%);
-    background-color: rgb(57, 101, 222);
+    background-color: rgb(227, 20, 92);
     z-index: 299;
 
 }
