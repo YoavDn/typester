@@ -18,6 +18,18 @@ const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
 
+watchEffect(() => {
+    if (!testRef.value) return
+    const { currWord } = testRef.value
+
+    if (testRef.value!.txt[currWord.idx].isCorrect === false) {
+        wordRefs.value[currWord.idx].classList.add('word-bad')
+    }
+
+})
+
+
+
 
 
 onMounted(() => {
@@ -93,7 +105,7 @@ function scrollIntoMiddleLine() {
 </template>
 
     
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/style/main.scss';
 
 
@@ -128,9 +140,16 @@ function scrollIntoMiddleLine() {
             line-height: 1.2em;
             font-weight: 400;
             letter-spacing: .1rem;
-            margin: .6rem
+            margin: .6rem;
+
+            &.word-bad {
+                text-decoration: underline;
+                text-decoration-color: $text-typo;
+            }
         }
     }
+
+
 
 
 }
