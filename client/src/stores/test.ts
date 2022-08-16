@@ -7,7 +7,9 @@ export const useTestStore = defineStore({
     id: 'test',
     state: () => ({
         test: null as testType,
-        isActive: false
+        isActive: false,
+        timeout: null as null | ReturnType<typeof setTimeout>
+
     }),
     getters: {
         getTest: ({ test }) => test,
@@ -24,15 +26,18 @@ export const useTestStore = defineStore({
             this.isActive = true
         },
 
+        setAFK() {
+            this.isActive = false
+        },
+
         handleType(latter: string) {
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
+            this.isActive = true
+            if (this.timeout !== null) clearTimeout(this.timeout)
+            this.timeout = setTimeout(() => { this.setAFK() }, 5000)
 
-            //hadle game start
-            if (currLatter.idx === 0 && currWord.idx === 0) {
-                const caretStore = useCaretStore()
-                this.isActive = true
-            }
+
 
 
             // when correct
@@ -132,7 +137,8 @@ export const useTestStore = defineStore({
 
             // remove option to go back to correct (after first word)
             if (currWord.idx > 1) {
-                if (this.test.txt[currWord.idx - 1].isCorrect && currLatter.idx === 0) return
+                const allCorrect = this.test.txt.slice(0, currWord.idx).every(w => w.isCorrect)
+                if (allCorrect && currLatter.idx === 0) return
             }
             //when going back to prev word
             if (currLatter.idx === 0) {

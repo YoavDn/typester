@@ -37,7 +37,6 @@ watchEffect(() => {
     if (!testRef.value || wordRefs.value.length < 1) return
     const { currWord } = testRef.value
     const activeWord = wordRefs.value[currWord.idx - 1]
-    console.log(testRef.value.txt[currWord.idx]);
 
     if (currWord.idx < 1) return
 

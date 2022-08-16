@@ -47,8 +47,5 @@ export const useCaretStore = defineStore({
             this.isLatterEnd = isEnd
         },
 
-        setMiddleLinePos(newMiddle: number) {
-
-        }
     }
 })
