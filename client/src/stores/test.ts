@@ -46,16 +46,16 @@ export const useTestStore = defineStore({
             }
         },
 
-        finishWord(correct: boolean) {
+        finishWord() {
             if (this.test === null) return
-            const { currLatter, currWord } = this.test!
+            const { currLatter, currWord } = this.test
             const caretStore = useCaretStore()
 
-            currLatter.str = 'space'
-            caretStore.setLatterEnd(true)
+            // currLatter.str = 'space'
+            // caretStore.setLatterEnd(true)
 
             //chacking if the word is correct
-            if (this.test!.txt[currWord.idx].latters.every(l => l.isCorrect)) {
+            if (this.test.txt[currWord.idx].latters.every(l => l.isCorrect)) {
                 this.test.txt[currWord.idx].isCorrect = true
             } else {
                 this.test.txt[currWord.idx].isCorrect = false
@@ -65,6 +65,8 @@ export const useTestStore = defineStore({
 
         setNextWord(correct: boolean) {
             if (this.test === null) return
+            this.finishWord()
+
             const { currLatter, currWord } = this.test
             const caretStore = useCaretStore()
             caretStore.setLatterEnd(false)
@@ -89,14 +91,18 @@ export const useTestStore = defineStore({
             currLatter.str = currWord.str[currWord.str.length - 1]
         },
 
-        setLatterNewStatus(correct: boolean) {
+        setLatterNewStatus(lStatus: boolean) {
             if (this.test === null) return
-            const { currLatter, currWord } = this.test!
+            const { currLatter, currWord } = this.test
+            const caretStore = useCaretStore()
 
-            this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = correct ? true : false
+            this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = lStatus ? true : false
 
             if (currLatter.idx === currWord.str.length - 1) {
-                this.finishWord(correct)
+                // this.finishWord(lStatus)
+                currLatter.str = 'space'
+                caretStore.setLatterEnd(true)
+                // this.setNextWord(lStatus)
             } else {
                 currLatter.idx++
                 currLatter.str = currWord.str[currLatter.idx]

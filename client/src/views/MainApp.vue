@@ -36,11 +36,14 @@ watchEffect(() => {
 watchEffect(() => {
     if (!testRef.value || wordRefs.value.length < 1) return
     const { currWord } = testRef.value
-    const activeWord = wordRefs.value[currWord.idx]
+    const activeWord = wordRefs.value[currWord.idx - 1]
+    console.log(testRef.value.txt[currWord.idx]);
 
-    if (testRef.value!.txt[currWord.idx].isCorrect === false) {
+    if (currWord.idx < 1) return
+
+    if (testRef.value!.txt[currWord.idx - 1].isCorrect === false) {
         activeWord.classList.add('word-bad')
-    } else if (testRef.value!.txt[currWord.idx].isCorrect) {
+    } else if (testRef.value!.txt[currWord.idx - 1].isCorrect) {
         activeWord.classList.remove('word-bad')
     }
 })
