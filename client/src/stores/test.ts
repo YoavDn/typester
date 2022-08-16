@@ -65,7 +65,7 @@ export const useTestStore = defineStore({
 
         setNextWord(correct: boolean) {
             if (this.test === null) return
-            const { currLatter, currWord } = this.test!
+            const { currLatter, currWord } = this.test
             const caretStore = useCaretStore()
             caretStore.setLatterEnd(false)
 
@@ -75,24 +75,66 @@ export const useTestStore = defineStore({
             currLatter.str = currWord.str[0]
         },
 
+        setPrevWord() {
+            if (this.test === null) return
+            const { currLatter, currWord } = this.test
+            const caretStore = useCaretStore()
+            caretStore.setLatterEnd(true)
+
+            currWord.idx--
+
+            const prevWord = this.test.txt[currWord.idx]
+            currLatter.idx = prevWord.latters.length - 1
+            currWord.str = prevWord.word
+            currLatter.str = currWord.str[currWord.str.length - 1]
+        },
+
         setLatterNewStatus(correct: boolean) {
             if (this.test === null) return
             const { currLatter, currWord } = this.test!
 
             this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = correct ? true : false
+
             if (currLatter.idx === currWord.str.length - 1) {
                 this.finishWord(correct)
             } else {
-
                 currLatter.idx++
                 currLatter.str = currWord.str[currLatter.idx]
             }
 
         },
 
-        // hendleSpicialKeys(key: string) {
+        hendleSpicialKeys(key: string) {
 
+            switch (key) {
+                case "Backspace":
+                    console.log('backspace');
+                    if (this.test === null) return
+                    const { currWord, currLatter } = this.test
+                    const caretStore = useCaretStore()
 
-        // }
+                    // when on first latter
+                    if (currLatter.idx === 0 && currWord.idx === 0) return
+                    console.log('hii');
+
+                    // remove option to go back to correct (after first word)
+                    if (currWord.idx > 1) {
+                        if (this.test.txt[currWord.idx - 1].isCorrect && currLatter.idx === 0) return
+                    }
+                    //when going back to prev word
+                    if (currLatter.idx === 0) {
+                        this.setPrevWord()
+
+                    } else if (currLatter.idx === currWord.str.length - 1 && caretStore.$state.isLatterEnd) { //the end of the word
+                        caretStore.setLatterEnd(false)
+                        currLatter.str = currWord.str[currWord.str.length - 1]
+                    } else {
+                        console.log(currLatter.idx);
+                        currLatter.idx--
+                        currLatter.str = currWord.str[currLatter.idx]
+                    }
+            }
+
+        }
     }
 })

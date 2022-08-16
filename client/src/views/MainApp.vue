@@ -13,11 +13,10 @@ const caretStore = useCaretStore()
 const testStore = useTestStore()
 testStore.loadTest()
 
-const testRef = testStore.getTest
+const testRef = computed(() => testStore.getTest)
 const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
-const currLinePos = computed(() => caretStore.getCurrLinePos)
 
 
 
@@ -29,7 +28,6 @@ onMounted(() => {
 
 watchEffect(() => {
     if (caretStore.getCaretPos !== null) {
-        console.log(caretStore.getCurrLineIdx, '---- main up');
         scrollIntoMiddleLine()
     }
 })
@@ -37,7 +35,7 @@ watchEffect(() => {
 
 
 function handleInput(e: Event) {
-    if (gameInput === null || !testRef || wordRefs.value.length < 1) return
+    if (gameInput === null || !testRef.value || wordRefs.value.length < 1) return
     testStore.handleType((e.target as HTMLInputElement).value)
     gameInput.value!.value = ''
 
@@ -46,8 +44,8 @@ function handleInput(e: Event) {
 }
 
 function updateCaret() {
-    if (mainContainer !== null && testRef !== null) {
-        const { currWord, currLatter } = testRef!
+    if (mainContainer !== null && testRef.value) {
+        const { currWord, currLatter } = testRef.value
         const latterRef = wordRefs.value[currWord.idx].children[currLatter.idx]
         caretStore.updatedCaretPos(latterRef as HTMLElement, mainContainer.value as HTMLElement)
     }
@@ -55,11 +53,14 @@ function updateCaret() {
 
 function handleSpicialKeys(e: Event) {
     const key = (e as KeyboardEvent).key
-    if (key === 'Backspace') {
-        // testStore.hendleSpicialKeys(key)
+    if (key === 'Backspace'
+        || key === 'tab'
+        || key === 'esc') {
 
-        // updateCaret()
+        testStore.hendleSpicialKeys(key)
+        updateCaret()
     }
+
 }
 
 
@@ -77,18 +78,12 @@ function scrollIntoMiddleLine() {
     })
 }
 
-// function focusActiveWord() {
-//     if(wordRefs.value.length < 1) return
-
-//     wordRefs.forEach(() => )
-// }
-
 </script>
 
 <template>
     <div class="words-wapper" @click="inputFocus" ref="mainContainer">
         <Caret />
-        <input class="game-input" ref="gameInput" @input="handleInput" type="text">
+        <input class="game-input" ref="gameInput" @keydown="handleSpicialKeys" @input="handleInput" type="text">
         <main class="word-container flex">
             <div class="word flex" v-for="wordObj in testRef?.txt" ref="wordRefs" :key="wordObj.word">
                 <Word :word="wordObj" />
