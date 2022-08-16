@@ -114,36 +114,42 @@ export const useTestStore = defineStore({
 
             switch (key) {
                 case "Backspace":
-                    console.log('backspace');
-                    if (this.test === null) return
-                    const { currWord, currLatter } = this.test
-                    const caretStore = useCaretStore()
-
-                    // when on first latter
-                    if (currLatter.idx === 0 && currWord.idx === 0) return
-
-                    // remove option to go back to correct (after first word)
-                    if (currWord.idx > 1) {
-                        if (this.test.txt[currWord.idx - 1].isCorrect && currLatter.idx === 0) return
-                    }
-                    //when going back to prev word
-                    if (currLatter.idx === 0) {
-                        this.setPrevWord()
-
-                        //the end of the word
-                    } else if (currLatter.idx === currWord.str.length - 1 && caretStore.$state.isLatterEnd) {
-                        caretStore.setLatterEnd(false)
-                        currLatter.str = currWord.str[currWord.str.length - 1]
-                        this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = null
-
-                        //default
-                    } else {
-                        currLatter.idx--
-                        this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = null
-                        currLatter.str = currWord.str[currLatter.idx]
-                    }
+                    this.hendleBackspace()
             }
 
+        },
+
+
+
+        hendleBackspace() {
+            console.log('backspace');
+            if (this.test === null) return
+            const { currWord, currLatter } = this.test
+            const caretStore = useCaretStore()
+
+            // when on first latter
+            if (currLatter.idx === 0 && currWord.idx === 0) return
+
+            // remove option to go back to correct (after first word)
+            if (currWord.idx > 1) {
+                if (this.test.txt[currWord.idx - 1].isCorrect && currLatter.idx === 0) return
+            }
+            //when going back to prev word
+            if (currLatter.idx === 0) {
+                this.setPrevWord()
+
+                //the end of the word
+            } else if (currLatter.idx === currWord.str.length - 1 && caretStore.$state.isLatterEnd) {
+                caretStore.setLatterEnd(false)
+                currLatter.str = currWord.str[currWord.str.length - 1]
+                this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = null
+
+                //default
+            } else {
+                currLatter.idx--
+                this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = null
+                currLatter.str = currWord.str[currLatter.idx]
+            }
         }
     }
 })
