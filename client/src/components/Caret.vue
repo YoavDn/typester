@@ -30,28 +30,31 @@ const caretDisplay = computed(() => ({ 'caret-key-frame': !testStore.isActive })
 <style lang="scss" >
 .caret {
     position: absolute;
-    width: 2.4px;
+    width: 2px;
     border-radius: 2px;
     // top: 10px;
-    height: 3.5rem;
-    // transform: translateY(10%);
+    height: 4rem;
+    transform: translateY(-10%);
     background-color: rgb(227, 20, 92);
     z-index: 299;
+    transform-origin: top left;
     transition: all .20s ease 0s;
 }
 
 .caret-key-frame {
-    animation: caretBlink infinite alternate .5s ease;
+    animation: caretBlink 1s infinite
 }
 
 
 @keyframes caretBlink {
-    from {
-        opacity: .2;
+
+    0%,
+    100% {
+        opacity: 1;
     }
 
-    to {
-        opacity: 1;
+    50% {
+        opacity: .3;
     }
 }
 </style>

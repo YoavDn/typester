@@ -17,7 +17,7 @@ body {
     height: 100vh;
     width: 100%;
     background-color: $background;
-
+    transition: transform .025 ease 0s;
 }
 
 h1,

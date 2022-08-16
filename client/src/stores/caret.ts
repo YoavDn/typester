@@ -8,11 +8,13 @@ export const useCaretStore = defineStore({
     id: 'caret',
     state: () => ({
         caretPos: null as initalCaretpos,
-        isLatterEnd: false
+        isLatterEnd: false,
+        midddeLinePos: null ?? 50.5
     }),
     getters: {
         getCaretPos: ({ caretPos }) => caretPos,
-        getIslatterEnd: ({ isLatterEnd }) => isLatterEnd
+        getIslatterEnd: ({ isLatterEnd }) => isLatterEnd,
+        getMiddleLinePos: ({ midddeLinePos }) => midddeLinePos
     },
     actions: {
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {

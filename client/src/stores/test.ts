@@ -86,9 +86,13 @@ export const useTestStore = defineStore({
 
                 currLatter.idx++
                 currLatter.str = currWord.str[currLatter.idx]
-                console.log(currLatter.str);
             }
 
-        }
+        },
+
+        // hendleSpicialKeys(key: string) {
+
+
+        // }
     }
 })
