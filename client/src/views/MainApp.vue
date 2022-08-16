@@ -18,18 +18,6 @@ const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
 
-watchEffect(() => {
-    if (!testRef.value) return
-    const { currWord } = testRef.value
-
-    if (testRef.value!.txt[currWord.idx].isCorrect === false) {
-        wordRefs.value[currWord.idx].classList.add('word-bad')
-    }
-
-})
-
-
-
 
 
 onMounted(() => {
@@ -45,6 +33,17 @@ watchEffect(() => {
 })
 
 
+watchEffect(() => {
+    if (!testRef.value || wordRefs.value.length < 1) return
+    const { currWord } = testRef.value
+    const activeWord = wordRefs.value[currWord.idx]
+
+    if (testRef.value!.txt[currWord.idx].isCorrect === false) {
+        activeWord.classList.add('word-bad')
+    } else if (testRef.value!.txt[currWord.idx].isCorrect) {
+        activeWord.classList.remove('word-bad')
+    }
+})
 
 function handleInput(e: Event) {
     if (gameInput === null || !testRef.value || wordRefs.value.length < 1) return
@@ -111,7 +110,7 @@ function scrollIntoMiddleLine() {
 
 
 .words-wapper {
-    height: 140px;
+    height: 135px;
     position: relative;
     overflow: hidden;
 

@@ -4,7 +4,13 @@ import { computed } from 'vue';
 import type { latterType } from '@/types';
 const props = defineProps<{ latter: latterType }>()
 
-const latterColor = computed(() => ({ correct: props.latter.isCorrect === true, typo: props.latter.isCorrect === false }))
+const latterColor = computed(() => (
+    {
+        correct: props.latter.isCorrect === true,
+        typo: props.latter.isCorrect === false,
+        notTyped: props.latter.isCorrect === null
+    }
+))
 </script>
 <template>
     <p :class="[latter, latterColor]">{{ latter.latter }}</p>
@@ -14,7 +20,10 @@ const latterColor = computed(() => ({ correct: props.latter.isCorrect === true, 
 @import '@/assets/style/main.scss';
 
 .latter {
-    color: $text-dull;
+
+    &.notTyped {
+        color: $text-dull;
+    }
 
     &.typo {
         color: $text-typo;

@@ -115,7 +115,6 @@ export const useTestStore = defineStore({
 
                     // when on first latter
                     if (currLatter.idx === 0 && currWord.idx === 0) return
-                    console.log('hii');
 
                     // remove option to go back to correct (after first word)
                     if (currWord.idx > 1) {
@@ -125,12 +124,16 @@ export const useTestStore = defineStore({
                     if (currLatter.idx === 0) {
                         this.setPrevWord()
 
-                    } else if (currLatter.idx === currWord.str.length - 1 && caretStore.$state.isLatterEnd) { //the end of the word
+                        //the end of the word
+                    } else if (currLatter.idx === currWord.str.length - 1 && caretStore.$state.isLatterEnd) {
                         caretStore.setLatterEnd(false)
                         currLatter.str = currWord.str[currWord.str.length - 1]
+                        this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = null
+
+                        //default
                     } else {
-                        console.log(currLatter.idx);
                         currLatter.idx--
+                        this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = null
                         currLatter.str = currWord.str[currLatter.idx]
                     }
             }
