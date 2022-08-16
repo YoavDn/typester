@@ -1,7 +1,7 @@
     
 <script setup lang='ts'>
 
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watchEffect, watch } from 'vue';
 import { useLatterPos } from '@/features/useLatterPos'
 import { useTestStore } from '@/stores/test';
 import { useCaretStore } from '@/stores/caret';
@@ -17,6 +17,7 @@ const testRef = testStore.getTest
 const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
+const currLinePos = computed(() => caretStore.getCurrLinePos)
 
 
 
@@ -25,6 +26,15 @@ onMounted(() => {
     caretStore.setLatterEnd(false)
     updateCaret()
 })
+
+watchEffect(() => {
+    if (caretStore.getCaretPos !== null) {
+        console.log(caretStore.getCurrLineIdx, '---- main up');
+        scrollIntoMiddleLine()
+    }
+})
+
+
 
 function handleInput(e: Event) {
     if (gameInput === null || !testRef || wordRefs.value.length < 1) return
@@ -59,12 +69,19 @@ function inputFocus() {
 
 function scrollIntoMiddleLine() {
     const caretPos = caretStore.getCaretPos
-    const middleLinePos = caretStore.getMiddleLinePos
     if (caretPos === null) return
-
-    if (caretPos.top > Math.round(middleLinePos))
-        mainContainer.value?.scroll(0, middleLinePos)
+    const relativeTop = caretStore.$state.relativeTop
+    mainContainer.value?.scrollTo({
+        top: relativeTop,
+        behavior: 'smooth'
+    })
 }
+
+// function focusActiveWord() {
+//     if(wordRefs.value.length < 1) return
+
+//     wordRefs.forEach(() => )
+// }
 
 </script>
 

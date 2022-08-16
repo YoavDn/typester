@@ -9,21 +9,46 @@ export const useCaretStore = defineStore({
     state: () => ({
         caretPos: null as initalCaretpos,
         isLatterEnd: false,
-        midddeLinePos: null ?? 50.5
+        currLinePos: 6,
+        currLineIdx: 1,
+        relativeTop: 0
     }),
     getters: {
         getCaretPos: ({ caretPos }) => caretPos,
         getIslatterEnd: ({ isLatterEnd }) => isLatterEnd,
-        getMiddleLinePos: ({ midddeLinePos }) => midddeLinePos
+        getCurrLinePos: ({ currLinePos }) => currLinePos,
+        getCurrLineIdx: ({ currLineIdx }) => currLineIdx
     },
     actions: {
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
-            this.caretPos = useLatterPos(htmlChild, htmlParant)
+            if (useLatterPos(htmlChild, htmlChild) === null) return
+
+            if (this.caretPos === null) {
+                this.caretPos = useLatterPos(htmlChild, htmlParant) as caretPosType
+            }
+
+            const { top, left, leftEnd, } = useLatterPos(htmlChild, htmlParant,) as caretPosType
+            if (top === this.caretPos.top) {
+                this.caretPos.left = left
+                this.caretPos.leftEnd = leftEnd
+            } else {
+                this.caretPos.top = top + this.relativeTop
+                this.caretPos.left = left
+                this.caretPos.leftEnd = leftEnd
+
+                this.currLineIdx++
+                this.currLinePos = top
+                this.relativeTop += top
+            }
         },
 
         setLatterEnd(isEnd: boolean) {
             console.log('hello toogle caret');
             this.isLatterEnd = isEnd
+        },
+
+        setMiddleLinePos(newMiddle: number) {
+
         }
     }
 })
