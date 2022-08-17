@@ -9,24 +9,35 @@ import { useCaretStore } from '@/stores/caret';
 //cmps
 import Word from '@/components/Word.vue';
 import Caret from '@/components/Caret.vue'
+import { useTestOptionsStore } from '@/stores/testOptions';
+//stores
 const caretStore = useCaretStore()
 const testStore = useTestStore()
-testStore.loadTest()
+const testOptionsStore = useTestOptionsStore()
 
+//getters
 const testRef = computed(() => testStore.getTest)
+const isActiveTest = computed(() => testStore.getIsActiveTest)
 const isReloadTest = computed(() => testStore.getIsReloadTest)
+const testLevel = computed(() => testOptionsStore.getTestLevel)
+const testMode = computed(() => testOptionsStore.getTestMode)
+//refs
 const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
 
+const wordsToRender = computed(() => {
+    return testMode.value === 'time' ?
+        testRef.value?.txt :
+        testRef.value?.txt.slice(0, testLevel.value)
+})
+
+//making fisrt test on load
+testStore.loadTest()
 
 
 onMounted(() => {
     initTest()
-})
-
-onUpdated(() => {
-    console.log(wordRefs.value);
 })
 
 watchEffect(() => {
@@ -115,27 +126,51 @@ const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
     wordRefs.value[idx] = el
 })
 
+// const testTime = computed(()=> )
+const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + testLevel.value)
+
 
 </script>
 
 <template>
-    <div class="words-wapper" @click="inputFocus" ref="mainContainer">
-        <Caret />
-        <input class="game-input" ref="gameInput" @keydown="handleSpicialKeys" @input="handleInput" type="text">
-        <main class="word-container flex">
-            <div class="word flex" v-for="(wordObj, idx) in testRef?.txt"
-                :ref="(el) => updateWordsRefs(el as HTMLElement | null, idx)" :key="wordObj.word">
-                <Word :word="wordObj" />
+    <section class="test-container">
+        <div class="test-options-bar flex">
+            <div :style="{ opacity: isActiveTest ? 1 : 0 }" class="test-mode">
+                <h2 v-if="testMode === 'time'">30</h2>
+                <h2 v-else>{{ testWordsComplete }}</h2>
             </div>
-        </main>
-    </div>
+        </div>
+        <div class="words-wapper" @click="inputFocus" ref="mainContainer">
+            <Caret />
+            <input class="game-input" ref="gameInput" @keydown="handleSpicialKeys" @input="handleInput" type="text">
+            <main class="word-container flex">
+                <div class="word flex" v-for="(wordObj, idx) in wordsToRender"
+                    :ref="(el) => updateWordsRefs(el as HTMLElement | null, idx)" :key="wordObj.word">
+                    <Word :word="wordObj" />
+                </div>
+            </main>
+        </div>
+    </section>
 </template>
 
     
 <style lang="scss">
 @import '@/assets/style/main.scss';
 
+.test-options-bar {
+    margin: .6rem;
 
+    .test-mode {
+        transition: all .3s;
+
+        h2 {
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: $main-theme;
+        }
+    }
+
+}
 
 .words-wapper {
     height: 135px;

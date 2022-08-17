@@ -15,7 +15,8 @@ export const useTestStore = defineStore({
         getTest: ({ test }) => test,
         getIsReloadTest: ({ isReloadTest }) => isReloadTest,
         getWordFromTxt: ({ test }) => test?.txt[test.currWord.idx],
-        getLatterFromTxt: ({ test }) => test?.txt[test.currWord.idx].latters[test.currLatter.idx]
+        getLatterFromTxt: ({ test }) => test?.txt[test.currWord.idx].latters[test.currLatter.idx],
+        getIsActiveTest: ({ isActive }) => isActive
     },
 
     actions: {
