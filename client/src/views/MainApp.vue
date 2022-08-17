@@ -134,6 +134,9 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
 <template>
     <section class="test-container">
+        <div v-if="!isActiveTest" class="overlay">
+            <h2>Press any key to continue</h2>
+        </div>
         <div class="test-options-bar flex">
             <div :style="{ opacity: isActiveTest ? 1 : 0 }" class="test-mode">
                 <h2 v-if="testMode === 'time'">30</h2>
@@ -156,6 +159,10 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
     
 <style lang="scss">
 @import '@/assets/style/main.scss';
+
+.test-container {
+    position: relative;
+}
 
 .test-options-bar {
     margin: .6rem;
