@@ -6,21 +6,23 @@ import Crown from '@/assets/imgs/crown.svg'
 import User from '@/assets/imgs/user.svg'
 import Settings from '@/assets/imgs/settings.svg'
 import Keyboard from '@/assets/imgs/keyboard.svg'
+import type { optionsType } from '@/types'
+
+
 import { useTestOptionsStore } from '@/stores/testOptions'
 import { computed } from 'vue'
-const testOptionsStore = useTestOptionsStore()
 
+const testOptionsStore = useTestOptionsStore()
 const testMode = computed(() => testOptionsStore.getTestMode)
 const testLevel = computed(() => testOptionsStore.getTestLevel)
 
-
-// const testLevelStyle = computed(() => {
-//     return {
-
-//     }
-// }
-// )
-
+function hendleChangeOption(newOption: optionsType) {
+    if (typeof newOption === 'string') {
+        testOptionsStore.setTestMode(newOption)
+    } else {
+        testOptionsStore.setTestLevel(newOption)
+    }
+}
 
 </script>
     

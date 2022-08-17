@@ -26,3 +26,8 @@ export type caretPosType = {
     bottom: number,
     leftEnd: number,
 }
+
+
+export type testModeType = 'time' | 'words'
+export type testLevelType = 15 | 30 | 45 | 60
+export type optionsType = testModeType | testLevelType

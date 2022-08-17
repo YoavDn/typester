@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
+import type { testModeType, testLevelType } from '@/types'
 
-type testModeType = 'time' | 'words'
-type testLevelType = 15 | 30 | 45 | 60
 
 export const useTestOptionsStore = defineStore({
     id: 'testOptions',

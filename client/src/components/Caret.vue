@@ -28,6 +28,8 @@ const caretDisplay = computed(() => ({ 'caret-key-frame': !testStore.isActive })
     
 
 <style lang="scss" >
+@import '@/assets/style/main.scss';
+
 .caret {
     position: absolute;
     width: 2px;
