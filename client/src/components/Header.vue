@@ -6,7 +6,7 @@ import Crown from '@/assets/imgs/crown.svg'
 import User from '@/assets/imgs/user.svg'
 import Settings from '@/assets/imgs/settings.svg'
 import Keyboard from '@/assets/imgs/keyboard.svg'
-import type { optionsType } from '@/types'
+import type { optionsType, testLevelType } from '@/types'
 
 
 import { useTestOptionsStore } from '@/stores/testOptions'
@@ -41,14 +41,14 @@ function hendleChangeOption(newOption: optionsType) {
             </nav>
             <div class="test-options flex">
                 <div class="time-or-number-option test-option flex">
-                    <h2 class="txt-light" :class="{ 'active-option': testMode === 'time' }">time</h2>
-                    <h2 class="txt-light" :class="{ 'active-option': testMode === 'words' }">words</h2>
+                    <h2 class="txt-light" @click="hendleChangeOption('time')"
+                        :class="{ 'active-option': testMode === 'time' }">time</h2>
+                    <h2 class="txt-light" @click="hendleChangeOption('words')"
+                        :class="{ 'active-option': testMode === 'words' }">words</h2>
                 </div>
                 <div class="numbers-options test-option flex">
-                    <h2 class="txt-light" :class="{ 'active-option': testLevel === 15 }">15</h2>
-                    <h2 class="txt-light" :class="{ 'active-option': testLevel === 30 }">30</h2>
-                    <h2 class="txt-light" :class="{ 'active-option': testLevel === 45 }">45</h2>
-                    <h2 class="txt-light" :class="{ 'active-option': testLevel === 60 }">60</h2>
+                    <h2 v-for="i  in 4" :key="i" @click="hendleChangeOption(i * 15 as testLevelType)"
+                        class="txt-light" :class="{ 'active-option': testLevel === i * 15 }">{{ i * 15 }}</h2>
                 </div>
             </div>
         </div>
