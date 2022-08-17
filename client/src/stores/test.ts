@@ -8,11 +8,12 @@ export const useTestStore = defineStore({
     state: () => ({
         test: null as testType,
         isActive: false,
-        timeout: null as null | ReturnType<typeof setTimeout>
-
+        timeout: null as null | ReturnType<typeof setTimeout>,
+        isReloadTest: false,
     }),
     getters: {
         getTest: ({ test }) => test,
+        getIsReloadTest: ({ isReloadTest }) => isReloadTest,
         getWordFromTxt: ({ test }) => test?.txt[test.currWord.idx],
         getLatterFromTxt: ({ test }) => test?.txt[test.currWord.idx].latters[test.currLatter.idx]
     },
@@ -20,6 +21,15 @@ export const useTestStore = defineStore({
     actions: {
         loadTest() {
             this.test = testService.generateNewTest()
+        },
+
+        setReload() {
+            this.isReloadTest = true
+        },
+
+        reloadTest() {
+            this.test = testService.generateNewTest()
+            this.isReloadTest = false
         },
 
         activateTest() {

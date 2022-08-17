@@ -1,7 +1,7 @@
     
 <script setup lang='ts'>
 
-import { ref, onMounted, computed, watchEffect, watch } from 'vue';
+import { ref, onMounted, computed, watchEffect, onUpdated, reactive } from 'vue';
 import { useLatterPos } from '@/features/useLatterPos'
 import { useTestStore } from '@/stores/test';
 import { useCaretStore } from '@/stores/caret';
@@ -14,6 +14,7 @@ const testStore = useTestStore()
 testStore.loadTest()
 
 const testRef = computed(() => testStore.getTest)
+const isReloadTest = computed(() => testStore.getIsReloadTest)
 const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
@@ -21,9 +22,19 @@ const wordRefs = ref<HTMLElement[]>([])
 
 
 onMounted(() => {
-    gameInput.value?.focus()
-    caretStore.setLatterEnd(false)
-    updateCaret()
+    initTest()
+})
+
+onUpdated(() => {
+    console.log(wordRefs.value);
+})
+
+watchEffect(() => {
+    if (isReloadTest.value === true) {
+        testStore.reloadTest()
+        if (wordRefs.value.length > 1) initTest()
+    }
+
 })
 
 watchEffect(() => {
@@ -46,6 +57,12 @@ watchEffect(() => {
         activeWord.classList.remove('word-bad')
     }
 })
+
+function initTest() {
+    gameInput.value?.focus()
+    caretStore.setLatterEnd(false)
+    updateCaret()
+}
 
 function handleInput(e: Event) {
     if (gameInput === null || !testRef.value || wordRefs.value.length < 1) return
@@ -87,14 +104,17 @@ function scrollIntoMiddleLine() {
     if (caretPos === null) return
 
     const relativeTop = caretStore.$state.relativeTop
-
-
     mainContainer.value?.scrollTo({
         top: relativeTop,
         behavior: 'smooth'
     })
-
 }
+
+const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
+    if (el === null) return
+    wordRefs.value[idx] = el
+})
+
 
 </script>
 
@@ -103,7 +123,8 @@ function scrollIntoMiddleLine() {
         <Caret />
         <input class="game-input" ref="gameInput" @keydown="handleSpicialKeys" @input="handleInput" type="text">
         <main class="word-container flex">
-            <div class="word flex" v-for="wordObj in testRef?.txt" ref="wordRefs" :key="wordObj.word">
+            <div class="word flex" v-for="(wordObj, idx) in testRef?.txt"
+                :ref="(el) => updateWordsRefs(el as HTMLElement | null, idx)" :key="wordObj.word">
                 <Word :word="wordObj" />
             </div>
         </main>

@@ -42,9 +42,13 @@ export const useCaretStore = defineStore({
         },
 
         setLatterEnd(isEnd: boolean) {
-            console.log('hello toogle caret');
             this.isLatterEnd = isEnd
         },
+
+        resetCaret() {
+            this.relativeTop = 0
+            this.caretPos = null
+        }
 
     }
 })
