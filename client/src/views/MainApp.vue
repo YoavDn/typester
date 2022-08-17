@@ -110,6 +110,7 @@ function inputFocus() {
 }
 
 function scrollIntoMiddleLine() {
+    if (testLevel.value === 15) return
     const caretPos = caretStore.getCaretPos
     const currLineIdx = caretStore.getCurrLineIdx
     if (caretPos === null) return
@@ -134,7 +135,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
 <template>
     <section class="test-container">
-        <div v-if="!isActiveTest" class="overlay">
+        <div v-if="!isActiveTest && testRef?.currWord.idx !== 0" class="overlay">
             <h2>Press any key to continue</h2>
         </div>
         <div class="test-options-bar flex">

@@ -6,8 +6,8 @@ import type { testModeType, testLevelType } from '@/types'
 export const useTestOptionsStore = defineStore({
     id: 'testOptions',
     state: () => ({
-        testMode: 'time' as testModeType,
-        testLevel: 30 as testLevelType,
+        testMode: 'words' as testModeType,
+        testLevel: 15 as testLevelType,
     }),
     getters: {
         getTestMode: ({ testMode }) => testMode,
@@ -23,6 +23,8 @@ export const useTestOptionsStore = defineStore({
         setTestLevel(testLevel: testLevelType) {
             const testStore = useTestStore()
             this.testLevel = testLevel
+            testStore.setReload()
+
         }
     }
 })

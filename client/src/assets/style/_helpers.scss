@@ -27,14 +27,14 @@
         position: absolute;
         font-family: 'inter', sans-serif;
         text-align: center;
-        top: 50%;
+        top: 60%;
         left: 50%;
         transform: translate(-50%, -50%);
 
         color: $text;
-        padding: 3rem 5rem;
+        padding: 3rem 8rem;
         border-radius: .6rem;
-        background-color: rgba($main-theme, .5);
+        background-color: rgba($main-theme, .4);
 
         font-weight: 400;
         font-size: 2rem;

@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import type { testType } from "@/types";
 import { testService } from "@/service/test.service";
 import { useCaretStore } from "./caret";
+import { useTestOptionsStore } from "./testOptions";
 
 export const useTestStore = defineStore({
     id: 'test',
@@ -10,6 +11,7 @@ export const useTestStore = defineStore({
         isActive: false,
         timeout: null as null | ReturnType<typeof setTimeout>,
         isReloadTest: false,
+        timeLeft: null
     }),
     getters: {
         getTest: ({ test }) => test,
@@ -41,15 +43,29 @@ export const useTestStore = defineStore({
             this.isActive = false
         },
 
+        finishTest() {
+            console.log('finished Test !!');
+        },
+
         handleType(latter: string) {
             if (this.test === null) return
-            const { currLatter, currWord } = this.test!
             this.isActive = true
+
+            const testOptionsStore = useTestOptionsStore()
+            const caretStore = useCaretStore()
+            const { currLatter, currWord } = this.test
+
+            //when finish test
+            if (testOptionsStore.getTestLevel - 1 === currWord.idx &&
+                currLatter.idx === currWord.str.length - 1 &&
+                caretStore.getIslatterEnd
+            ) {
+                this.finishTest()
+                return
+            }
+
             if (this.timeout !== null) clearTimeout(this.timeout)
             this.timeout = setTimeout(() => { this.setAFK() }, 5000)
-
-
-
 
             // when correct
             if (latter === this.test?.currLatter.str) {
@@ -64,11 +80,7 @@ export const useTestStore = defineStore({
 
         finishWord() {
             if (this.test === null) return
-            const { currLatter, currWord } = this.test
-            const caretStore = useCaretStore()
-
-            // currLatter.str = 'space'
-            // caretStore.setLatterEnd(true)
+            const { currWord } = this.test
 
             //chacking if the word is correct
             if (this.test.txt[currWord.idx].latters.every(l => l.isCorrect)) {
@@ -76,7 +88,6 @@ export const useTestStore = defineStore({
             } else {
                 this.test.txt[currWord.idx].isCorrect = false
             }
-
         },
 
         setNextWord(correct: boolean) {
