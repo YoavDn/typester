@@ -7,9 +7,19 @@ import User from '@/assets/imgs/user.svg'
 import Settings from '@/assets/imgs/settings.svg'
 import Keyboard from '@/assets/imgs/keyboard.svg'
 import { useTestOptionsStore } from '@/stores/testOptions'
+import { computed } from 'vue'
+const testOptionsStore = useTestOptionsStore()
 
-const testOptions = useTestOptionsStore()
+const testMode = computed(() => testOptionsStore.getTestMode)
+const testLevel = computed(() => testOptionsStore.getTestLevel)
 
+
+// const testLevelStyle = computed(() => {
+//     return {
+
+//     }
+// }
+// )
 
 
 </script>
@@ -29,14 +39,14 @@ const testOptions = useTestOptionsStore()
             </nav>
             <div class="test-options flex">
                 <div class="time-or-number-option test-option flex">
-                    <h2 class="txt-light">time</h2>
-                    <h2 class="txt-light">words</h2>
+                    <h2 class="txt-light" :class="{ 'active-option': testMode === 'time' }">time</h2>
+                    <h2 class="txt-light" :class="{ 'active-option': testMode === 'words' }">words</h2>
                 </div>
                 <div class="numbers-options test-option flex">
-                    <h2 class="txt-light">15</h2>
-                    <h2 class="txt-light">30</h2>
-                    <h2 class="txt-light">45</h2>
-                    <h2 class="txt-light">60</h2>
+                    <h2 class="txt-light" :class="{ 'active-option': testLevel === 15 }">15</h2>
+                    <h2 class="txt-light" :class="{ 'active-option': testLevel === 30 }">30</h2>
+                    <h2 class="txt-light" :class="{ 'active-option': testLevel === 45 }">45</h2>
+                    <h2 class="txt-light" :class="{ 'active-option': testLevel === 60 }">60</h2>
                 </div>
             </div>
         </div>
@@ -48,6 +58,11 @@ const testOptions = useTestOptionsStore()
 
 <style lang="scss" scoped>
 @import '@/assets/style/main.scss';
+
+
+.active-option {
+    color: $main-theme;
+}
 
 .app-header {
     display: grid;
@@ -88,6 +103,7 @@ const testOptions = useTestOptionsStore()
         }
 
         .test-options {
+            cursor: pointer;
             color: $text-dull;
             flex-direction: column;
 
@@ -99,6 +115,10 @@ const testOptions = useTestOptionsStore()
                 h2:not(:first-child) {
                     margin-inline-start: 6px;
 
+                }
+
+                h2:not(.active-option):hover {
+                    color: $text
                 }
             }
         }
