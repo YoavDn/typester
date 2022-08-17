@@ -83,12 +83,17 @@ function inputFocus() {
 
 function scrollIntoMiddleLine() {
     const caretPos = caretStore.getCaretPos
+    const currLineIdx = caretStore.getCurrLineIdx
     if (caretPos === null) return
+
     const relativeTop = caretStore.$state.relativeTop
+
+
     mainContainer.value?.scrollTo({
         top: relativeTop,
         behavior: 'smooth'
     })
+
 }
 
 </script>

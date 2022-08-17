@@ -32,12 +32,11 @@ export const useCaretStore = defineStore({
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
             } else {
+                this.currLineIdx++
                 this.caretPos.top = top + this.relativeTop
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
 
-                this.currLineIdx++
-                this.currLinePos = top
                 this.relativeTop += top
             }
         },

@@ -6,6 +6,9 @@ import Crown from '@/assets/imgs/crown.svg'
 import User from '@/assets/imgs/user.svg'
 import Settings from '@/assets/imgs/settings.svg'
 import Keyboard from '@/assets/imgs/keyboard.svg'
+import { useTestOptionsStore } from '@/stores/testOptions'
+
+const testOptions = useTestOptionsStore()
 
 
 
@@ -87,11 +90,15 @@ import Keyboard from '@/assets/imgs/keyboard.svg'
         .test-options {
             color: $text-dull;
             flex-direction: column;
-            font-size: 9px;
+
+            h2 {
+                font-size: 14px;
+            }
 
             .test-option {
                 h2:not(:first-child) {
                     margin-inline-start: 6px;
+
                 }
             }
         }
