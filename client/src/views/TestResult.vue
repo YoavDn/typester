@@ -2,7 +2,9 @@
 <script setup lang='ts'>
 import { useTestStore } from '@/stores/test';
 import Chart from '@/components/Chart.vue';
-
+import NextArrowSvg from '@/assets/imgs/left-arrow.svg'
+import ReplaySvg from '@/assets/imgs/replay.svg'
+import MainStats from '@/components/MainStats.vue'
 import { computed } from 'vue';
 const testStore = useTestStore()
 const test = computed(() => testStore.getTest)
@@ -17,34 +19,15 @@ const test = computed(() => testStore.getTest)
             <div class="gradient2"></div>
             <div class="gradient3"></div>
         </div>
-        <main class="main-stats flex">
-            <article class="wpm-box stat-box">
-                <div>
-                    <p>Wpm</p>
-                    <h2>39</h2>
-                </div>
-                <h3>Speed</h3>
-            </article>
-            <div class="stats-middle">
-                <h2>Time:</h2>
-                <h3 class="time-stat">15s</h3>
-                <h2>Words:</h2>
-                <h3 class="words-stat">43</h3>
-            </div>
-            <article class="acc-box stat-box">
-                <div>
-                    <p>Real accuracy 49%</p>
-                    <h2>91%</h2>
-                </div>
-                <h3>Accuracy</h3>
-            </article>
-
-        </main>
-        <div class="btns flex">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
+        <MainStats />
+        <div class="btns-bar flex">
+            <button class="btn-replay">
+                <ReplaySvg class="btn-svg" />
+                Reapet Test
+            </button>
+            <button class="btn-next">Next Test
+                <NextArrowSvg class="btn-svg-next" />
+            </button>
         </div>
     </section>
 
@@ -62,101 +45,125 @@ const test = computed(() => testStore.getTest)
 
 .details {
     z-index: 4;
-
-    background-color: $background;
-
 }
 
-.stat-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    // flex-basis: 45%;
 
-    p {
-        font-size: 1.3rem;
-        color: $text-dull;
-        align-self: flex-start;
-    }
-
-    h2 {
-        font-weight: 900;
-        font-size: 8rem;
-        line-height: 7rem;
-        padding-bottom: 1rem;
-    }
-
-    h3 {
-        font-weight: 500;
-        font-size: 3rem;
-    }
-}
 
 .test-result {
     position: relative;
     color: $text;
     display: flex;
     flex-direction: column;
+}
 
-    .main-stats {
-        max-width: 500px;
-        min-height: 400px;
-        width: 100%;
-        font-family: 'inter', sans-serif;
-        margin: auto;
-        gap: 1rem;
-        justify-content: space-between;
+// .main-stats {
+//     max-width: 500px;
+//     min-height: 400px;
+//     width: 100%;
+//     font-family: 'inter', sans-serif;
+//     margin: auto;
+//     gap: 1rem;
+//     justify-content: space-between;
+//     align-items: center;
+
+//     .stats-middle {
+//         display: grid;
+//         flex-direction: column;
+//         gap: .4rem;
+//         grid-template-columns: 1fr auto;
+
+//         h2 {
+//             font-weight: 500;
+//         }
+
+//         h2,
+//         h3 {
+//             font-size: 1.7rem;
+//         }
+
+//         .words-stat {
+//             justify-self: center;
+//         }
+//     }
+// }
+
+
+.btns-bar {
+    justify-content: center;
+    margin-bottom: 2rem;
+
+
+    button {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
         align-items: center;
+        width: 180px;
+        padding: .8rem;
+        font-size: 1.5rem;
+        margin-inline: 1.5rem;
+        border-radius: .8rem;
+        background-color: transparent;
+        border: none;
+    }
+
+    .btn-svg {
+        fill: white;
+        width: 16px;
+        margin-right: 10px;
+    }
+
+    .btn-next {
+        background-color: white;
+
+        &:hover {
+            color: $text;
+            background-color: transparent;
+            outline: 1px solid $text ;
+
+            .btn-svg-next {
+                fill: $text
+            }
+        }
+    }
+}
+
+.btn-replay {
+    color: white;
+
+    &:hover {
+        color: $text-dull;
+
+        .btn-svg {
+            fill: $text-dull
+        }
+    }
+}
+
+
+@media (max-width: 670px) {
+    .main-stats {
+        max-width: 350px;
 
         .stats-middle {
-            // flex-basis: 10%;
-            display: grid;
-            flex-direction: column;
-            gap: .4rem;
-            grid-template-columns: 1fr auto;
-
-            h2 {
-                font-weight: 500;
-            }
+            gap: .5rem;
 
             h2,
             h3 {
-                font-size: 1.7rem;
-            }
-
-            .words-stat {
-                justify-self: center;
+                font-size: 1.4rem;
             }
         }
     }
 
+    .stat-box {
+        h2 {
+            font-size: 6rem;
+            padding-bottom: 0;
 
-
-    @media (max-width: 670px) {
-        .main-stats {
-            max-width: 350px;
-
-            .stats-middle {
-                gap: .5rem;
-
-                h2,
-                h3 {
-                    font-size: 1.4rem;
-                }
-            }
         }
 
-        .stat-box {
-            h2 {
-                font-size: 6rem;
-                padding-bottom: 0;
-
-            }
-
-            h3 {
-                font-size: 2rem;
-            }
+        h3 {
+            font-size: 2rem;
         }
     }
 }
