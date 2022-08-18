@@ -10,7 +10,7 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
     const router = useRouter()
 
     const testMode = ref<testModeType>('words')
-    const testLevel = ref<testLevelType>(15)
+    const testLevel = ref<testLevelType>(30)
 
     // getters
     const getTestMode = computed(() => testMode.value)

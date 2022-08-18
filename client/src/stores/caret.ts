@@ -18,6 +18,7 @@ export const useCaretStore = defineStore({
     getters: {
         getCaretPos: ({ caretPos }) => caretPos,
         getIslatterEnd: ({ isLatterEnd }) => isLatterEnd,
+        getRelativeTop: ({ relativeTop }) => relativeTop,
         getCurrLineIdx: ({ currLineIdx }) => currLineIdx
     },
     actions: {
@@ -25,6 +26,7 @@ export const useCaretStore = defineStore({
         setisAllWordsShown(isAllShown: boolean) {
             this.allWordsShown = isAllShown
         },
+
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
 
             if (this.caretPos === null) {

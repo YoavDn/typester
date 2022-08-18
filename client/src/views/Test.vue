@@ -50,13 +50,10 @@ watchEffect(() => {
 
 })
 
-watch(
-    () => caretPos.value?.top,
-    () => {
-        console.log('caret top changed');
+watchEffect(() => {
+    if (caretPos.value)
         scrollIntoMiddleLine()
-    }
-)
+})
 
 const wordsWapperHeight = computed(() => {
     console.log(wordRefs.value);
@@ -128,10 +125,11 @@ function scrollIntoMiddleLine() {
     if (!mainContainer || !wordsContainer) return
     if (caretPos === null) return
 
-    console.log(wordsContainer.value!.clientHeight - 5 === mainContainer.value?.clientHeight,);
-    if (mainContainer.value!.clientHeight - 5 > wordsContainer.value!.clientHeight) {
-        const relativeTop = caretStore.$state.relativeTop
-        mainContainer.value?.scrollTo({
+    console.log(wordsContainer.value!.clientHeight - 5, mainContainer.value!.clientHeight,);
+    if ((wordsContainer.value!.clientHeight - 5) > mainContainer.value!.clientHeight) {
+        const relativeTop = caretStore.getRelativeTop
+        console.log('why');
+        mainContainer.value!.scrollTo({
             top: relativeTop,
             behavior: 'smooth'
         })
