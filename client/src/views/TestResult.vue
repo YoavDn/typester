@@ -29,9 +29,10 @@ const test = computed(() => testStore.getTest)
                 <NextArrowSvg class="btn-svg-next" />
             </button>
         </div>
+        <a class="more-details-link" href="#test-details">For more Details &#8595</a>
     </section>
 
-    <section class="details">
+    <section id="test-details" class="details">
         <h2>hi</h2>
         <Chart class="chart" />
     </section>
@@ -42,8 +43,23 @@ const test = computed(() => testStore.getTest)
 <style lang='scss'>
 @import '@/assets/style/main.scss';
 
+.more-details-link {
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+    font-family: "inter", sans-serif;
+    color: $text-dull;
+    text-align: center;
+    font-size: 1.3rem;
+    text-decoration: none;
+
+    &:hover {
+        color: $text;
+        text-decoration: underline;
+    }
+}
 
 .details {
+    margin-top: 3rem;
     z-index: 4;
 }
 
@@ -55,38 +71,6 @@ const test = computed(() => testStore.getTest)
     display: flex;
     flex-direction: column;
 }
-
-// .main-stats {
-//     max-width: 500px;
-//     min-height: 400px;
-//     width: 100%;
-//     font-family: 'inter', sans-serif;
-//     margin: auto;
-//     gap: 1rem;
-//     justify-content: space-between;
-//     align-items: center;
-
-//     .stats-middle {
-//         display: grid;
-//         flex-direction: column;
-//         gap: .4rem;
-//         grid-template-columns: 1fr auto;
-
-//         h2 {
-//             font-weight: 500;
-//         }
-
-//         h2,
-//         h3 {
-//             font-size: 1.7rem;
-//         }
-
-//         .words-stat {
-//             justify-self: center;
-//         }
-//     }
-// }
-
 
 .btns-bar {
     justify-content: center;
