@@ -5,11 +5,16 @@
 }
 
 
+.ffscroll {
+    scrollbar-width: thin;
+    scrollbar-color: $text-dull transparent;
+}
 
 html {
     font-size: 62.5%;
     font-family: "Roboto Mono", sans-serif;
-    // font-family: "Roboto Mono", Vazirmatn;
+    // @extend .ffscroll;
+    // overflow-y: scroll;
 }
 
 //temp until add themes
@@ -17,6 +22,8 @@ body {
     height: 100vh;
     width: 100%;
     background-color: $background;
+    overflow-x: hidden;
+    min-height: 100vh;
     transition: transform .025 ease 0s;
 }
 
@@ -37,7 +44,35 @@ h5 p {
 
 @media (max-width : 700px) {
     #app {
-
         padding: 1rem;
     }
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $text-dull;
+    transition: 0.125s;
+    border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $text-dull;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: $text-dull;
+}
+
+::-webkit-scrollbar-corner {
+    background: $text-dull;
 }

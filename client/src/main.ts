@@ -1,7 +1,6 @@
 import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
-import { useTestStore } from './stores/test'
-
+import VueApexCharts from "vue3-apexcharts";
 
 import App from './App.vue'
 import router from './router'
@@ -16,5 +15,6 @@ pinia.use(({ store }) => {
 
 app.use(pinia)
 app.use(router)
+app.use(VueApexCharts)
 
 app.mount('#app')

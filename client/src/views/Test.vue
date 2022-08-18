@@ -109,8 +109,9 @@ function inputFocus() {
 }
 
 function scrollIntoMiddleLine() {
-    if (testLevel.value === 15) return
     const caretPos = caretStore.getCaretPos
+
+    if (testLevel.value === 15 && testMode.value === 'words') return
     if (caretPos === null) return
 
     const relativeTop = caretStore.$state.relativeTop

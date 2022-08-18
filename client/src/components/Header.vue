@@ -47,8 +47,8 @@ function hendleChangeOption(newOption: optionsType) {
                         :class="{ 'active-option': testMode === 'words' }">words</h2>
                 </div>
                 <div class="numbers-options test-option flex">
-                    <h2 v-for="i  in 4" :key="i" @click="hendleChangeOption(i * 15 as testLevelType)"
-                        class="txt-light" :class="{ 'active-option': testLevel === i * 15 }">{{ i * 15 }}</h2>
+                    <h2 v-for="i  in 4" :key="i" @click="hendleChangeOption(i * 15 as testLevelType)" class="txt-light"
+                        :class="{ 'active-option': testLevel === i * 15 }">{{ i * 15 }}</h2>
                 </div>
             </div>
         </div>
@@ -81,8 +81,11 @@ function hendleChangeOption(newOption: optionsType) {
 
 
         .logo-and-nav {
+
+
             .logo {
                 margin-inline-end: 2em;
+
             }
 
             .nav-svg {
@@ -92,6 +95,7 @@ function hendleChangeOption(newOption: optionsType) {
                 width: 20px;
                 margin: 16px;
 
+
                 &.keyboard {
                     width: auto;
                     height: 36px;
@@ -99,7 +103,7 @@ function hendleChangeOption(newOption: optionsType) {
                 }
 
                 &:hover {
-                    fill: $text
+                    fill: $text;
                 }
             }
         }
