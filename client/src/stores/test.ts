@@ -13,7 +13,8 @@ export const useTestStore = defineStore({
     state: () => ({
         test: null as testType,
         isActive: false,
-        timeout: null as null | ReturnType<typeof setTimeout>,
+        AFKtimeout: null as null | ReturnType<typeof setTimeout>,
+        timeInterval: null as null | ReturnType<typeof setInterval>,
         isReloadTest: false,
     }),
     getters: {
@@ -26,19 +27,35 @@ export const useTestStore = defineStore({
 
     actions: {
         loadTest() { this.test = testService.generateNewTest() },
-        setAFK() { this.isActive = false },
         setReload() { this.isReloadTest = true },
-        activateTest() { this.isActive = true },
+
+        activateTest() {
+            this.isActive = true
+            this.handleTime(true)
+        },
 
         reloadTest() {
             this.test = testService.generateNewTest()
             this.test.time = 0
             this.isReloadTest = false
+            this.handleTime(false)
         },
 
-        handleTime() {
+        setAFK() {
+            this.isActive = false
+            this.handleTime(false)
+        },
+
+        handleTime(start: boolean) {
             if (!this.test) return
-            const timeInterval = setInterval(() => this.test!.time++)
+
+            if (start) {
+                this.isActive = true
+                this.timeInterval = setInterval(() => this.test!.time++, 1000)
+            } else {
+                clearInterval(this.timeInterval!)
+                this.timeInterval = null
+            }
         },
 
         finishTest() {
@@ -49,7 +66,8 @@ export const useTestStore = defineStore({
 
         handleType(latter: string) {
             if (this.test === null) return
-            this.isActive = true
+            // this.isActive = true
+            if (!this.isActive) this.handleTime(true)
 
             const testOptionsStore = useTestOptionsStore()
             const caretStore = useCaretStore()
@@ -65,11 +83,10 @@ export const useTestStore = defineStore({
                 return
             }
 
-            if (currLatter.idx === 0 && currWord.idx === 0) this.handleTime()
 
             // check if user typing
-            if (this.timeout !== null) clearTimeout(this.timeout)
-            this.timeout = setTimeout(() => { this.setAFK() }, 3000)
+            if (this.AFKtimeout !== null) clearTimeout(this.AFKtimeout)
+            this.AFKtimeout = setTimeout(() => { this.setAFK() }, 3000)
 
             // when correct
             if (latter === this.test?.currLatter.str) {

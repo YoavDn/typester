@@ -20,6 +20,7 @@ const isActiveTest = computed(() => testStore.getIsActiveTest)
 const isReloadTest = computed(() => testStore.getIsReloadTest)
 const testLevel = computed(() => testOptionsStore.getTestLevel)
 const testMode = computed(() => testOptionsStore.getTestMode)
+
 //refs
 const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
@@ -110,7 +111,6 @@ function inputFocus() {
 function scrollIntoMiddleLine() {
     if (testLevel.value === 15) return
     const caretPos = caretStore.getCaretPos
-    const currLineIdx = caretStore.getCurrLineIdx
     if (caretPos === null) return
 
     const relativeTop = caretStore.$state.relativeTop
@@ -125,7 +125,10 @@ const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
     wordRefs.value[idx] = el
 })
 
-// const testTime = computed(()=> )
+const timeLeft = computed(() => {
+    if (!testRef.value) return
+    return testLevel.value - testRef.value.time
+})
 const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + testLevel.value)
 
 
@@ -138,7 +141,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
         </div> -->
         <div class="test-options-bar flex">
             <div :style="{ opacity: isActiveTest ? 1 : 0 }" class="test-mode">
-                <h2 v-if="testMode === 'time'">30</h2>
+                <h2 v-if="testMode === 'time'">{{ timeLeft }}</h2>
                 <h2 v-else>{{ testWordsComplete }}</h2>
             </div>
         </div>
