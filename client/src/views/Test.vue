@@ -1,8 +1,7 @@
     
 <script setup lang='ts'>
 
-import { ref, onMounted, computed, watchEffect, onUpdated, reactive } from 'vue';
-import { useLatterPos } from '@/features/useLatterPos'
+import { ref, onMounted, computed, watchEffect } from 'vue';
 import { useTestStore } from '@/stores/test';
 import { useCaretStore } from '@/stores/caret';
 
