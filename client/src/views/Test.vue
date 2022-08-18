@@ -122,7 +122,7 @@ function inputFocus() {
 
 function scrollIntoMiddleLine() {
     const caretPos = caretStore.getCaretPos
-    if (!mainContainer || !wordsContainer) return
+    if (!mainContainer || !wordsContainer || !wordsContainer.value) return
     if (caretPos === null) return
 
     console.log(wordsContainer.value!.clientHeight - 5, mainContainer.value!.clientHeight,);
@@ -152,9 +152,9 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
 <template>
     <section class="test-container">
-        <!-- <div v-if="!isActiveTest && testRef?.currWord.idx !== 0" class="overlay">
+        <div v-if="!isActiveTest && testRef?.currWord.idx !== 0" class="overlay">
             <h2>Press any key to continue</h2>
-        </div> -->
+        </div>
         <div class="test-options-bar flex">
             <div :style="{ opacity: isActiveTest ? 1 : 0 }" class="test-mode">
                 <h2 v-if="testMode === 'time'">{{ timeLeft }}</h2>

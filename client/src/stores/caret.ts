@@ -28,7 +28,7 @@ export const useCaretStore = defineStore({
         },
 
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
-
+            const testOptionsStore = useTestOptionsStore()
             if (this.caretPos === null) {
                 this.caretPos = useLatterPos(htmlChild, htmlParant) as caretPosType
                 return
@@ -39,14 +39,14 @@ export const useCaretStore = defineStore({
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
             } else {
-                this.caretPos.top = this.allWordsShown ? top : top + this.relativeTop
+                this.caretPos.top = testOptionsStore.getIsOnMinWords ? top : top + this.relativeTop
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
                 this.caretPos.bottom = bottom
 
 
-                this.relativeTop += top
                 this.currLineIdx++
+                this.relativeTop += top
             }
         },
 
