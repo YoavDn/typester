@@ -21,6 +21,7 @@ const latterColor = computed(() => (
 
 .latter {
 
+
     &.notTyped {
         color: $text-dull;
     }

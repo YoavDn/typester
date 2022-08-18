@@ -1,5 +1,4 @@
 import type { caretPosType } from '@/types'
-import type MainAppVue from '@/views/MainApp.vue'
 import { reactive } from 'vue'
 
 
@@ -8,9 +7,9 @@ type htmlType = HTMLElement | null
 
 export function useLatterPos(latter: HTMLElement, mainContainer: htmlType): caretPosType | null {
     if (mainContainer === null) return null
-
     const latterPos = latter.getBoundingClientRect()
     const containerPos = mainContainer.getBoundingClientRect()
+
 
     const relativePos: caretPosType = reactive({
         top: latterPos.top - containerPos.top,

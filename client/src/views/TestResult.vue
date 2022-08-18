@@ -1,13 +1,23 @@
 
 <script setup lang='ts'>
-import { useTestStore } from '@/stores/test';
 import Chart from '@/components/Chart.vue';
 import NextArrowSvg from '@/assets/imgs/left-arrow.svg'
-import ReplaySvg from '@/assets/imgs/replay.svg'
 import MainStats from '@/components/MainStats.vue'
+import ReplaySvg from '@/assets/imgs/replay.svg'
+
+import { useTestStore } from '@/stores/test';
+import { useRouter } from 'vue-router';
+
 import { computed } from 'vue';
+
 const testStore = useTestStore()
 const test = computed(() => testStore.getTest)
+const router = useRouter()
+
+function setNewTest() {
+    testStore.setReload()
+    router.push('/')
+}
 
 </script>
 
@@ -25,7 +35,7 @@ const test = computed(() => testStore.getTest)
                 <ReplaySvg class="btn-svg" />
                 Reapet Test
             </button>
-            <button class="btn-next">Next Test
+            <button @click="setNewTest" class="btn-next">Next Test
                 <NextArrowSvg class="btn-svg-next" />
             </button>
         </div>

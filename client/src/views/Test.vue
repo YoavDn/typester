@@ -1,7 +1,7 @@
     
 <script setup lang='ts'>
 
-import { ref, onMounted, computed, watchEffect } from 'vue';
+import { ref, onMounted, computed, watchEffect, watch } from 'vue';
 import { useTestStore } from '@/stores/test';
 import { useCaretStore } from '@/stores/caret';
 
@@ -20,11 +20,13 @@ const isActiveTest = computed(() => testStore.getIsActiveTest)
 const isReloadTest = computed(() => testStore.getIsReloadTest)
 const testLevel = computed(() => testOptionsStore.getTestLevel)
 const testMode = computed(() => testOptionsStore.getTestMode)
+const caretPos = computed(() => caretStore.getCaretPos)
 
 //refs
 const gameInput = ref<null | HTMLInputElement>(null)
 const mainContainer = ref<HTMLElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
+const wordsContainer = ref<HTMLElement | null>(null)
 
 const wordsToRender = computed(() => {
     return testMode.value === 'words' && testLevel.value === 15 ?
@@ -48,9 +50,19 @@ watchEffect(() => {
 
 })
 
-watchEffect(() => {
-    if (caretStore.getCaretPos !== null) {
+watch(
+    () => caretPos.value?.top,
+    () => {
+        console.log('caret top changed');
         scrollIntoMiddleLine()
+    }
+)
+
+const wordsWapperHeight = computed(() => {
+    console.log(wordRefs.value);
+    if (mainContainer !== null && testRef.value && wordRefs.value.length > 1) {
+        console.log(wordRefs.value[0].clientHeight);
+        return { height: wordRefs.value[0].children[0].clientHeight * 3 + "px" }
     }
 })
 
@@ -72,6 +84,9 @@ watchEffect(() => {
 function initTest() {
     gameInput.value?.focus()
     caretStore.setLatterEnd(false)
+    if (wordsContainer.value!.clientHeight - 5 > mainContainer.value!.clientHeight) caretStore.setisAllWordsShown(false)
+    else caretStore.setisAllWordsShown(true)
+
     updateCaret()
 }
 
@@ -110,15 +125,17 @@ function inputFocus() {
 
 function scrollIntoMiddleLine() {
     const caretPos = caretStore.getCaretPos
-
-    if (testLevel.value === 15 && testMode.value === 'words') return
+    if (!mainContainer || !wordsContainer) return
     if (caretPos === null) return
 
-    const relativeTop = caretStore.$state.relativeTop
-    mainContainer.value?.scrollTo({
-        top: relativeTop,
-        behavior: 'smooth'
-    })
+    console.log(wordsContainer.value!.clientHeight - 5 === mainContainer.value?.clientHeight,);
+    if (mainContainer.value!.clientHeight - 5 > wordsContainer.value!.clientHeight) {
+        const relativeTop = caretStore.$state.relativeTop
+        mainContainer.value?.scrollTo({
+            top: relativeTop,
+            behavior: 'smooth'
+        })
+    }
 }
 
 const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
@@ -146,10 +163,10 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
                 <h2 v-else>{{ testWordsComplete }}</h2>
             </div>
         </div>
-        <div class="words-wapper" @click="inputFocus" ref="mainContainer">
+        <div class="words-wapper" :style="wordsWapperHeight" @click="inputFocus" ref="mainContainer">
             <Caret />
             <input class="game-input" ref="gameInput" @keydown="handleSpicialKeys" @input="handleInput" type="text">
-            <main class="word-container flex">
+            <main class="word-container flex" ref="wordsContainer">
                 <div class="word flex" v-for="(wordObj, idx) in wordsToRender"
                     :ref="(el) => updateWordsRefs(el as HTMLElement | null, idx)" :key="wordObj.word">
                     <Word :word="wordObj" />
@@ -183,6 +200,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 }
 
 .words-wapper {
+
     height: 135px;
     position: relative;
     overflow: hidden;
@@ -204,15 +222,14 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
         flex-wrap: wrap;
         width: 100%;
         z-index: 99;
-        padding-bottom: 1em;
 
         .word {
             display: flex;
+            line-height: 4.1rem;
             font-size: 2.5rem;
-            line-height: 1.2em;
             font-weight: 400;
             letter-spacing: .1rem;
-            margin: .6rem;
+            margin-inline: .6rem;
 
             &.word-bad {
                 text-decoration: underline;

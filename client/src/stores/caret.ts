@@ -10,36 +10,41 @@ export const useCaretStore = defineStore({
     state: () => ({
         caretPos: null as initalCaretpos,
         isLatterEnd: false,
-        currLinePos: 6,
         currLineIdx: 1,
-        relativeTop: 0
+        relativeTop: 0,
+        allWordsShown: false
+
     }),
     getters: {
         getCaretPos: ({ caretPos }) => caretPos,
         getIslatterEnd: ({ isLatterEnd }) => isLatterEnd,
-        getCurrLinePos: ({ currLinePos }) => currLinePos,
         getCurrLineIdx: ({ currLineIdx }) => currLineIdx
     },
     actions: {
+
+        setisAllWordsShown(isAllShown: boolean) {
+            this.allWordsShown = isAllShown
+        },
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
-            if (useLatterPos(htmlChild, htmlChild) === null) return
-            const testOptionsStore = useTestOptionsStore()
 
             if (this.caretPos === null) {
                 this.caretPos = useLatterPos(htmlChild, htmlParant) as caretPosType
+                return
             }
 
-            const { top, left, leftEnd, } = useLatterPos(htmlChild, htmlParant,) as caretPosType
+            const { top, left, leftEnd, bottom } = useLatterPos(htmlChild, htmlParant) as caretPosType
             if (top === this.caretPos.top) {
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
             } else {
-                this.caretPos.top = testOptionsStore.getIsOnMinWords ? top : top + this.relativeTop
+                this.caretPos.top = this.allWordsShown ? top : top + this.relativeTop
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
+                this.caretPos.bottom = bottom
 
-                this.currLineIdx++
+
                 this.relativeTop += top
+                this.currLineIdx++
             }
         },
 
