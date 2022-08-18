@@ -100,7 +100,6 @@ function handleSpicialKeys(e: Event) {
         testStore.hendleSpicialKeys(key)
         updateCaret()
     }
-
 }
 
 

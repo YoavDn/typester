@@ -1,8 +1,11 @@
 import { defineStore } from "pinia";
+import { useRouter } from "vue-router";
 import type { testType } from "@/types";
 import { testService } from "@/service/test.service";
 import { useCaretStore } from "./caret";
 import { useTestOptionsStore } from "./testOptions";
+
+
 
 export const useTestStore = defineStore({
     id: 'test',
@@ -44,7 +47,11 @@ export const useTestStore = defineStore({
         },
 
         finishTest() {
+            const router = useRouter()
             console.log('finished Test !!');
+            console.log('finished Test !!');
+            //  @ts-ignore
+            this.$router.push('/testResult')
         },
 
         handleType(latter: string) {
@@ -145,8 +152,6 @@ export const useTestStore = defineStore({
             }
 
         },
-
-
 
         hendleBackspace() {
             console.log('backspace');
