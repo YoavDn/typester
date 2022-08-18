@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 
 import type { caretPosType } from '@/types'
 import { useLatterPos } from '@/features/useLatterPos'
+import { useTestOptionsStore } from './testOptions'
 type initalCaretpos = caretPosType | null
 
 export const useCaretStore = defineStore({
@@ -22,6 +23,7 @@ export const useCaretStore = defineStore({
     actions: {
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
             if (useLatterPos(htmlChild, htmlChild) === null) return
+            const testOptionsStore = useTestOptionsStore()
 
             if (this.caretPos === null) {
                 this.caretPos = useLatterPos(htmlChild, htmlParant) as caretPosType
@@ -32,11 +34,11 @@ export const useCaretStore = defineStore({
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
             } else {
-                this.currLineIdx++
-                this.caretPos.top = top + this.relativeTop
+                this.caretPos.top = testOptionsStore.getIsOnMinWords ? top : top + this.relativeTop
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
 
+                this.currLineIdx++
                 this.relativeTop += top
             }
         },

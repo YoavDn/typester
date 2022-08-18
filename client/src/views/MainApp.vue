@@ -27,9 +27,9 @@ const mainContainer = ref<HTMLElement | null>(null)
 const wordRefs = ref<HTMLElement[]>([])
 
 const wordsToRender = computed(() => {
-    return testMode.value === 'time' ?
-        testRef.value?.txt :
-        testRef.value?.txt.slice(0, testLevel.value)
+    return testMode.value === 'words' && testLevel.value === 15 ?
+        testRef.value?.txt.slice(0, testLevel.value) :
+        testRef.value?.txt
 })
 
 //making fisrt test on load
@@ -135,9 +135,9 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
 <template>
     <section class="test-container">
-        <div v-if="!isActiveTest && testRef?.currWord.idx !== 0" class="overlay">
+        <!-- <div v-if="!isActiveTest && testRef?.currWord.idx !== 0" class="overlay">
             <h2>Press any key to continue</h2>
-        </div>
+        </div> -->
         <div class="test-options-bar flex">
             <div :style="{ opacity: isActiveTest ? 1 : 0 }" class="test-mode">
                 <h2 v-if="testMode === 'time'">30</h2>

@@ -12,6 +12,7 @@ export const useTestOptionsStore = defineStore({
     getters: {
         getTestMode: ({ testMode }) => testMode,
         getTestLevel: ({ testLevel }) => testLevel,
+        getIsOnMinWords: ({ testLevel, testMode }) => testLevel === 15 && testMode === 'words'
     },
     actions: {
         setTestMode(testMode: testModeType) {
