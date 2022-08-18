@@ -1,0 +1,83 @@
+.gradient-wapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(100px);
+    overflow: hidden;
+    z-index: -1;
+
+    .gradient1 {
+        position: absolute;
+        width: 500px;
+        height: 200px;
+        z-index: -2;
+        left: 10%;
+        top: 10%;
+        animation: grainet-anim cubic-bezier(.1, 0, .9, 1) alternate infinite 14s;
+
+        border-radius: 100%;
+        background-color: rgba($main-theme , 1);
+    }
+
+    .gradient2 {
+        position: absolute;
+        width: 200px;
+        height: 500px;
+        animation: grainet-anim cubic-bezier(.1, 0, .9, 1) alternate infinite 27s;
+
+        z-index: -1;
+        left: 60%;
+        top: 30%;
+        border-radius: 100%;
+        background-color: rgba($sub-theme , 1);
+    }
+
+    .gradient3 {
+        position: absolute;
+        width: 100px;
+        height: 300px;
+        animation: grainet-anim2 cubic-bezier(.1, 0, .9, 1) alternate infinite 30s;
+
+        z-index: -1;
+        left: 40%;
+        top: 20%;
+        border-radius: 100%;
+        background-color: rgba(#9FACE6, 1);
+    }
+}
+
+
+
+@keyframes grainet-anim {
+
+
+    25% {
+        rotate: 40deg;
+        left: 40%;
+    }
+
+    50% {
+        rotate: 140deg;
+        top: 15%;
+        left: 6%;
+    }
+
+}
+
+@keyframes grainet-anim2 {
+
+
+    25% {
+        rotate: 40deg;
+        left: 15%;
+    }
+
+    50% {
+        rotate: 140deg;
+        top: 40%;
+        left: 6%;
+    }
+
+}

@@ -48,7 +48,8 @@ const test = computed(() => testStore.getTest)
         </div>
     </section>
 
-    <section class="reslult-details">
+    <section class="details">
+        <h2>hi</h2>
         <Chart class="chart" />
     </section>
 
@@ -57,6 +58,14 @@ const test = computed(() => testStore.getTest)
 
 <style lang='scss'>
 @import '@/assets/style/main.scss';
+
+
+.details {
+    z-index: 4;
+
+    background-color: $background;
+
+}
 
 .stat-box {
     display: flex;
@@ -89,7 +98,6 @@ const test = computed(() => testStore.getTest)
     color: $text;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
 
     .main-stats {
         max-width: 500px;
@@ -122,6 +130,8 @@ const test = computed(() => testStore.getTest)
             }
         }
     }
+
+
 
     @media (max-width: 670px) {
         .main-stats {
