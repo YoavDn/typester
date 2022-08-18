@@ -1,10 +1,16 @@
-import type { IcurrWordOrLetter, testLevelType, testModeType } from "@/types";
+import type { testLevelType, testModeType, testType } from "@/types";
 
-export function checkTestEnd(latterEnd: boolean, word: IcurrWordOrLetter, latter: IcurrWordOrLetter, testLevel: testLevelType, testTime: number) {
-    if (testLevel - 1 === word.idx
-        && latter.idx === word.str.length - 1
-        && latterEnd
-    ) return true
+export function checkTestEnd(test: testType, latterEnd: boolean, mode: testModeType, level: testLevelType) {
+    if (!test) return
 
-    if (testLevel === testTime) return true
+    if (mode === 'words') {
+        if (level - 1 !== test.currWord.idx
+            || test.currLatter.idx !== test.currWord.str.length - 1
+            || !latterEnd) return false
+        return true
+    } else {
+        if (level !== test.time) return false
+        return true
+    }
 }
+

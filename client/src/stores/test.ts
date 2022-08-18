@@ -66,23 +66,18 @@ export const useTestStore = defineStore({
 
         handleType(latter: string) {
             if (this.test === null) return
-            // this.isActive = true
-            if (!this.isActive) this.handleTime(true)
-
             const testOptionsStore = useTestOptionsStore()
             const caretStore = useCaretStore()
             const { currLatter, currWord } = this.test
 
+            if (!this.isActive) this.handleTime(true)
+
             //when finish test
-            if (checkTestEnd(caretStore.getIslatterEnd,
-                currWord,
-                currLatter,
-                testOptionsStore.getTestLevel,
-                this.test.time)) {
+            if (checkTestEnd(this.test, caretStore.getIslatterEnd, testOptionsStore.getTestMode, testOptionsStore.getTestLevel)) {
+                this.handleTime(false)
                 this.finishTest()
                 return
             }
-
 
             // check if user typing
             if (this.AFKtimeout !== null) clearTimeout(this.AFKtimeout)
