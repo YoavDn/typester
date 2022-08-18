@@ -1,5 +1,5 @@
 import type { testType } from '@/types'
-import { commonEnWords } from '../utils/commonWords'
+import { commonEnWords } from '../wordsData/commonWords'
 
 
 export const testService = {
@@ -7,7 +7,6 @@ export const testService = {
 }
 
 function generateNewTest(lang = 'english') {
-
     const wordsMap = randomTxt().map(word => {
         return {
             word,
@@ -24,12 +23,12 @@ function generateNewTest(lang = 'english') {
     const test: testType = {
         currLatter: { idx: 0, str: wordsMap[0].latters[0].latter },
         currWord: { idx: 0, str: wordsMap[0].word },
+        time: 0,
         acc: 0,
         wpm: 0,
         txt: wordsMap
 
     }
-
     return test
 }
 
@@ -42,3 +41,5 @@ export function randomTxt(lang = 'english') {
 
     return txtBody
 }
+
+

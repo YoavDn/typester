@@ -9,12 +9,17 @@ export type wordType = {
     isCorrect: boolean | null,
     latters: latterType[]
 }
+export interface IcurrWordOrLetter {
+    idx: number,
+    str: string
+}
 
 export type testType = {
     wpm: number,
     acc: number,
-    currWord: { idx: number, str: string },
-    currLatter: { idx: number, str: string },
+    time: number,
+    currWord: IcurrWordOrLetter,
+    currLatter: IcurrWordOrLetter,
     txt: wordType[]
 } | null
 

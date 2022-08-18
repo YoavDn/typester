@@ -4,6 +4,7 @@ import type { testType } from "@/types";
 import { testService } from "@/service/test.service";
 import { useCaretStore } from "./caret";
 import { useTestOptionsStore } from "./testOptions";
+import { checkTestEnd } from '@/service/test.utils'
 
 
 
@@ -14,41 +15,33 @@ export const useTestStore = defineStore({
         isActive: false,
         timeout: null as null | ReturnType<typeof setTimeout>,
         isReloadTest: false,
-        timeLeft: null
     }),
     getters: {
         getTest: ({ test }) => test,
         getIsReloadTest: ({ isReloadTest }) => isReloadTest,
         getWordFromTxt: ({ test }) => test?.txt[test.currWord.idx],
         getLatterFromTxt: ({ test }) => test?.txt[test.currWord.idx].latters[test.currLatter.idx],
-        getIsActiveTest: ({ isActive }) => isActive
+        getIsActiveTest: ({ isActive }) => isActive,
     },
 
     actions: {
-        loadTest() {
-            this.test = testService.generateNewTest()
-        },
-
-        setReload() {
-            this.isReloadTest = true
-        },
+        loadTest() { this.test = testService.generateNewTest() },
+        setAFK() { this.isActive = false },
+        setReload() { this.isReloadTest = true },
+        activateTest() { this.isActive = true },
 
         reloadTest() {
             this.test = testService.generateNewTest()
+            this.test.time = 0
             this.isReloadTest = false
         },
 
-        activateTest() {
-            this.isActive = true
-        },
-
-        setAFK() {
-            this.isActive = false
+        handleTime() {
+            if (!this.test) return
+            const timeInterval = setInterval(() => this.test!.time++)
         },
 
         finishTest() {
-            const router = useRouter()
-            console.log('finished Test !!');
             console.log('finished Test !!');
             //  @ts-ignore
             this.$router.push('/testResult')
@@ -63,16 +56,20 @@ export const useTestStore = defineStore({
             const { currLatter, currWord } = this.test
 
             //when finish test
-            if (testOptionsStore.getTestLevel - 1 === currWord.idx &&
-                currLatter.idx === currWord.str.length - 1 &&
-                caretStore.getIslatterEnd
-            ) {
+            if (checkTestEnd(caretStore.getIslatterEnd,
+                currWord,
+                currLatter,
+                testOptionsStore.getTestLevel,
+                this.test.time)) {
                 this.finishTest()
                 return
             }
 
+            if (currLatter.idx === 0 && currWord.idx === 0) this.handleTime()
+
+            // check if user typing
             if (this.timeout !== null) clearTimeout(this.timeout)
-            this.timeout = setTimeout(() => { this.setAFK() }, 5000)
+            this.timeout = setTimeout(() => { this.setAFK() }, 3000)
 
             // when correct
             if (latter === this.test?.currLatter.str) {
@@ -145,12 +142,10 @@ export const useTestStore = defineStore({
         },
 
         hendleSpicialKeys(key: string) {
-
             switch (key) {
                 case "Backspace":
                     this.hendleBackspace()
             }
-
         },
 
         hendleBackspace() {
