@@ -8,7 +8,18 @@ import ReplaySvg from '@/assets/imgs/replay.svg'
 import { useTestStore } from '@/stores/test';
 import { useRouter } from 'vue-router';
 
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+
+const testResRef = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+    if (testResRef.value?.style) {
+
+        console.log(testResRef.value.style.opacity);
+        testResRef.value.style.opacity = '1'
+    }
+
+})
 
 const testStore = useTestStore()
 const test = computed(() => testStore.getTest)
@@ -23,7 +34,7 @@ function setNewTest() {
 
 
 <template>
-    <section class="test-result">
+    <section class="test-result" ref="testResRef">
         <div class="gradient-wapper">
             <div class="gradient1"></div>
             <div class="gradient2"></div>
@@ -73,13 +84,13 @@ function setNewTest() {
     z-index: 4;
 }
 
-
-
 .test-result {
+    opacity: 1;
     position: relative;
     color: $text;
     display: flex;
     flex-direction: column;
+    transition: all 3s;
 }
 
 .btns-bar {

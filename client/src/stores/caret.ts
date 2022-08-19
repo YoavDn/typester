@@ -28,6 +28,7 @@ export const useCaretStore = defineStore({
         },
 
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
+            if (useLatterPos(htmlChild, htmlChild) === null) return
             const testOptionsStore = useTestOptionsStore()
             if (this.caretPos === null) {
                 this.caretPos = useLatterPos(htmlChild, htmlParant) as caretPosType

@@ -55,13 +55,13 @@ watchEffect(() => {
         scrollIntoMiddleLine()
 })
 
-const wordsWapperHeight = computed(() => {
-    console.log(wordRefs.value);
-    if (mainContainer !== null && testRef.value && wordRefs.value.length > 1) {
-        console.log(wordRefs.value[0].clientHeight);
-        return { height: wordRefs.value[0].children[0].clientHeight * 3 + "px" }
-    }
-})
+// const wordsWapperHeight = computed(() => {
+//     console.log(wordRefs.value);
+//     if (mainContainer !== null && testRef.value && wordRefs.value.length > 1) {
+//         console.log(wordRefs.value[0].clientHeight);
+//         return { height: wordRefs.value[0].children[0].clientHeight * 3 + "px" }
+//     }
+// })
 
 
 watchEffect(() => {
@@ -120,20 +120,18 @@ function inputFocus() {
     gameInput.value?.focus()
 }
 
+
 function scrollIntoMiddleLine() {
     const caretPos = caretStore.getCaretPos
-    if (!mainContainer || !wordsContainer || !wordsContainer.value) return
+
+    if (testOptionsStore.getIsOnMinWords) return
     if (caretPos === null) return
 
-    console.log(wordsContainer.value!.clientHeight - 5, mainContainer.value!.clientHeight,);
-    if ((wordsContainer.value!.clientHeight - 5) > mainContainer.value!.clientHeight) {
-        const relativeTop = caretStore.getRelativeTop
-        console.log('why');
-        mainContainer.value!.scrollTo({
-            top: relativeTop,
-            behavior: 'smooth'
-        })
-    }
+    const relativeTop = caretStore.$state.relativeTop
+    mainContainer.value?.scrollTo({
+        top: relativeTop,
+        behavior: 'smooth'
+    })
 }
 
 const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
@@ -161,7 +159,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
                 <h2 v-else>{{ testWordsComplete }}</h2>
             </div>
         </div>
-        <div class="words-wapper" :style="wordsWapperHeight" @click="inputFocus" ref="mainContainer">
+        <div class="words-wapper" @click="inputFocus" ref="mainContainer">
             <Caret />
             <input class="game-input" ref="gameInput" @keydown="handleSpicialKeys" @input="handleInput" type="text">
             <main class="word-container flex" ref="wordsContainer">
@@ -223,11 +221,11 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
         .word {
             display: flex;
-            line-height: 4.1rem;
+            line-height: 1.2em;
             font-size: 2.5rem;
             font-weight: 400;
             letter-spacing: .1rem;
-            margin-inline: .6rem;
+            margin: .6rem;
 
             &.word-bad {
                 text-decoration: underline;
