@@ -25,7 +25,10 @@ function generateNewTest(lang = 'english') {
         currLatter: { idx: 0, str: wordsMap[0].latters[0].latter },
         currWord: { idx: 0, str: wordsMap[0].word },
         time: 0,
+        typoCount: 0,
+        sumType: 0,
         acc: 0,
+        realAcc: 0,
         wpm: 0,
         txt: wordsMap
 
@@ -37,15 +40,18 @@ function generateNewTest(lang = 'english') {
 export function retest(test: testType): testType {
     if (!test) return null
     const cleanTest: testType = { ...test }
+
     cleanTest.currLatter = { idx: 0, str: cleanTest.txt[0].latters[0].latter }
     cleanTest.currWord = { idx: 0, str: cleanTest.txt[0].word }
+    cleanTest.typoCount = 0
+    cleanTest.sumType = 0
     cleanTest.txt = _resetWordsObj(test.txt)
+
     return cleanTest
 }
 
 export function randomTxt(lang = 'english') {
     const txtBody = commonEnWords.split('\n').sort(() => Math.random() - .5).slice(0, 100)
-
     return txtBody
 }
 

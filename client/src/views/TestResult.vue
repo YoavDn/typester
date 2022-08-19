@@ -12,11 +12,9 @@ import { computed, onMounted, ref } from 'vue';
 
 const testResRef = ref<HTMLElement | null>(null)
 
-onMounted(() => {
-    if (testResRef.value?.style) {
-        console.log(testResRef.value.style.opacity);
-        testResRef.value.style.opacity = '1'
-    }
+window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
 })
 
 const testStore = useTestStore()
@@ -38,7 +36,7 @@ function setNewTest() {
             <div class="gradient2"></div>
             <div class="gradient3"></div>
         </div>
-        <MainStats />
+        <MainStats :test='test' />
         <div class="btns-bar flex">
             <button class="btn-replay">
                 <ReplaySvg class="btn-svg" />

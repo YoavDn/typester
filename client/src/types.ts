@@ -17,7 +17,10 @@ export interface IcurrWordOrLetter {
 export type testType = {
     wpm: number,
     acc: number,
+    realAcc: number,
     time: number,
+    typoCount: number,
+    sumType: number,
     currWord: IcurrWordOrLetter,
     currLatter: IcurrWordOrLetter,
     txt: wordType[]

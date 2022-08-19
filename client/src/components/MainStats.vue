@@ -1,5 +1,6 @@
 <script setup lang='ts'>
-
+import type { testType } from '@/types';
+const props = defineProps<{ test?: testType }>()
 </script>
 
 
@@ -14,13 +15,13 @@
         </article>
         <div class="stats-middle">
             <h2>Time:</h2>
-            <h3 class="time-stat">15s</h3>
+            <h3 class="time-stat">{{ props.test ? props.test?.time + "s" : '--' }}</h3>
             <h2>Words:</h2>
-            <h3 class="words-stat">43</h3>
+            <h3 class="words-stat">{{ props.test ? props.test?.currWord.idx + 1 : '--' }}</h3>
         </div>
         <article class="acc-box stat-box">
             <div>
-                <p>Real accuracy 49%</p>
+                <p>Real accuracy <span>{{ props.test?.realAcc }}</span> %</p>
                 <h2>91%</h2>
             </div>
             <h3>Accuracy</h3>

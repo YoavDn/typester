@@ -67,6 +67,8 @@ export const useTestStore = defineStore({
 
         finishTest() {
             console.log('finished Test !!');
+            if (!this.test) return
+            this.test.realAcc = Math.round(100 - (this.test.typoCount * 100) / this.test.sumType)
             //  @ts-ignore
             this.$router.push('/testResult')
         },
@@ -86,6 +88,7 @@ export const useTestStore = defineStore({
                 return
             }
 
+            this.test.sumType++
             // check if user typing
             if (this.AFKtimeout !== null) clearTimeout(this.AFKtimeout)
             this.AFKtimeout = setTimeout(() => { this.setAFK() }, 3000)
@@ -96,6 +99,7 @@ export const useTestStore = defineStore({
                 else this.setLatterNewStatus(true)
 
             } else { //when wrong
+                this.test.typoCount++
                 if (currLatter.str === 'space') this.setNextWord(false)
                 else this.setLatterNewStatus(false)
             }
