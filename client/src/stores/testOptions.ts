@@ -20,13 +20,13 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
     //actions 
     function setTestMode(mode: testModeType) {
         testMode.value = mode
-        testStore.setReload()
+        testStore.setNewTest()
         router.push('/')
     }
 
     function setTestLevel(level: testLevelType) {
         testLevel.value = level
-        testStore.setReload()
+        testStore.setNewTest()
         router.push('/')
     }
 

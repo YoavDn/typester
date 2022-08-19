@@ -15,11 +15,11 @@ export const useTestStore = defineStore({
         isActive: false,
         AFKtimeout: null as null | ReturnType<typeof setTimeout>,
         timeInterval: null as null | ReturnType<typeof setInterval>,
-        isReloadTest: false,
+        isNewTest: false,
     }),
     getters: {
         getTest: ({ test }) => test,
-        getIsReloadTest: ({ isReloadTest }) => isReloadTest,
+        getIsNewTest: ({ isNewTest }) => isNewTest,
         getWordFromTxt: ({ test }) => test?.txt[test.currWord.idx],
         getLatterFromTxt: ({ test }) => test?.txt[test.currWord.idx].latters[test.currLatter.idx],
         getIsActiveTest: ({ isActive }) => isActive,
@@ -27,18 +27,25 @@ export const useTestStore = defineStore({
 
     actions: {
         loadTest() { this.test = testService.generateNewTest() },
-        setReload() { this.isReloadTest = true },
+        setNewTest() { this.isNewTest = true },
 
         activateTest() {
             this.isActive = true
             this.handleTime(true)
         },
 
-        reloadTest() {
+        newTest() {
             this.test = testService.generateNewTest()
             this.test.time = 0
-            this.isReloadTest = false
+            this.isNewTest = false
             this.handleTime(false)
+        },
+
+        reloadTest() {
+            if (!this.test) return
+            this.test!.time = 0
+            this.handleTime(false)
+            this.test = testService.retest(this.test)
         },
 
         setAFK() {
@@ -157,12 +164,12 @@ export const useTestStore = defineStore({
             switch (key) {
                 case "Backspace":
                     this.hendleBackspace()
-
+                    break
                 case "Escape":
                     this.setAFK()
-
+                    break
                 case "Tab":
-                    this.setAFK
+                    this.setAFK()
             }
         },
 

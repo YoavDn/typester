@@ -12,7 +12,7 @@ export const useCaretStore = defineStore({
         isLatterEnd: false,
         currLineIdx: 1,
         relativeTop: 0,
-        allWordsShown: false
+
 
     }),
     getters: {
@@ -23,9 +23,6 @@ export const useCaretStore = defineStore({
     },
     actions: {
 
-        setisAllWordsShown(isAllShown: boolean) {
-            this.allWordsShown = isAllShown
-        },
 
         updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
             if (useLatterPos(htmlChild, htmlChild) === null) return

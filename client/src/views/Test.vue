@@ -17,16 +17,16 @@ const testOptionsStore = useTestOptionsStore()
 //getters
 const testRef = computed(() => testStore.getTest)
 const isActiveTest = computed(() => testStore.getIsActiveTest)
-const isReloadTest = computed(() => testStore.getIsReloadTest)
+const isReloadTest = computed(() => testStore.getIsNewTest)
 const testLevel = computed(() => testOptionsStore.getTestLevel)
 const testMode = computed(() => testOptionsStore.getTestMode)
 const caretPos = computed(() => caretStore.getCaretPos)
 
 //refs
-const gameInput = ref<null | HTMLInputElement>(null)
-const mainContainer = ref<HTMLElement | null>(null)
-const wordRefs = ref<HTMLElement[]>([])
-const wordsContainer = ref<HTMLElement | null>(null)
+const ElGameInput = ref<null | HTMLInputElement>(null)
+const ElMainContainer = ref<HTMLElement | null>(null)
+const ElWords = ref<HTMLElement[]>([])
+const ElWordsContainer = ref<HTMLElement | null>(null)
 
 const wordsToRender = computed(() => {
     return testMode.value === 'words' && testLevel.value === 15 ?
@@ -44,8 +44,8 @@ onMounted(() => {
 
 watchEffect(() => {
     if (isReloadTest.value === true) {
-        testStore.reloadTest()
-        if (wordRefs.value.length > 1) initTest()
+        testStore.newTest()
+        if (ElWords.value.length > 1) initTest()
     }
 
 })
@@ -56,9 +56,9 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
-    if (!testRef.value || wordRefs.value.length < 1) return
+    if (!testRef.value || ElWords.value.length < 1) return
     const { currWord } = testRef.value
-    const activeWord = wordRefs.value[currWord.idx - 1]
+    const activeWord = ElWords.value[currWord.idx - 1]
 
     if (currWord.idx < 1) return
 
@@ -70,27 +70,30 @@ watchEffect(() => {
 })
 
 function initTest() {
-    gameInput.value?.focus()
+    ElGameInput.value?.focus()
     caretStore.setLatterEnd(false)
-    if (wordsContainer.value!.clientHeight - 5 > mainContainer.value!.clientHeight) caretStore.setisAllWordsShown(false)
-    else caretStore.setisAllWordsShown(true)
-
     updateCaret()
 }
 
 function handleInput(e: Event) {
-    if (gameInput === null || !testRef.value || wordRefs.value.length < 1) return
+
+    if (ElGameInput === null || !testRef.value || ElWords.value.length < 1) return
     const key = (e as KeyboardEvent).key
     if (key === 'Tab') e.preventDefault()
 
-    //when pressing not type keys
-    if (key === 'Backspace'
+    if (key === 'Tab' && !isActiveTest.value) {
+        ElWords.value.forEach(wordEl => {
+            wordEl.classList.remove('word-bad')
+        })
+        testStore.reloadTest()
+    } else if (key === 'Backspace'
         || key === 'Tab'
         || key === 'Escape') {
+
         testStore.hendleSpicialKeys(key)
     } else {
         testStore.handleType(key)
-        gameInput.value!.value = ''
+        ElGameInput.value!.value = ''
     }
 
     //update care
@@ -98,15 +101,15 @@ function handleInput(e: Event) {
 }
 
 function updateCaret() {
-    if (mainContainer !== null && testRef.value) {
+    if (ElMainContainer !== null && testRef.value) {
         const { currWord, currLatter } = testRef.value
-        const latterRef = wordRefs.value[currWord.idx].children[currLatter.idx]
-        caretStore.updatedCaretPos(latterRef as HTMLElement, mainContainer.value as HTMLElement)
+        const latterRef = ElWords.value[currWord.idx].children[currLatter.idx]
+        caretStore.updatedCaretPos(latterRef as HTMLElement, ElMainContainer.value as HTMLElement)
     }
 }
 
 function inputFocus() {
-    gameInput.value?.focus()
+    ElGameInput.value?.focus()
 }
 
 
@@ -117,7 +120,7 @@ function scrollIntoMiddleLine() {
     if (caretPos === null) return
 
     const relativeTop = caretStore.$state.relativeTop
-    mainContainer.value?.scrollTo({
+    ElMainContainer.value?.scrollTo({
         top: relativeTop,
         behavior: 'smooth'
     })
@@ -125,7 +128,7 @@ function scrollIntoMiddleLine() {
 
 const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
     if (el === null) return
-    wordRefs.value[idx] = el
+    ElWords.value[idx] = el
 })
 
 const timeLeft = computed(() => {
@@ -151,10 +154,10 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
                 <h2 v-else>{{ testWordsComplete }}</h2>
             </div>
         </div>
-        <div class="words-wapper" @click="inputFocus" ref="mainContainer">
+        <div class="words-wapper" @click="inputFocus" ref="ElMainContainer">
             <Caret />
-            <input class="game-input" ref="gameInput" @keydown="handleInput" type="text">
-            <main class="word-container flex" ref="wordsContainer">
+            <input class="game-input" ref="ElGameInput" @keydown="handleInput" type="text">
+            <main class="word-container flex" ref="ElWordsContainer">
                 <div class="word flex" v-for="(wordObj, idx) in wordsToRender"
                     :ref="(el) => updateWordsRefs(el as HTMLElement | null, idx)" :key="wordObj.word">
                     <Word :word="wordObj" />
