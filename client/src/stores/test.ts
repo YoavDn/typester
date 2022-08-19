@@ -157,6 +157,12 @@ export const useTestStore = defineStore({
             switch (key) {
                 case "Backspace":
                     this.hendleBackspace()
+
+                case "Escape":
+                    this.setAFK()
+
+                case "Tab":
+                    this.setAFK
             }
         },
 

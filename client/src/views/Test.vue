@@ -55,15 +55,6 @@ watchEffect(() => {
         scrollIntoMiddleLine()
 })
 
-// const wordsWapperHeight = computed(() => {
-//     console.log(wordRefs.value);
-//     if (mainContainer !== null && testRef.value && wordRefs.value.length > 1) {
-//         console.log(wordRefs.value[0].clientHeight);
-//         return { height: wordRefs.value[0].children[0].clientHeight * 3 + "px" }
-//     }
-// })
-
-
 watchEffect(() => {
     if (!testRef.value || wordRefs.value.length < 1) return
     const { currWord } = testRef.value
@@ -89,8 +80,18 @@ function initTest() {
 
 function handleInput(e: Event) {
     if (gameInput === null || !testRef.value || wordRefs.value.length < 1) return
-    testStore.handleType((e.target as HTMLInputElement).value)
-    gameInput.value!.value = ''
+    const key = (e as KeyboardEvent).key
+    if (key === 'Tab') e.preventDefault()
+
+    //when pressing not type keys
+    if (key === 'Backspace'
+        || key === 'Tab'
+        || key === 'Escape') {
+        testStore.hendleSpicialKeys(key)
+    } else {
+        testStore.handleType(key)
+        gameInput.value!.value = ''
+    }
 
     //update care
     updateCaret()
@@ -103,18 +104,6 @@ function updateCaret() {
         caretStore.updatedCaretPos(latterRef as HTMLElement, mainContainer.value as HTMLElement)
     }
 }
-
-function handleSpicialKeys(e: Event) {
-    const key = (e as KeyboardEvent).key
-    if (key === 'Backspace'
-        || key === 'tab'
-        || key === 'esc') {
-
-        testStore.hendleSpicialKeys(key)
-        updateCaret()
-    }
-}
-
 
 function inputFocus() {
     gameInput.value?.focus()
@@ -151,7 +140,10 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 <template>
     <section class="test-container">
         <div v-if="!isActiveTest && testRef?.currWord.idx !== 0" class="overlay">
-            <h2>Press any key to continue</h2>
+            <div class="text-modal">
+                <h2>Press any key to continue</h2>
+                <h3>Press Tab to reaplay</h3>
+            </div>
         </div>
         <div class="test-options-bar flex">
             <div :style="{ opacity: isActiveTest ? 1 : 0 }" class="test-mode">
@@ -161,7 +153,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
         </div>
         <div class="words-wapper" @click="inputFocus" ref="mainContainer">
             <Caret />
-            <input class="game-input" ref="gameInput" @keydown="handleSpicialKeys" @input="handleInput" type="text">
+            <input class="game-input" ref="gameInput" @keydown="handleInput" type="text">
             <main class="word-container flex" ref="wordsContainer">
                 <div class="word flex" v-for="(wordObj, idx) in wordsToRender"
                     :ref="(el) => updateWordsRefs(el as HTMLElement | null, idx)" :key="wordObj.word">
