@@ -14,11 +14,9 @@ const testResRef = ref<HTMLElement | null>(null)
 
 onMounted(() => {
     if (testResRef.value?.style) {
-
         console.log(testResRef.value.style.opacity);
         testResRef.value.style.opacity = '1'
     }
-
 })
 
 const testStore = useTestStore()
@@ -26,7 +24,7 @@ const test = computed(() => testStore.getTest)
 const router = useRouter()
 
 function setNewTest() {
-    testStore.setReload()
+    testStore.setNewTest()
     router.push('/')
 }
 
