@@ -81,11 +81,14 @@ export const useTestStore = defineStore({
 
             if (!this.isActive) this.handleTime(true)
 
-            //when finish test
-            if (checkTestEnd(this.test, caretStore.getIslatterEnd, testOptionsStore.getTestMode, testOptionsStore.getTestLevel)) {
-                this.handleTime(false)
-                this.finishTest()
-                return
+            if (testOptionsStore.getTestMode === 'words') {
+                const isTestEnd = checkTestEnd(this.test, caretStore.getIslatterEnd, testOptionsStore.getTestLevel)
+                //when finish test
+                if (isTestEnd) {
+                    this.handleTime(false)
+                    this.finishTest()
+                    return
+                }
             }
 
             this.test.sumType++
