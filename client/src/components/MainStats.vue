@@ -22,7 +22,7 @@ const props = defineProps<{ test?: testType }>()
         <article class="acc-box stat-box">
             <div>
                 <p>Real accuracy <span>{{ props.test?.realAcc }}</span> %</p>
-                <h2>91%</h2>
+                <h2>{{ props.test ? props.test.acc + "%" : '--' }}</h2>
             </div>
             <h3>Accuracy</h3>
         </article>

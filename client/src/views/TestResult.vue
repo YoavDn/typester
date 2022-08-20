@@ -26,6 +26,11 @@ function setNewTest() {
     router.push('/')
 }
 
+function reapetTest() {
+    testStore.reloadTest()
+    router.push('/')
+}
+
 </script>
 
 
@@ -38,7 +43,7 @@ function setNewTest() {
         </div>
         <MainStats :test='test' />
         <div class="btns-bar flex">
-            <button class="btn-replay">
+            <button @click="reapetTest" class="btn-replay">
                 <ReplaySvg class="btn-svg" />
                 Reapet Test
             </button>

@@ -34,9 +34,6 @@ const wordsToRender = computed(() => {
         testRef.value?.txt
 })
 
-//making fisrt test on load
-testStore.loadTest()
-
 
 onMounted(() => {
     initTest()
@@ -72,33 +69,41 @@ watchEffect(() => {
 function initTest() {
     ElGameInput.value?.focus()
     caretStore.setLatterEnd(false)
+    ElMainContainer.value?.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
     updateCaret()
 }
 
 function handleInput(e: Event) {
-
     if (ElGameInput === null || !testRef.value || ElWords.value.length < 1) return
-    const key = (e as KeyboardEvent).key
-    if (key === 'Tab') e.preventDefault()
+    const key = (e.target as HTMLInputElement).value
 
-    if (key === 'Tab' && !isActiveTest.value) {
-        ElWords.value.forEach(wordEl => {
-            wordEl.classList.remove('word-bad')
-        })
-        testStore.reloadTest()
-    } else if (key === 'Backspace'
-        || key === 'Tab'
-        || key === 'Escape') {
-
-        testStore.hendleSpicialKeys(key)
-    } else {
-        testStore.handleType(key)
-        ElGameInput.value!.value = ''
-    }
+    testStore.handleType(key)
+    ElGameInput.value!.value = ''
 
     //update care
     updateCaret()
 }
+
+function handleSpicialKeys(e: Event) {
+    const key = (e as KeyboardEvent).key
+
+    if (key === 'Enter' && !isActiveTest.value) {
+        ElWords.value.forEach(wordEl => {
+            wordEl.classList.remove('word-bad')
+        })
+        testStore.reloadTest()
+    } else if (key === 'Backspace' || key === 'Escape') {
+        ElGameInput.value?.focus()
+        testStore.hendleSpicialKeys(key)
+    }
+    //update care
+    updateCaret()
+}
+
+
 
 function updateCaret() {
     if (ElMainContainer !== null && testRef.value) {
@@ -145,7 +150,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
         <div v-if="!isActiveTest && testRef?.currWord.idx !== 0" class="overlay">
             <div class="text-modal">
                 <h2>Press any key to continue</h2>
-                <h3>Press Tab to reaplay</h3>
+                <h3>Press Enter to reaplay</h3>
             </div>
         </div>
         <div class="test-options-bar flex">
@@ -156,7 +161,8 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
         </div>
         <div class="words-wapper" @click="inputFocus" ref="ElMainContainer">
             <Caret />
-            <input class="game-input" ref="ElGameInput" @keydown="handleInput" type="text">
+            <input class="game-input" tabindex="0" ref="ElGameInput" @keydown="handleSpicialKeys"
+                @input.stop="handleInput" type="text">
             <main class="word-container flex" ref="ElWordsContainer">
                 <div class="word flex" v-for="(wordObj, idx) in wordsToRender"
                     :ref="(el) => updateWordsRefs(el as HTMLElement | null, idx)" :key="wordObj.word">

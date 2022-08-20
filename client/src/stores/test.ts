@@ -11,7 +11,7 @@ import { checkTestEnd } from '@/service/test.utils'
 export const useTestStore = defineStore({
     id: 'test',
     state: () => ({
-        test: null as testType,
+        test: testService.generateNewTest() as testType,
         isActive: false,
         AFKtimeout: null as null | ReturnType<typeof setTimeout>,
         timeInterval: null as null | ReturnType<typeof setInterval>,
@@ -54,7 +54,7 @@ export const useTestStore = defineStore({
         },
 
         handleTime(start: boolean) {
-            if (!this.test) return
+
 
             if (start) {
                 this.isActive = true
@@ -69,6 +69,7 @@ export const useTestStore = defineStore({
             console.log('finished Test !!');
             if (!this.test) return
             this.test.realAcc = Math.round(100 - (this.test.typoCount * 100) / this.test.sumType)
+            this.test.acc = Math.round(100 - (testService.countTypos(this.test) * 100) / this.test.sumType)
             //  @ts-ignore
             this.$router.push('/testResult')
         },

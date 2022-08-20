@@ -4,7 +4,8 @@ import { commonEnWords } from '../wordsData/commonWords'
 
 export const testService = {
     generateNewTest,
-    retest
+    retest,
+    countTypos
 }
 
 function generateNewTest(lang = 'english') {
@@ -68,4 +69,14 @@ function _resetWordsObj(txt: wordType[]) {
             })
         }
     })
+}
+
+
+function countTypos(test: testType): number {
+    return test!.txt.reduce((sum, word) => {
+        for (let i = 0; i < word.latters.length; i++) {
+            if (word.latters[i].isCorrect === false) sum++
+        }
+        return sum
+    }, 0)
 }
