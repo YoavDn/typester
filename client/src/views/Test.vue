@@ -40,11 +40,14 @@ onMounted(() => {
 })
 
 watchEffect(() => {
+    if (testMode.value === 'time' && testRef.value!.time - testLevel.value === 0) testStore.finishTest()
+})
+
+watchEffect(() => {
     if (isReloadTest.value === true) {
         testStore.newTest()
         if (ElWords.value.length > 1) initTest()
     }
-
 })
 
 watchEffect(() => {

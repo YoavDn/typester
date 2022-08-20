@@ -55,7 +55,6 @@ export const useTestStore = defineStore({
 
         handleTime(start: boolean) {
 
-
             if (start) {
                 this.isActive = true
                 this.timeInterval = setInterval(() => this.test!.time++, 1000)
