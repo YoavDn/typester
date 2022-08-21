@@ -6,7 +6,7 @@ export type latterType = {
 
 export type wordType = {
     word: string,
-    wpm: number | null,
+    wpm: number,
     isCorrect: boolean | null,
     latters: latterType[]
 }

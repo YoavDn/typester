@@ -15,9 +15,8 @@ export const useTestStore = defineStore({
         isActive: false,
         AFKtimeout: null as null | ReturnType<typeof setTimeout>,
         testTimeInterval: null as null | ReturnType<typeof setInterval>,
-        wordTimeInterval: null as null | ReturnType<typeof setInterval>,
         isNewTest: false,
-        currWordTime: 0
+
     }),
     getters: {
         getTest: ({ test }) => test,
@@ -41,10 +40,13 @@ export const useTestStore = defineStore({
             this.test.time = 0
             this.isNewTest = false
             this.handleTime(false)
+            //@ts-ignore 
+            this.$router.push('/')
         },
 
         reloadTest() {
             this.test!.time = 0
+
             this.handleTime(false)
             this.test = testService.retest(this.test)
         },
@@ -64,26 +66,15 @@ export const useTestStore = defineStore({
             }
         },
 
-        hendleWordTime(start: boolean) {
-            if (start) {
-                this.currWordTime = 0
-                this.wordTimeInterval = setInterval(() => this.currWordTime += 0.100, 100)
-            } else {
-                clearInterval(this.wordTimeInterval!)
-                this.wordTimeInterval = null
-            }
-        },
 
-        calcWpmTime() {
-            const { currWord } = this.test
-            this.test.txt[currWord.idx - 1].wpm = testUtils.calcWordWpm(this.currWordTime)
-        },
+
 
         finishTest() {
             console.log('finished Test !!');
-            if (!this.test) return
+
             this.test.realAcc = Math.round(100 - (this.test.typoCount * 100) / this.test.sumType)
             this.test.acc = Math.round(100 - (testService.countTypos(this.test) * 100) / this.test.sumType)
+            this.test.wpm = testUtils.calcdWpm(this.test)
             //  @ts-ignore
             this.$router.push('/testResult')
         },
@@ -96,14 +87,6 @@ export const useTestStore = defineStore({
             const activeLatter = this.test.txt[currWord.idx].latters[currLatter.idx]
             if (!this.isActive) this.handleTime(true)
 
-
-            if (currLatter.idx === 0 && activeLatter.isCorrect === null && currWord.idx > 0) {
-                this.hendleWordTime(false)
-                console.log('word');
-                this.calcWpmTime()
-            }
-
-            if (currLatter.idx === 0) this.hendleWordTime(true)
 
             //whether to check on finish
             if (testOptionsStore.getTestMode === 'words') {

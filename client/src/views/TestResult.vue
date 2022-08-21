@@ -22,8 +22,7 @@ const test = computed(() => testStore.getTest)
 const router = useRouter()
 
 function setNewTest() {
-    testStore.setNewTest()
-    router.push('/')
+    testStore.newTest()
 }
 
 function reapetTest() {

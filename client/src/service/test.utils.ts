@@ -1,8 +1,10 @@
 import type { testLevelType, testModeType, testType } from "@/types";
+import { testService } from "./test.service";
 
 export const testUtils = {
     checkTestEnd,
-    calcWordWpm
+    calcdWpm,
+
 }
 
 export function checkTestEnd(test: testType, latterEnd: boolean, level: testLevelType) {
@@ -13,8 +15,19 @@ export function checkTestEnd(test: testType, latterEnd: boolean, level: testLeve
     return true
 }
 
-export function calcWordWpm(time: number): number {
-    console.log(time);
-    return time
+
+
+export function calcdWpm(test: testType): number {
+    const allTypos = test.txt.reduce((sum, word) => {
+        for (let i = 0; i < word.latters.length; i++) {
+            if (word.latters[i].isCorrect === false) sum++
+        }
+        return sum
+    }, 0)
+
+    const grossWpm = (test.sumType / 5) / (test.time / 60)
+    const netWpm = grossWpm - (allTypos / test.time / 60)
+    return Math.round(netWpm)
 }
+
 

@@ -13,6 +13,7 @@ function generateNewTest(lang = 'english') {
         return {
             word,
             isCorrect: null,
+            wpm: 0,
             latters: word.split('').map(latter => {
                 return {
                     latter: latter,
@@ -39,7 +40,6 @@ function generateNewTest(lang = 'english') {
 
 
 export function retest(test: testType): testType {
-    if (!test) return null
     const cleanTest: testType = { ...test }
 
     cleanTest.currLatter = { idx: 0, str: cleanTest.txt[0].latters[0].latter }
@@ -60,7 +60,7 @@ function _resetWordsObj(txt: wordType[]) {
     return txt.map(word => {
         return {
             word: word.word,
-            wpm: null,
+            wpm: 0,
             isCorrect: null,
             latters: word.word.split('').map(latter => {
                 return {

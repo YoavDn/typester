@@ -9,7 +9,7 @@ const props = defineProps<{ test?: testType }>()
         <article class="wpm-box stat-box">
             <div>
                 <p>Wpm</p>
-                <h2>39</h2>
+                <h2>{{ props.test ? props.test.wpm : "--" }}</h2>
             </div>
             <h3>Speed</h3>
         </article>

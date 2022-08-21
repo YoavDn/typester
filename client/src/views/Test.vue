@@ -1,7 +1,7 @@
     
 <script setup lang='ts'>
 
-import { ref, onMounted, computed, watchEffect, watch } from 'vue';
+import { ref, onMounted, computed, watchEffect, watch, onUnmounted } from 'vue';
 import { useTestStore } from '@/stores/test';
 import { useCaretStore } from '@/stores/caret';
 
@@ -34,27 +34,39 @@ const wordsToRender = computed(() => {
         testRef.value?.txt
 })
 
+ElMainContainer.value?.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+})
+
+onUnmounted(() => {
+    finishWatch()
+    newTestWatch()
+    scrollWatch()
+    wordsStyleWatch()
+
+})
 
 onMounted(() => {
     initTest()
 })
 
-watchEffect(() => {
+const finishWatch = watchEffect(() => {
     if (testMode.value === 'time' && testRef.value!.time - testLevel.value === 0) testStore.finishTest()
 })
 
-watchEffect(() => {
+const newTestWatch = watchEffect(() => {
     if (isReloadTest.value === true) {
         testStore.newTest()
         if (ElWords.value.length > 1) initTest()
     }
 })
 
-watchEffect(() => {
+const scrollWatch = watchEffect(() => {
     if (caretPos.value) scrollIntoMiddleLine()
 })
 
-watchEffect(() => {
+const wordsStyleWatch = watchEffect(() => {
     if (!testRef.value || ElWords.value.length < 1) return
     const { currWord } = testRef.value
     const activeWord = ElWords.value[currWord.idx - 1]
