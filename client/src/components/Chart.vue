@@ -29,6 +29,7 @@ export default defineComponent({
                     enabled: false,
                 },
                 stroke: {
+                    width: 1.5,
                     curve: 'smooth'
                 },
                 xaxis: {
@@ -50,8 +51,9 @@ export default defineComponent({
                         shadeIntensity: 0.65
                     }
                 },
+
                 title: {
-                    text: 'inter',
+                    text: 'Word Per Minute',
                     align: 'left',
                     margin: 10,
                     offsetX: 0,
@@ -59,9 +61,9 @@ export default defineComponent({
                     floating: false,
                     style: {
                         fontSize: '14px',
-                        fontWeight: 'bold',
+                        fontWeight: 'thin',
                         fontFamily: undefined,
-                        color: 'white'
+                        color: 'gray'
                     },
                 },
                 chart: {
