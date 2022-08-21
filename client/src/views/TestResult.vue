@@ -18,7 +18,8 @@ window.scrollTo({
 })
 
 const testStore = useTestStore()
-const test = computed(() => testStore.getTest)
+// const test = computed(() => testStore.getTest)
+const test = JSON.parse(localStorage.getItem('test') as string)
 const router = useRouter()
 
 function setNewTest() {

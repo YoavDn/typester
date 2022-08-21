@@ -8,7 +8,8 @@ export const testService = {
     retest,
     countAllTypos,
     calcWordWpm,
-    calcTestWpm
+    calcTestWpm,
+    saveTestToLocalStorage
 }
 
 function generateNewTest(lang = 'english') {
@@ -38,8 +39,8 @@ function generateNewTest(lang = 'english') {
         realAcc: 0,
         wpm: 0,
         txt: wordsMap
-
     }
+
     return test
 }
 
@@ -79,7 +80,9 @@ function _resetWordsObj(txt: wordType[]) {
     })
 }
 
-
+function saveTestToLocalStorage(test: testType): void {
+    window.localStorage.setItem('test', JSON.stringify(test))
+}
 
 export function calcTestWpm(test: testType): number {
     const sumWpm = test.txt.map(({ wpm }) => wpm).slice(0, test.currWord.idx).reduce((sum, num) => sum += num, 0)

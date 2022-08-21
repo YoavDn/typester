@@ -71,6 +71,7 @@ export const useTestStore = defineStore({
 
         finishTest() {
             console.log('finished Test !!');
+            testService.saveTestToLocalStorage(this.test)
             this.handleTime(false)
             this.test.txt = testService.calcWordWpm(this.test)
 

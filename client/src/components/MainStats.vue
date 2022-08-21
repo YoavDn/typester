@@ -15,7 +15,7 @@ const props = defineProps<{ test?: testType }>()
         </article>
         <div class="stats-middle">
             <h2>Time:</h2>
-            <h3 class="time-stat">{{ props.test ? props.test?.time + "s" : '--' }}</h3>
+            <h3 class="time-stat">{{ props.test ? Math.round(props.test?.time) + "s" : '--' }}</h3>
             <h2>Words:</h2>
             <h3 class="words-stat">{{ props.test ? props.test?.currWord.idx + 1 : '--' }}</h3>
         </div>

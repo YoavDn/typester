@@ -11,10 +11,9 @@ export default defineComponent({
         apexcharts: VueApexCharts
     },
 
-    setup() {
-
-        const testStore = useTestStore()
-        const wordsWpm = computed(() => testStore.getTest.txt.map(({ wpm }) => wpm).slice(0, testStore.getTest.currWord.idx))
+    props: ['test'],
+    setup(props) {
+        const wordsWpm = computed(() => props.test.txt.map(({ wpm }) => wpm).slice(0, props.test.currWord.idx))
 
         const series = ref([{
             name: 'word',

@@ -152,7 +152,7 @@ const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
 
 const timeLeft = computed(() => {
     if (!testRef.value) return
-    return testLevel.value - testRef.value.time
+    return testLevel.value - Math.round(testRef.value.time)
 })
 const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + testLevel.value)
 
