@@ -28,7 +28,7 @@ function setNewTest() {
 
 function reapetTest() {
     testStore.reloadTest()
-    router.push('/')
+    router.push('/test')
 }
 
 </script>

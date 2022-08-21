@@ -71,13 +71,13 @@ export const useTestStore = defineStore({
 
         finishTest() {
             console.log('finished Test !!');
-            testService.saveTestToLocalStorage(this.test)
             this.handleTime(false)
             this.test.txt = testService.calcWordWpm(this.test)
 
             this.test.realAcc = Math.round(100 - (this.test.typoCount * 100) / this.test.sumType)
             this.test.acc = Math.round(100 - (testService.countAllTypos(this.test) * 100) / this.test.sumType)
             this.test.wpm = testService.calcTestWpm(this.test)
+            testService.saveTestToLocalStorage(this.test)
             //  @ts-ignore
             this.$router.push('/testResult')
         },
