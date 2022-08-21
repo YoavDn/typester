@@ -1,11 +1,14 @@
 import type { testType, wordType } from '@/types'
 import { commonEnWords } from '../wordsData/commonWords'
+import { testUtils } from './test.utils'
 
 
 export const testService = {
     generateNewTest,
     retest,
-    countTypos
+    countAllTypos,
+    calcWordWpm,
+    calcTestWpm
 }
 
 function generateNewTest(lang = 'english') {
@@ -73,11 +76,30 @@ function _resetWordsObj(txt: wordType[]) {
 }
 
 
-function countTypos(test: testType): number {
-    return test!.txt.reduce((sum, word) => {
+
+export function calcTestWpm(test: testType): number {
+    const allTypos = test.txt.reduce((sum, word) => {
         for (let i = 0; i < word.latters.length; i++) {
             if (word.latters[i].isCorrect === false) sum++
         }
         return sum
     }, 0)
+
+    return testUtils.calcWpm(allTypos, test.sumType, test.time)
 }
+
+function calcWordWpm(test: testType) {
+    return test.txt.map((word, idx) => {
+        if (idx === 0) {
+            return
+        }
+    })
+}
+
+function countAllTypos(test: testType): number {
+    return test!.txt.reduce((sum, word) => {
+        sum += testUtils.countTypos(word)
+        return sum
+    }, 0)
+}
+
