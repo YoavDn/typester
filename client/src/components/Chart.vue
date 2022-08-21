@@ -11,32 +11,90 @@ export default defineComponent({
     data() {
         return {
             series: [{
-                name: 'series1',
-                data: [31, 40, 28, 51, 42, 109, 100]
-            }, {
-                name: 'series2',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
+                name: 'word',
+                data: [31, 33, 35, 30, 50, 35, 40, 41, 32, 33, 32, 32, 22, 40, 43, 33]
+            },],
             chartOptions: {
                 chart: {
                     height: 350,
                     type: 'area'
                 },
                 dataLabels: {
-                    enabled: false
+                    enabled: false,
                 },
                 stroke: {
                     curve: 'smooth'
                 },
                 xaxis: {
-                    type: 'datetime',
-                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                    type: 'numeric'
+
                 },
+
                 tooltip: {
-                    x: {
-                        format: 'dd/MM/yy HH:mm'
+                    enabled: true,
+                },
+                toolbar: {
+                    show: false,
+                },
+                theme: {
+                    monochrome: {
+                        enabled: true,
+                        color: '#255aee',
+                        shadeTo: 'light',
+                        shadeIntensity: 0.65
+                    }
+                },
+                title: {
+                    text: 'inter',
+                    align: 'left',
+                    margin: 10,
+                    offsetX: 0,
+                    offsetY: 0,
+                    floating: false,
+                    style: {
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        fontFamily: undefined,
+                        color: 'white'
                     },
                 },
+                chart: {
+                    toolbar: {
+                        show: false,
+                    },
+                },
+
+                grid: {
+                    show: true,
+                    borderColor: '#888888',
+                    strokeDashArray: 0,
+                    position: 'back',
+                    xaxis: {
+                        lines: {
+                            show: false
+                        }
+                    },
+                    yaxis: {
+                        lines: {
+                            show: true
+                        }
+                    },
+                    row: {
+                        colors: undefined,
+                        opacity: 0.5
+                    },
+                    column: {
+                        colors: "#888888",
+                        opacity: 0.5
+                    },
+                    padding: {
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0
+                    },
+                }
+
             },
         }
     },

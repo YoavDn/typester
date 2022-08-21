@@ -51,8 +51,7 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
-    if (caretPos.value)
-        scrollIntoMiddleLine()
+    if (caretPos.value) scrollIntoMiddleLine()
 })
 
 watchEffect(() => {

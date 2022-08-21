@@ -6,6 +6,7 @@ export type latterType = {
 
 export type wordType = {
     word: string,
+    wpm: number | null,
     isCorrect: boolean | null,
     latters: latterType[]
 }
@@ -24,7 +25,7 @@ export type testType = {
     currWord: IcurrWordOrLetter,
     currLatter: IcurrWordOrLetter,
     txt: wordType[]
-} | null
+}
 
 
 export type caretPosType = {

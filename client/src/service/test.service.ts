@@ -60,6 +60,7 @@ function _resetWordsObj(txt: wordType[]) {
     return txt.map(word => {
         return {
             word: word.word,
+            wpm: null,
             isCorrect: null,
             latters: word.word.split('').map(latter => {
                 return {

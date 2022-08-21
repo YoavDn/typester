@@ -4,7 +4,7 @@ import type { testType } from "@/types";
 import { testService } from "@/service/test.service";
 import { useCaretStore } from "./caret";
 import { useTestOptionsStore } from "./testOptions";
-import { checkTestEnd } from '@/service/test.utils'
+import { testUtils } from '@/service/test.utils'
 
 
 
@@ -14,8 +14,10 @@ export const useTestStore = defineStore({
         test: testService.generateNewTest() as testType,
         isActive: false,
         AFKtimeout: null as null | ReturnType<typeof setTimeout>,
-        timeInterval: null as null | ReturnType<typeof setInterval>,
+        testTimeInterval: null as null | ReturnType<typeof setInterval>,
+        wordTimeInterval: null as null | ReturnType<typeof setInterval>,
         isNewTest: false,
+        currWordTime: 0
     }),
     getters: {
         getTest: ({ test }) => test,
@@ -42,7 +44,6 @@ export const useTestStore = defineStore({
         },
 
         reloadTest() {
-            if (!this.test) return
             this.test!.time = 0
             this.handleTime(false)
             this.test = testService.retest(this.test)
@@ -54,14 +55,28 @@ export const useTestStore = defineStore({
         },
 
         handleTime(start: boolean) {
-
             if (start) {
                 this.isActive = true
-                this.timeInterval = setInterval(() => this.test!.time++, 1000)
+                this.testTimeInterval = setInterval(() => this.test!.time++, 1000)
             } else {
-                clearInterval(this.timeInterval!)
-                this.timeInterval = null
+                clearInterval(this.testTimeInterval!)
+                this.testTimeInterval = null
             }
+        },
+
+        hendleWordTime(start: boolean) {
+            if (start) {
+                this.currWordTime = 0
+                this.wordTimeInterval = setInterval(() => this.currWordTime += 0.100, 100)
+            } else {
+                clearInterval(this.wordTimeInterval!)
+                this.wordTimeInterval = null
+            }
+        },
+
+        calcWpmTime() {
+            const { currWord } = this.test
+            this.test.txt[currWord.idx - 1].wpm = testUtils.calcWordWpm(this.currWordTime)
         },
 
         finishTest() {
@@ -78,11 +93,21 @@ export const useTestStore = defineStore({
             const testOptionsStore = useTestOptionsStore()
             const caretStore = useCaretStore()
             const { currLatter, currWord } = this.test
-
+            const activeLatter = this.test.txt[currWord.idx].latters[currLatter.idx]
             if (!this.isActive) this.handleTime(true)
 
+
+            if (currLatter.idx === 0 && activeLatter.isCorrect === null && currWord.idx > 0) {
+                this.hendleWordTime(false)
+                console.log('word');
+                this.calcWpmTime()
+            }
+
+            if (currLatter.idx === 0) this.hendleWordTime(true)
+
+            //whether to check on finish
             if (testOptionsStore.getTestMode === 'words') {
-                const isTestEnd = checkTestEnd(this.test, caretStore.getIslatterEnd, testOptionsStore.getTestLevel)
+                const isTestEnd = testUtils.checkTestEnd(this.test, caretStore.getIslatterEnd, testOptionsStore.getTestLevel)
                 //when finish test
                 if (isTestEnd) {
                     this.handleTime(false)
@@ -109,7 +134,6 @@ export const useTestStore = defineStore({
         },
 
         finishWord() {
-            if (this.test === null) return
             const { currWord } = this.test
 
             //chacking if the word is correct
@@ -121,7 +145,6 @@ export const useTestStore = defineStore({
         },
 
         setNextWord(correct: boolean) {
-            if (this.test === null) return
             this.finishWord()
 
             const { currLatter, currWord } = this.test
@@ -135,7 +158,6 @@ export const useTestStore = defineStore({
         },
 
         setPrevWord() {
-            if (this.test === null) return
             const { currLatter, currWord } = this.test
             const caretStore = useCaretStore()
             caretStore.setLatterEnd(true)
@@ -149,7 +171,7 @@ export const useTestStore = defineStore({
         },
 
         setLatterNewStatus(lStatus: boolean) {
-            if (this.test === null) return
+
             const { currLatter, currWord } = this.test
             const caretStore = useCaretStore()
 
@@ -174,15 +196,11 @@ export const useTestStore = defineStore({
                     break
                 case "Escape":
                     this.setAFK()
-                    break
-                case "Tab":
-                    this.setAFK()
             }
         },
 
         hendleBackspace() {
             console.log('backspace');
-            if (this.test === null) return
             const { currWord, currLatter } = this.test
             const caretStore = useCaretStore()
 
