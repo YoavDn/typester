@@ -11,7 +11,9 @@
     font-family: 'roboto mono light';
 }
 
-
+.hidden {
+    display: none !important;
+}
 
 .overlay {
     position: absolute;

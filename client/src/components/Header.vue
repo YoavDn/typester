@@ -10,9 +10,11 @@ import type { optionsType, testLevelType } from '@/types'
 
 
 import { useTestOptionsStore } from '@/stores/testOptions'
+import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 
 const testOptionsStore = useTestOptionsStore()
+const route = useRoute()
 const testMode = computed(() => testOptionsStore.getTestMode)
 const testLevel = computed(() => testOptionsStore.getTestLevel)
 
@@ -24,10 +26,17 @@ function hendleChangeOption(newOption: optionsType) {
     }
 }
 
+console.log(route.name);
+
+const isOnHomeRoute = computed(() => {
+    return { hidden: route.name === 'Home' }
+})
+
+
 </script>
     
 <template>
-    <header class="app-header">
+    <header :class="isOnHomeRoute" class="app-header">
         <div class="header-contianer flex">
             <nav class="logo-and-nav flex">
                 <AppLogo class="logo" />
@@ -58,9 +67,12 @@ function hendleChangeOption(newOption: optionsType) {
 
 
 
-<style lang="scss" scoped>
+<style lang="scss" >
 @import '@/assets/style/main.scss';
 
+.hidden {
+    display: none;
+}
 
 .active-option {
     color: $main-theme;

@@ -41,7 +41,7 @@ export const useTestStore = defineStore({
             this.isNewTest = false
             this.handleTime(false)
             //@ts-ignore 
-            this.$router.push('/')
+            this.$router.push('/test')
         },
 
         reloadTest() {

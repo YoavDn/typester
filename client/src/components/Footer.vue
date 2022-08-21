@@ -2,14 +2,18 @@
 <script setup lang='ts'>
 
 import ColorTheme from '@/assets/imgs/colorTheme.svg'
-
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+const route = useRoute()
+const isOnHomeRoute = computed(() => {
+    return { hidden: route.name === 'Home' }
+})
 </script>
     
 
-
 <template>
 
-    <section class="botton">
+    <section class="botton" :class="isOnHomeRoute">
         <div class="set-goal">
             <h2>here you will set the goal</h2>
         </div>

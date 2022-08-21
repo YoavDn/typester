@@ -29,6 +29,10 @@ h5 p {
     font-size: 1.6rem;
 }
 
+ul {
+    list-style: none;
+}
+
 #app {
     display: grid;
     grid-template-columns: auto minmax(0 1000px) auto;
