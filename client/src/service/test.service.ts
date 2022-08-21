@@ -17,6 +17,8 @@ function generateNewTest(lang = 'english') {
             word,
             isCorrect: null,
             wpm: 0,
+            typeCount: 0,
+            time: 0,
             latters: word.split('').map(latter => {
                 return {
                     latter: latter,
@@ -63,7 +65,9 @@ function _resetWordsObj(txt: wordType[]) {
     return txt.map(word => {
         return {
             word: word.word,
+            typeCount: 0,
             wpm: 0,
+            time: 0,
             isCorrect: null,
             latters: word.word.split('').map(latter => {
                 return {
@@ -78,22 +82,25 @@ function _resetWordsObj(txt: wordType[]) {
 
 
 export function calcTestWpm(test: testType): number {
-    const allTypos = test.txt.reduce((sum, word) => {
-        for (let i = 0; i < word.latters.length; i++) {
-            if (word.latters[i].isCorrect === false) sum++
-        }
-        return sum
-    }, 0)
+    const sumWpm = test.txt.map(({ wpm }) => wpm).slice(0, test.currWord.idx).reduce((sum, num) => sum += num, 0)
 
-    return testUtils.calcWpm(allTypos, test.sumType, test.time)
+    return Math.round(sumWpm / test.currWord.idx)
 }
 
 function calcWordWpm(test: testType) {
-    return test.txt.map((word, idx) => {
-        if (idx === 0) {
-            return
+    const newWords = test.txt.map((word, idx) => {
+        let wordsTypos = 0
+
+        for (let i = 0; i < idx; i++) {
+            wordsTypos += testUtils.countTypos(test.txt[i])
         }
+        if (idx < test.currWord.idx) {
+            word.wpm = testUtils.calcWpm(wordsTypos, word.typeCount, word.time)
+        }
+        return word
     })
+
+    return newWords
 }
 
 function countAllTypos(test: testType): number {

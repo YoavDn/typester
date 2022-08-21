@@ -1,6 +1,9 @@
 <script lang='ts'>
 import VueApexCharts from 'vue3-apexcharts'
-import { defineComponent } from 'vue';
+import { defineComponent, reactive, ref, computed } from 'vue';
+import type { testType } from '@/types';
+import { useTestStore } from '@/stores/test';
+
 
 export default defineComponent({
     name: 'chart',
@@ -8,12 +11,16 @@ export default defineComponent({
         apexcharts: VueApexCharts
     },
 
-    data() {
-        return {
-            series: [{
-                name: 'word',
-                data: [31, 33, 35, 30, 50, 35, 40, 41, 32, 33, 32, 32, 22, 40, 43, 33]
-            },],
+    setup() {
+
+        const testStore = useTestStore()
+        const wordsWpm = computed(() => testStore.getTest.txt.map(({ wpm }) => wpm).slice(0, testStore.getTest.currWord.idx))
+
+        const series = ref([{
+            name: 'word',
+            data: wordsWpm
+        }])
+        const chartOptions = reactive({
             chartOptions: {
                 chart: {
                     height: 350,
@@ -96,6 +103,13 @@ export default defineComponent({
                 }
 
             },
+
+        })
+
+        return {
+            series,
+            chartOptions
+
         }
     },
 })
@@ -104,7 +118,7 @@ export default defineComponent({
 
 <template>
     <div>
-        <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
+        <apexchart type="area" height="350" :options="chartOptions.chartOptions" :series="series"></apexchart>
     </div>
 </template>
 

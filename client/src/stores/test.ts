@@ -59,7 +59,7 @@ export const useTestStore = defineStore({
         handleTime(start: boolean) {
             if (start) {
                 this.isActive = true
-                this.testTimeInterval = setInterval(() => this.test!.time++, 1000)
+                this.testTimeInterval = setInterval(() => this.test!.time += 0.250, 250)
             } else {
                 clearInterval(this.testTimeInterval!)
                 this.testTimeInterval = null
@@ -71,7 +71,8 @@ export const useTestStore = defineStore({
 
         finishTest() {
             console.log('finished Test !!');
-            testService.calcWordWpm(this.test)
+            this.handleTime(false)
+            this.test.txt = testService.calcWordWpm(this.test)
 
             this.test.realAcc = Math.round(100 - (this.test.typoCount * 100) / this.test.sumType)
             this.test.acc = Math.round(100 - (testService.countAllTypos(this.test) * 100) / this.test.sumType)
@@ -119,7 +120,8 @@ export const useTestStore = defineStore({
 
         finishWord() {
             const { currWord } = this.test
-            this.test.txt[currWord.idx].wpm = this.test.time
+            this.test.txt[currWord.idx].time = this.test.time
+            this.test.txt[currWord.idx].typeCount = this.test.sumType
             //chacking if the word is correct
             if (this.test.txt[currWord.idx].latters.every(l => l.isCorrect)) {
                 this.test.txt[currWord.idx].isCorrect = true
@@ -162,10 +164,9 @@ export const useTestStore = defineStore({
             this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = lStatus ? true : false
 
             if (currLatter.idx === currWord.str.length - 1) {
-                // this.finishWord(lStatus)
                 currLatter.str = 'space'
                 caretStore.setLatterEnd(true)
-                // this.setNextWord(lStatus)
+
             } else {
                 currLatter.idx++
                 currLatter.str = currWord.str[currLatter.idx]
