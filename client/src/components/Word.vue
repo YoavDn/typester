@@ -4,9 +4,6 @@
 import type { wordType } from '@/types';
 import Latter from './Latter.vue';
 defineProps<{ word: wordType }>()
-
-
-
 </script>
 
 

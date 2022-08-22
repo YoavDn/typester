@@ -43,7 +43,7 @@ ElMainContainer.value?.scrollTo({
 onUnmounted(() => {
     finishWatch()
     newTestWatch()
-    // scrollWatch()
+    scrollWatch()
     wordsStyleWatch()
 
 })
@@ -63,9 +63,9 @@ const newTestWatch = watchEffect(() => {
     }
 })
 
-// const scrollWatch = watchEffect(() => {
-//     if (caretPos.value) scrollIntoMiddleLine()
-// })
+const scrollWatch = watchEffect(() => {
+    if (caretPos.value) scrollIntoMiddleLine()
+})
 
 const wordsStyleWatch = watchEffect(() => {
     if (!testRef.value || ElWords.value.length < 1) return
@@ -125,6 +125,7 @@ function handleSpicialKeys(e: Event) {
 function updateCaret() {
     if (ElMainContainer !== null && testRef.value) {
         const { currWord, currLatter } = testRef.value
+
         const latterRef = ElWords.value[currWord.idx].children[currLatter.idx]
         caretStore.updatedCaretPos(latterRef as HTMLElement, ElWordsContainer.value as HTMLElement)
     }
@@ -134,19 +135,24 @@ function inputFocus() {
     ElGameInput.value?.focus()
 }
 
+function activateTest() {
+    testStore.activateTest()
+    inputFocus()
+}
 
-// function scrollIntoMiddleLine() {
-//     const caretPos = caretStore.getCaretPos
 
-//     if (testOptionsStore.getIsOnMinWords) return
-//     if (caretPos === null) return
+function scrollIntoMiddleLine() {
+    const caretPos = caretStore.getCaretPos
 
-//     const relativeTop = caretStore.$state.relativeTop
-//     ElWordsContainer.value?.scrollTo({
-//         top: relativeTop,
-//         behavior: 'smooth'
-//     })
-// }
+    if (testOptionsStore.getIsOnMinWords) return
+    if (caretPos === null) return
+
+    const relativeTop = caretStore.$state.relativeTop
+    ElMainContainer.value?.scrollTo({
+        top: caretPos.top,
+        behavior: 'smooth'
+    })
+}
 
 const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
     if (el === null) return
@@ -163,7 +169,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 </script>
 
 <template>
-    <section class="test-container">
+    <section class="test-container" @click="activateTest">
         <div v-if="!isActiveTest && testRef?.currWord.idx !== 0" class="overlay">
             <div class="text-modal">
                 <h2>Press any key to continue</h2>

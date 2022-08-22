@@ -16,6 +16,7 @@ export const useTestStore = defineStore({
         AFKtimeout: null as null | ReturnType<typeof setTimeout>,
         testTimeInterval: null as null | ReturnType<typeof setInterval>,
         isNewTest: false,
+        wordsToCut: 0
 
     }),
     getters: {
@@ -26,7 +27,11 @@ export const useTestStore = defineStore({
         getIsActiveTest: ({ isActive }) => isActive,
     },
 
+
     actions: {
+        cutWordsToRender() {
+            this.wordsToCut = this.test.currWord.idx
+        },
         loadTest() { this.test = testService.generateNewTest() },
         setNewTest() { this.isNewTest = true },
 
