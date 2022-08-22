@@ -147,7 +147,6 @@ function scrollIntoMiddleLine() {
     if (testOptionsStore.getIsOnMinWords) return
     if (caretPos === null) return
 
-    const relativeTop = caretStore.$state.relativeTop
     ElMainContainer.value?.scrollTo({
         top: caretPos.top,
         behavior: 'smooth'
