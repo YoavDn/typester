@@ -5,14 +5,15 @@ import { reactive } from 'vue'
 
 type htmlType = HTMLElement | null
 
-export function useLatterPos(latter: HTMLElement, mainContainer: htmlType): caretPosType | null {
+export async function useLatterPos(latter: HTMLElement, mainContainer: htmlType): Promise<caretPosType | null> {
     if (mainContainer === null) return null
     const latterPos = latter.getBoundingClientRect()
     const containerPos = mainContainer.getBoundingClientRect()
 
-
+    console.log(latter.offsetTop - Math.round(latter.clientHeight / 5));
     const relativePos: caretPosType = reactive({
-        top: latterPos.top - containerPos.top,
+        // top: latterPos.top - containerPos.top,
+        top: latter.offsetTop - Math.round(latter.clientHeight / 5),
         bottom: latterPos.bottom - containerPos.bottom,
         right: latterPos.right - containerPos.right,
         left: latterPos.left - containerPos.left,

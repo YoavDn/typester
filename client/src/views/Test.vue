@@ -14,6 +14,7 @@ const caretStore = useCaretStore()
 const testStore = useTestStore()
 const testOptionsStore = useTestOptionsStore()
 
+
 //getters
 const testRef = computed(() => testStore.getTest)
 const isActiveTest = computed(() => testStore.getIsActiveTest)
@@ -42,7 +43,7 @@ ElMainContainer.value?.scrollTo({
 onUnmounted(() => {
     finishWatch()
     newTestWatch()
-    scrollWatch()
+    // scrollWatch()
     wordsStyleWatch()
 
 })
@@ -62,9 +63,9 @@ const newTestWatch = watchEffect(() => {
     }
 })
 
-const scrollWatch = watchEffect(() => {
-    if (caretPos.value) scrollIntoMiddleLine()
-})
+// const scrollWatch = watchEffect(() => {
+//     if (caretPos.value) scrollIntoMiddleLine()
+// })
 
 const wordsStyleWatch = watchEffect(() => {
     if (!testRef.value || ElWords.value.length < 1) return
@@ -91,6 +92,7 @@ function initTest() {
 }
 
 function handleInput(e: Event) {
+
     if (ElGameInput === null || !testRef.value || ElWords.value.length < 1) return
     const key = (e.target as HTMLInputElement).value
 
@@ -107,14 +109,15 @@ function handleSpicialKeys(e: Event) {
     if (key === 'Enter' && !isActiveTest.value) {
         ElWords.value.forEach(wordEl => {
             wordEl.classList.remove('word-bad')
+            updateCaret()
         })
         testStore.reloadTest()
     } else if (key === 'Backspace' || key === 'Escape') {
         ElGameInput.value?.focus()
         testStore.hendleSpicialKeys(key)
+        updateCaret()
     }
     //update care
-    updateCaret()
 }
 
 
@@ -123,7 +126,7 @@ function updateCaret() {
     if (ElMainContainer !== null && testRef.value) {
         const { currWord, currLatter } = testRef.value
         const latterRef = ElWords.value[currWord.idx].children[currLatter.idx]
-        caretStore.updatedCaretPos(latterRef as HTMLElement, ElMainContainer.value as HTMLElement)
+        caretStore.updatedCaretPos(latterRef as HTMLElement, ElWordsContainer.value as HTMLElement)
     }
 }
 
@@ -132,18 +135,18 @@ function inputFocus() {
 }
 
 
-function scrollIntoMiddleLine() {
-    const caretPos = caretStore.getCaretPos
+// function scrollIntoMiddleLine() {
+//     const caretPos = caretStore.getCaretPos
 
-    if (testOptionsStore.getIsOnMinWords) return
-    if (caretPos === null) return
+//     if (testOptionsStore.getIsOnMinWords) return
+//     if (caretPos === null) return
 
-    const relativeTop = caretStore.$state.relativeTop
-    ElMainContainer.value?.scrollTo({
-        top: relativeTop,
-        behavior: 'smooth'
-    })
-}
+//     const relativeTop = caretStore.$state.relativeTop
+//     ElWordsContainer.value?.scrollTo({
+//         top: relativeTop,
+//         behavior: 'smooth'
+//     })
+// }
 
 const updateWordsRefs = ((el: HTMLElement | null, idx: number) => {
     if (el === null) return

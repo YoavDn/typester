@@ -24,20 +24,20 @@ export const useCaretStore = defineStore({
     actions: {
 
 
-        updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
-            if (useLatterPos(htmlChild, htmlChild) === null) return
+        async updatedCaretPos(htmlChild: HTMLElement, htmlParant: HTMLElement) {
             const testOptionsStore = useTestOptionsStore()
             if (this.caretPos === null) {
-                this.caretPos = useLatterPos(htmlChild, htmlParant) as caretPosType
+                this.caretPos = await useLatterPos(htmlChild, htmlParant) as caretPosType
                 return
             }
 
-            const { top, left, leftEnd, bottom } = useLatterPos(htmlChild, htmlParant) as caretPosType
+            const { top, left, leftEnd, bottom } = await useLatterPos(htmlChild, htmlParant) as caretPosType
             if (top === this.caretPos.top) {
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
             } else {
-                this.caretPos.top = testOptionsStore.getIsOnMinWords ? top : top + this.relativeTop
+                // this.caretPos.top = testOptionsStore.getIsOnMinWords ? top : top + this.relativeTop
+                this.caretPos.top = top
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
                 this.caretPos.bottom = bottom

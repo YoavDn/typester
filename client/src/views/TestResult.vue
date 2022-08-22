@@ -7,7 +7,6 @@ import ReplaySvg from '@/assets/imgs/replay.svg'
 
 import { useTestStore } from '@/stores/test';
 import { useRouter } from 'vue-router';
-
 import { computed, onMounted, ref } from 'vue';
 
 const testResRef = ref<HTMLElement | null>(null)
