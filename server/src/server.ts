@@ -10,5 +10,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(config.server.port, () => {
-    console.log('app listening on port' + config.server.port);
+    console.log('app listening on port' + config.server.port, 'end the secret is' + config.secret.secret);
 })
