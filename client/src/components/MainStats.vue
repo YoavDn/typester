@@ -64,7 +64,7 @@ const props = defineProps<{ test?: testType }>()
     max-width: 500px;
     min-height: 400px;
     width: 100%;
-    font-family: 'inter', sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: auto;
     gap: 1rem;
     justify-content: space-between;

@@ -1,7 +1,13 @@
 <script setup lang='ts'>
+import GoogleSvg from '@/assets/imgs/google.svg'
+import EmailSvg from '@/assets/imgs/email.svg'
+import { ref } from 'vue'
 import { useUserStore } from '@/stores/user';
 const userStore = useUserStore()
 const loggedInuser = userStore.getLoggedInUser
+
+const isWithEmail = ref<boolean>(false)
+
 </script>
 
 
@@ -9,7 +15,18 @@ const loggedInuser = userStore.getLoggedInUser
     <section v-if="loggedInuser" class="user-page"></section>
     <section v-else class="login-signup-page">
         <h2 class="login-title">Log in to Typester</h2>
-        <form class="login-form">
+        <div class="login-with-options flex-column">
+            <div class="login-option google flex">
+                <GoogleSvg />
+                <h2>continue with google</h2>
+            </div>
+            <div class="login-option email flex">
+                <EmailSvg />
+                <h2>continue with Email</h2>
+            </div>
+
+        </div>
+        <form v-if="isWithEmail" class="login-form">
             <input name="email" type="text" placeholder="Email Adress">
             <input name="password" type="password" placeholder="Password">
             <button class="login-btn">Login</button>
@@ -26,11 +43,52 @@ const loggedInuser = userStore.getLoggedInUser
     height: 300px;
 
     .login-title {
-        font-size: 3.5rem;
+        font-size: 2.8rem;
         font-weight: 700;
         color: $text;
         text-align: center;
-        margin-bottom: 1rem;
+        margin-bottom: 3.4rem;
+    }
+
+    .login-with-options {
+        width: 350px;
+
+
+        .login-option {
+            cursor: pointer;
+            margin: 1rem;
+            padding: 1rem;
+            justify-content: center;
+            align-items: center;
+            border-radius: .6rem;
+            line-height: 25px;
+            gap: 10px;
+            transition: all .2s;
+
+            h2 {
+                font-size: 17px;
+                line-height: 24px;
+                font-weight: 400;
+
+            }
+
+            &.google {
+                background-color: $text;
+
+                &:hover {
+                    background-color: darken($text, 8%);
+                }
+            }
+
+            &.email {
+                color: $text;
+                background-color: $main-theme;
+
+                &:hover {
+                    background-color: lighten($main-theme, 8%);
+                }
+            }
+        }
     }
 
 

@@ -36,7 +36,7 @@
         margin: auto;
 
         ul {
-            font-family: 'inter', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .home-title {

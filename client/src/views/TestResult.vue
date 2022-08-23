@@ -67,7 +67,7 @@ function reapetTest() {
 .more-details-link {
     margin-top: 1rem;
     margin-bottom: 4rem;
-    font-family: "inter", sans-serif;
+    font-family: "Inter", sans-serif;
     color: $text-dull;
     text-align: center;
     font-size: 1.3rem;
