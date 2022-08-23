@@ -4,9 +4,40 @@
 // $text-dull: rgba(#EBEBEB, 0.6);
 // $text-typo: #ef233c
 
-$background: black;
-$main-theme: #6e45e2;
-$sub-theme: #88d3ce;
-$text: #EBEBEB;
-$text-dull: #888888;
-$text-typo: #ef233c
+:root {
+    --txt: white;
+    --txt-light: black;
+    --background: black;
+    --main-theme: #6e45e2;
+    --theme2: #88d3ce;
+    --text-soft: #888888;
+    --text-red: #ef233c;
+    --background-light: white;
+    --main-theme-light: #6e45e2;
+    --trans-theme: #6f45e26a;
+}
+
+// $background: black;
+// $main-theme: #6e45e2;
+// $sub-theme: #88d3ce;
+// $text: #EBEBEB;
+// $text-dull: #888888;
+// $text-typo: #ef233c;
+
+.dark {
+    --bg: var(--background);
+    --theme: var(--main-theme);
+    --sub-theme: var(--theme2);
+    --text: var(--txt);
+    --text-dull: var(--text-soft);
+    --text-typo: var(--text-red)
+}
+
+.light {
+    --bg: var(--background-light);
+    --theme: var(--main-theme);
+    --sub-theme: var(--theme2);
+    --text-dull: var(--text-soft);
+    --text: var(--txt-light);
+    --text-typo: var(--text-red);
+}

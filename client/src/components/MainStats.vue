@@ -43,7 +43,7 @@ const props = defineProps<{ test?: testType }>()
 
     p {
         font-size: 1.3rem;
-        color: $text-dull;
+        color: var(--text-dull);
         align-self: flex-start;
     }
 
@@ -61,6 +61,7 @@ const props = defineProps<{ test?: testType }>()
 }
 
 .main-stats {
+    z-index: 2;
     max-width: 500px;
     min-height: 400px;
     width: 100%;

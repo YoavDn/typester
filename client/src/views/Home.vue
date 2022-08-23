@@ -32,6 +32,7 @@
     // background-color: red;
 
     .main-text {
+        z-index: 1;
 
         margin: auto;
 
@@ -44,7 +45,7 @@
             font-size: 8rem;
             line-height: 11rem;
             font-weight: 900;
-            color: $text;
+            color: var(--text);
         }
     }
 }

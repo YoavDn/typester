@@ -23,15 +23,15 @@ const latterColor = computed(() => (
 
 
     &.notTyped {
-        color: $text-dull;
+        color: var(--text-dull);
     }
 
     &.typo {
-        color: $text-typo;
+        color: var(--text-typo);
     }
 
     &.correct {
-        color: $text
+        color: var(--text)
     }
 }
 </style>

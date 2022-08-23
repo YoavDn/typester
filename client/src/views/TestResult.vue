@@ -65,16 +65,17 @@ function reapetTest() {
 @import '@/assets/style/main.scss';
 
 .more-details-link {
+    z-index: 2;
     margin-top: 1rem;
     margin-bottom: 4rem;
     font-family: "Inter", sans-serif;
-    color: $text-dull;
+    color: var(--text-dull);
     text-align: center;
     font-size: 1.3rem;
     text-decoration: none;
 
     &:hover {
-        color: $text;
+        color: var(--text);
         text-decoration: underline;
     }
 }
@@ -87,13 +88,14 @@ function reapetTest() {
 .test-result {
     opacity: 1;
     position: relative;
-    color: $text;
+    color: var(--text);
     display: flex;
     flex-direction: column;
     transition: all 3s;
 }
 
 .btns-bar {
+    z-index: 2;
     justify-content: center;
     margin-bottom: 2rem;
 
@@ -113,34 +115,39 @@ function reapetTest() {
     }
 
     .btn-svg {
-        fill: white;
+        fill: var(--text);
         width: 16px;
         margin-right: 10px;
     }
 
     .btn-next {
-        background-color: white;
+        background-color: var(--text);
+        color: var(--bg);
+
+        .btn-svg-next {
+            fill: var(--bg);
+        }
 
         &:hover {
-            color: $text;
+            color: var(--text);
             background-color: transparent;
-            outline: 1px solid $text ;
+            outline: 1px solid var(--text);
 
             .btn-svg-next {
-                fill: $text
+                fill: var(--text);
             }
         }
     }
 }
 
 .btn-replay {
-    color: white;
+    color: var(--text);
 
     &:hover {
-        color: $text-dull;
+        color: var(--text-dull);
 
         .btn-svg {
-            fill: $text-dull
+            fill: var(--text-dull);
         }
     }
 }

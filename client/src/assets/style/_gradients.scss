@@ -6,19 +6,19 @@
     height: 100%;
     filter: blur(100px);
     overflow: hidden;
-    z-index: -1;
+    // z-index: ;
 
     .gradient1 {
         position: absolute;
         width: 500px;
         height: 200px;
-        z-index: -2;
+        z-index: -1;
         left: 10%;
         top: 10%;
         animation: grainet-anim cubic-bezier(.1, 0, .9, 1) alternate infinite 14s;
 
         border-radius: 100%;
-        background-color: rgba($main-theme , 1);
+        background: var(--theme);
     }
 
     .gradient2 {
@@ -31,7 +31,7 @@
         left: 60%;
         top: 30%;
         border-radius: 100%;
-        background-color: rgba($sub-theme , 1);
+        background-color: var(--sub-theme);
     }
 
     .gradient3 {

@@ -15,7 +15,7 @@ html {
 body {
     height: 100vh;
     width: 100%;
-    background-color: $background;
+
     overflow-x: hidden;
     min-height: 100vh;
     transition: transform .025 ease 0s;
@@ -35,6 +35,7 @@ ul {
 }
 
 #app {
+    background-color: var(--bg);
     display: grid;
     grid-template-columns: auto minmax(0 1000px) auto;
     justify-items: center;
@@ -58,20 +59,20 @@ ul {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: $text-dull;
+    background: var(--text-dull);
     transition: 0.125s;
     border-radius: 2px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: $text-dull;
+    background: var(--text-dull);
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background: $text-dull;
+    background: var(--text-dull);
 }
 
 ::-webkit-scrollbar-corner {
-    background: $text-dull;
+    background: var(--text-dull);
 }

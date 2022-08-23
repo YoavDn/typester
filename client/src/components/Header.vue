@@ -81,7 +81,7 @@ const isOnHomeRoute = computed(() => {
 }
 
 .active-option {
-    color: $main-theme;
+    color: var(--theme);
 }
 
 .app-header {
@@ -102,13 +102,14 @@ const isOnHomeRoute = computed(() => {
 
 
             .logo {
+                color: var(--text);
                 margin-inline-end: 2em;
-
+                fill: var(--text);
             }
 
             .nav-svg {
                 cursor: pointer;
-                fill: $text-dull;
+                fill: var(--text-dull);
                 height: 20px;
                 width: 20px;
                 margin: 16px;
@@ -121,14 +122,14 @@ const isOnHomeRoute = computed(() => {
                 }
 
                 &:hover {
-                    fill: $text;
+                    fill: var(--text);
                 }
             }
         }
 
         .test-options {
             cursor: pointer;
-            color: $text-dull;
+            color: var(--text-dull);
             flex-direction: column;
 
             h2 {
@@ -142,7 +143,7 @@ const isOnHomeRoute = computed(() => {
                 }
 
                 h2:not(.active-option):hover {
-                    color: $text
+                    color: var(--text)
                 }
             }
         }

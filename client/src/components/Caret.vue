@@ -37,7 +37,7 @@ const caretDisplay = computed(() => ({ 'caret-key-frame': !testStore.isActive })
     // top: 10px;
     // transform: translateY(-10%);
     height: 4rem;
-    background-color: $main-theme;
+    background-color: var(--theme);
     z-index: 299;
     transform-origin: top left;
     transition: all .20s ease 0s;

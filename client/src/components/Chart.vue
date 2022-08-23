@@ -37,7 +37,7 @@ export default defineComponent({
                     title: {
                         text: 'words',
                         style: {
-                            color: 'gray',
+                            color: 'black',
                             fontSize: '16px',
                             fontWeight: 'light'
                         }
@@ -57,7 +57,7 @@ export default defineComponent({
                     title: {
                         text: 'Words per minute',
                         style: {
-                            color: 'gray',
+                            // color: 'gray',
                             fontSize: '16px',
                             fontWeight: 'light'
                         }
@@ -87,7 +87,7 @@ export default defineComponent({
                     monochrome: {
                         enabled: true,
                         color: '#255aee',
-                        shadeTo: 'dark',
+                        shadeTo: 'light',
                         shadeIntensity: 0.65
                     }
                 },
@@ -115,7 +115,7 @@ export default defineComponent({
                         opacity: 0.5
                     },
                     column: {
-                        colors: "#888888",
+                        colors: undefined,
                         opacity: 0.5
                     },
                     padding: {

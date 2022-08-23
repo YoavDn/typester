@@ -213,7 +213,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
             font-size: 2.4rem;
             font-family: "Roboto Mono", sans-serif;
             font-weight: 400;
-            color: $main-theme;
+            color: var(--theme);
         }
     }
 
@@ -254,7 +254,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
             &.word-bad {
                 text-decoration: underline;
-                text-decoration-color: $text-typo;
+                text-decoration-color: var(--text-typo);
             }
         }
     }

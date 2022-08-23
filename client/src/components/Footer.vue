@@ -46,7 +46,7 @@ const isOnHomeRoute = computed(() => {
      .set-goal {
          text-align: center;
          font-size: 2rem;
-         color: $text-dull;
+         color: var(--text-dull);
  
          margin-block: 2rem;
      }
@@ -54,7 +54,7 @@ const isOnHomeRoute = computed(() => {
      .main-footer {
          justify-content: space-between;
          width: 100%;
-         color: $text-dull;
+         color: var(--text-dull);
  
          .game-theme {
              cursor: pointer;
@@ -65,17 +65,17 @@ const isOnHomeRoute = computed(() => {
              }
  
              .color-theme-svg {
-                 fill: $text-dull;
+                 fill: var(--text-dull);
                  margin-inline-end: 1rem;
              }
  
              &:hover {
                  h2 {
-                     color: $text
+                     color: var(--text)
                  }
  
                  .color-theme-svg {
-                     fill: $text;
+                     fill: var(--text);
                  }
  
              }
@@ -96,16 +96,16 @@ const isOnHomeRoute = computed(() => {
                  .footer-link-svg {
                      height: 26px;
                      width: 16px;
-                     fill: $text-dull;
+                     fill: var(--text-dull);
                      margin-right: 6px;
                  }
  
                  &:hover {
  
-                     color: $text;
+                     color: var(--text);
  
                      .footer-link-svg {
-                         fill: $text;
+                         fill: var(--text);
                      }
                  }
              }

@@ -35,11 +35,11 @@
         left: 50%;
         transform: translate(-50%, -50%);
 
-        color: $text;
+        color: var(--text);
         padding: 2rem 8rem;
         border-radius: .6rem;
-        background-color: rgba($main-theme, .4);
-
+        // background-color: rgba(var(--theme), .4);
+        background-color: var(--trans-theme);
 
         h2 {
             font-size: 1.5rem;
