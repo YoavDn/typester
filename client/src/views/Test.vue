@@ -244,6 +244,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
         .word {
             display: flex;
+            font-family: "Roboto Mono", sans-serif;
             line-height: 1.2em;
             font-size: 2.5rem;
             font-weight: 400;
