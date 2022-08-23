@@ -6,24 +6,40 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "nodemon ./src/server.ts",
-    "start": "node dist/server.js"
+    "dev": "nodemon --exec ts-node ./src/index.ts",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.5",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^18.7.9",
+    "@types/passport": "^1.0.10",
+    "@types/passport-local": "^1.0.34",
     "nodemon": "^2.0.19",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "build": "^0.1.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-openid-connect": "^2.8.0",
-    "mongoose": "^6.5.2"
+    "express-session": "^1.17.3",
+    "mongoose": "^6.5.2",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "serve-static": "^1.15.0"
   }
 }

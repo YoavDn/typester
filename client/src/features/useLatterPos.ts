@@ -10,7 +10,6 @@ export async function useLatterPos(latter: HTMLElement, mainContainer: htmlType)
     const latterPos = latter.getBoundingClientRect()
     const containerPos = mainContainer.getBoundingClientRect()
 
-    console.log(latter.offsetTop - Math.round(latter.clientHeight / 5));
     const relativePos: caretPosType = reactive({
         // top: latterPos.top - containerPos.top,
         top: latter.offsetTop - Math.round(latter.clientHeight / 5),
