@@ -15,12 +15,12 @@ const isWithEmail = ref<boolean>(false)
     <section v-if="loggedInuser" class="user-page"></section>
     <section v-else class="login-signup-page">
         <h2 class="login-title">Log in to Typester</h2>
-        <div class="login-with-options flex-column">
+        <div v-if="!isWithEmail" class="login-with-options flex-column">
             <div class="login-option google flex">
                 <GoogleSvg />
                 <h2>continue with google</h2>
             </div>
-            <div class="login-option email flex">
+            <div @click="isWithEmail = true" class="login-option email flex">
                 <EmailSvg />
                 <h2>continue with Email</h2>
             </div>
@@ -30,7 +30,9 @@ const isWithEmail = ref<boolean>(false)
             <input name="email" type="text" placeholder="Email Adress">
             <input name="password" type="password" placeholder="Password">
             <button class="login-btn">Login</button>
+            <p @click="isWithEmail = false">&leftarrow; Other Login Options</p>
         </form>
+
     </section>
 </template>
 
@@ -69,7 +71,6 @@ const isWithEmail = ref<boolean>(false)
                 font-size: 17px;
                 line-height: 24px;
                 font-weight: 400;
-
             }
 
             &.google {
@@ -95,7 +96,6 @@ const isWithEmail = ref<boolean>(false)
     .login-form {
         display: flex;
         flex-direction: column;
-        padding-block: 3rem;
         margin: auto;
         width: 300px;
 
@@ -123,7 +123,7 @@ const isWithEmail = ref<boolean>(false)
 
         .login-btn {
             cursor: pointer;
-            margin-top: 1rem;
+            margin-block: 1rem;
             border: solid 1px $main-theme;
             font-size: 16px;
             color: $text;
@@ -134,6 +134,18 @@ const isWithEmail = ref<boolean>(false)
 
             &:hover {
                 background-color: transparent;
+            }
+        }
+
+        p {
+            cursor: pointer;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.5rem;
+            color: $text;
+
+            &:hover {
+                text-decoration: underline;
             }
         }
 

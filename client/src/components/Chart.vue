@@ -23,7 +23,7 @@ export default defineComponent({
             chartOptions: {
                 chart: {
                     height: 350,
-                    type: 'area'
+                    type: 'area',
                 },
                 dataLabels: {
                     enabled: false,
@@ -33,12 +33,52 @@ export default defineComponent({
                     curve: 'smooth'
                 },
                 xaxis: {
-                    type: 'numeric'
+                    type: 'numeric',
+                    title: {
+                        text: 'words',
+                        style: {
+                            color: 'gray',
+                            fontSize: '16px',
+                            fontWeight: 'light'
+                        }
+                    },
+                    axisBorder: {
+                        show: false,
 
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                    crosshairs: {
+                        show: false,
+                    }
                 },
+                yaxis: {
+                    title: {
+                        text: 'Words per minute',
+                        style: {
+                            color: 'gray',
+                            fontSize: '16px',
+                            fontWeight: 'light'
+                        }
+                    }
+                },
+                markers: {
+                    size: 3,
+                    strokeWidth: 0,
 
+                    hover: {
+                        size: 9
+                    }
+                },
                 tooltip: {
                     enabled: true,
+                    theme: 'dark',
+                    style: {
+                        fontSize: '12px',
+                        color: "white",
+                        fontFamily: undefined
+                    },
                 },
                 toolbar: {
                     show: false,
@@ -47,25 +87,12 @@ export default defineComponent({
                     monochrome: {
                         enabled: true,
                         color: '#255aee',
-                        shadeTo: 'light',
+                        shadeTo: 'dark',
                         shadeIntensity: 0.65
                     }
                 },
 
-                title: {
-                    text: 'Word Per Minute',
-                    align: 'left',
-                    margin: 10,
-                    offsetX: 0,
-                    offsetY: 0,
-                    floating: false,
-                    style: {
-                        fontSize: '14px',
-                        fontWeight: 'thin',
-                        fontFamily: undefined,
-                        color: 'gray'
-                    },
-                },
+
                 chart: {
                     toolbar: {
                         show: false,
@@ -82,11 +109,7 @@ export default defineComponent({
                             show: false
                         }
                     },
-                    yaxis: {
-                        lines: {
-                            show: true
-                        }
-                    },
+
                     row: {
                         colors: undefined,
                         opacity: 0.5
@@ -125,4 +148,5 @@ export default defineComponent({
 
 
 <style lang='scss'>
+@import '@/assets/style/main.scss';
 </style>

@@ -42,3 +42,5 @@ export type caretPosType = {
 export type testModeType = 'time' | 'words'
 export type testLevelType = 15 | 30 | 45 | 60
 export type optionsType = testModeType | testLevelType
+export type pagesType = "/test" | "/leaderboard" | "/profile" | "/settings" | '/'
+

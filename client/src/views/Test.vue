@@ -211,6 +211,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
         h2 {
             font-size: 2.4rem;
+            font-family: "Roboto Mono", sans-serif;
             font-weight: 400;
             color: $main-theme;
         }

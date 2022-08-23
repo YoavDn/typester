@@ -6,12 +6,14 @@ import Crown from '@/assets/imgs/crown.svg'
 import User from '@/assets/imgs/user.svg'
 import Settings from '@/assets/imgs/settings.svg'
 import Keyboard from '@/assets/imgs/keyboard.svg'
-import type { optionsType, testLevelType } from '@/types'
+import type { optionsType, testLevelType, pagesType } from '@/types'
+import { useRouter, useRoute } from 'vue-router'
 
 
 import { useTestOptionsStore } from '@/stores/testOptions'
-import { useRoute } from 'vue-router'
+
 import { computed } from 'vue'
+import router from '@/router'
 
 const testOptionsStore = useTestOptionsStore()
 const route = useRoute()
@@ -26,7 +28,11 @@ function hendleChangeOption(newOption: optionsType) {
     }
 }
 
+
 console.log(route.name);
+function goToPage(page: pagesType) {
+    router.push(page)
+}
 
 const isOnHomeRoute = computed(() => {
     return { hidden: route.name === 'Home' }
@@ -39,12 +45,12 @@ const isOnHomeRoute = computed(() => {
     <header :class="isOnHomeRoute" class="app-header">
         <div class="header-contianer flex">
             <nav class="logo-and-nav flex">
-                <AppLogo class="logo" />
+                <AppLogo @click="goToPage('/')" class="logo" />
                 <div class="nav flex">
-                    <Keyboard class="nav-svg keyboard" />
-                    <Crown class="nav-svg" />
-                    <Settings class="nav-svg" />
-                    <User class="nav-svg" />
+                    <Keyboard @click="goToPage('/test')" class="nav-svg keyboard" />
+                    <Crown @click="goToPage('/leaderboard')" class="nav-svg" />
+                    <Settings @click="goToPage('/settings')" class="nav-svg" />
+                    <User @click="goToPage('/profile')" class="nav-svg" />
                 </div>
 
             </nav>
