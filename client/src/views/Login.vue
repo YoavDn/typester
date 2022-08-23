@@ -10,11 +10,9 @@ const loggedInuser = userStore.getLoggedInUser
     <section v-else class="login-signup-page">
         <h2 class="login-title">Log in to Typester</h2>
         <form class="login-form">
-
-
             <input name="email" type="text" placeholder="Email Adress">
             <input name="password" type="password" placeholder="Password">
-
+            <button class="login-btn">Login</button>
         </form>
     </section>
 </template>
@@ -62,6 +60,22 @@ const loggedInuser = userStore.getLoggedInUser
 
             &:focus {
                 border: solid 1px $text;
+            }
+        }
+
+        .login-btn {
+            cursor: pointer;
+            margin-top: 1rem;
+            border: solid 1px $main-theme;
+            font-size: 16px;
+            color: $text;
+            border-radius: .6rem;
+            padding: 1rem;
+            transition: all .2s;
+            background-color: $main-theme;
+
+            &:hover {
+                background-color: transparent;
             }
         }
 
