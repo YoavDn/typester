@@ -4,7 +4,7 @@ import passport from 'passport';
 import passportlocal from 'passport-local'
 const localStrategy = passportlocal.Strategy
 import bcrypt from 'bcrypt'
-import { config } from './config'
+import { config } from '../config/config'
 import { User } from '../models/user.model'
 
 module.exports = function (passport: any) {

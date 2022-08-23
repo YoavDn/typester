@@ -1,12 +1,14 @@
 
-import { Schema, model, connect } from 'mongoose';
+import { Schema, model, connect, Document } from 'mongoose';
 import { config } from '../config/config'
 
 
-export interface IUser {
+
+export type IUser = Document & {
     username: string;
     email: string
-    password: string;
+    password?: string;
+    googleId?: string
 }
 
 const UserSchema = new Schema<IUser>({
@@ -18,18 +20,18 @@ const UserSchema = new Schema<IUser>({
     },
     password: {
         type: String,
-        required: true,
     },
     email: {
         type: String,
         required: true,
         trim: true,
         unique: true
+    },
+    googleId: {
+        type: String,
+        unique: true
     }
 })
 
-async function run() {
-    await connect(config.mongo.url)
-}
 
 export const User = model<IUser>('User', UserSchema)

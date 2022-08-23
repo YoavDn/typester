@@ -1,5 +1,6 @@
 import express from 'express'
 import session from 'express-session'
+import cookieSession from "cookie-session";
 import mongoose, { Error } from 'mongoose'
 import passport from 'passport'
 import bcrypt from 'bcrypt'
@@ -32,13 +33,17 @@ app.use(require('serve-static')(__dirname + '/../../public'));
 app.use(session({
     secret: config.session.secret,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { secure: true }
 }));
+
+
 
 app.use(cookieParser(config.session.secret));
 app.use(passport.initialize())
 app.use(passport.session())
-require('./config/passport.config')(passport)
+require('./passport/passport.local')(passport)
+import './passport/passport.google'
 
 
 const routes = require('./routes')
