@@ -21,7 +21,7 @@ const isWithEmail = ref<boolean>(false)
                 <h2>continue with google</h2>
             </div>
             <div @click="isWithEmail = true" class="login-option email flex">
-                <EmailSvg />
+                <EmailSvg class="email-svg" />
                 <h2>continue with Email</h2>
             </div>
 
@@ -47,7 +47,7 @@ const isWithEmail = ref<boolean>(false)
     .login-title {
         font-size: 2.8rem;
         font-weight: 700;
-        color: $text;
+        color: var(--text);
         text-align: center;
         margin-bottom: 3.4rem;
     }
@@ -69,24 +69,31 @@ const isWithEmail = ref<boolean>(false)
 
             h2 {
                 font-size: 17px;
-                line-height: 24px;
+                color: var(--bg);
                 font-weight: 400;
             }
 
             &.google {
-                background-color: $text;
+                background-color: var(--text);
 
                 &:hover {
-                    background-color: darken($text, 8%);
+                    background-color: var(--text);
                 }
             }
 
             &.email {
-                color: $text;
-                background-color: $main-theme;
+                h2 {
+                    color: white
+                }
+
+                background-color: var(--theme);
+
+                .email-svg {
+                    fill: var(--text)
+                }
 
                 &:hover {
-                    background-color: lighten($main-theme, 8%);
+                    background-color: var(--theme);
                 }
             }
         }
@@ -106,9 +113,9 @@ const isWithEmail = ref<boolean>(false)
             margin-bottom: 1rem;
             padding: 1px 1rem;
             background-color: transparent;
-            border: solid 1px rgba($text , .4);
+            border: solid 1px var(--text-dull);
             border-radius: .6rem;
-            color: $text;
+            color: var(--text);
             outline: none;
 
             &::placeholder {
@@ -117,20 +124,20 @@ const isWithEmail = ref<boolean>(false)
             }
 
             &:focus {
-                border: solid 1px $text;
+                border: solid 1px var(--text);
             }
         }
 
         .login-btn {
             cursor: pointer;
             margin-block: 1rem;
-            border: solid 1px $main-theme;
+            border: solid 1px var(--theme);
             font-size: 16px;
-            color: $text;
+            color: var(--text);
             border-radius: .6rem;
             padding: 1rem;
             transition: all .2s;
-            background-color: $main-theme;
+            background-color: var(--theme);
 
             &:hover {
                 background-color: transparent;
@@ -142,7 +149,7 @@ const isWithEmail = ref<boolean>(false)
             text-align: center;
             line-height: 50px;
             font-size: 1.5rem;
-            color: $text;
+            color: var(--text);
 
             &:hover {
                 text-decoration: underline;

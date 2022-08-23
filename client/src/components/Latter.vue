@@ -20,8 +20,6 @@ const latterColor = computed(() => (
 @import '@/assets/style/main.scss';
 
 .latter {
-
-
     &.notTyped {
         color: var(--text-dull);
     }

@@ -104,7 +104,6 @@ const isOnHomeRoute = computed(() => {
             .logo {
                 color: var(--text);
                 margin-inline-end: 2em;
-                fill: var(--text);
             }
 
             .nav-svg {
