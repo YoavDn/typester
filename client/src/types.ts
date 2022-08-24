@@ -1,4 +1,11 @@
 
+
+export interface IUser {
+    email: string,
+    id: string,
+    username: string,
+}
+
 export type latterType = {
     latter: string,
     isCorrect: boolean | null

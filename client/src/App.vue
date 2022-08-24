@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+import { useUserStore } from './stores/user';
+
+const userStore = useUserStore()
+
+userStore.setLoggedInUser()
 </script>
 
 <template>

@@ -1,15 +1,20 @@
 <script setup lang='ts'>
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/user';
 import Login from '@/components/Login.vue';
+defineEmits(['loginWithEmail', 'loginWithGoogle'])
 const userStore = useUserStore()
-const loggedInUser = userStore.getLoggedInUser
+const loggedInUser = computed(() => userStore.getLoggedInUser)
 
 const isWithEmail = ref<boolean>(false)
 
-function loginWithEmail(inputs: { email: string, password: string }) {
-    console.log(inputs);
+async function loginWithEmail(inputs: { username: string, password: string }) {
+    await userStore.login(inputs)
+}
+
+async function loginWithGoogle() {
+    await userStore.loginWithGoogle()
 }
 
 </script>
@@ -17,8 +22,9 @@ function loginWithEmail(inputs: { email: string, password: string }) {
 
 <template>
     <section v-if="loggedInUser" class="user-page"></section>
-    <Login :isWithEmail="isWithEmail" :user="loggedInUser" @setEmailOption="(isEmail: boolean) => isWithEmail = isEmail"
-        @emailLogin="loginWithEmail" />
+    <Login v-else :isWithEmail="isWithEmail" :user="loggedInUser"
+        @setEmailOption="(isEmail: boolean) => isWithEmail = isEmail" @emailLogin="loginWithEmail"
+        @loginWithGoogle="loginWithGoogle" />
 
 </template>
 

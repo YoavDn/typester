@@ -6,8 +6,9 @@ import { userService } from '../services/user.service'
 
 
 
-export function logout() {
-
+export function logout(req: Request, res: Response) {
+    console.log(req);
+    res.send(req.user)
 }
 
 export async function signup(req: Request, res: Response) {
@@ -22,8 +23,13 @@ export async function signup(req: Request, res: Response) {
 }
 
 export function getCurrUser(req: Request, res: Response) {
-    console.log(req.user);
-    res.send(req.user)
+    console.log(req);
+    if (!req.user) {
+        res.send(null)
+    } else {
+        res.send(req.user)
+    }
+
 }
 
 export function login(req: Request, res: Response) {
@@ -33,7 +39,9 @@ export function login(req: Request, res: Response) {
         if (!user) { return res.status(400).send([user, "Cannot log in", info]); }
 
         req.login(user, err => {
-            res.send("Logged in");
+
+            const userToSend = { email: user.email, username: user.username, id: user._id }
+            res.send(userToSend);
         });
     })(req, res);
 }

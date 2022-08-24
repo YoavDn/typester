@@ -1,6 +1,6 @@
 
 import { Schema, model, connect, Document } from 'mongoose';
-import { config } from '../config/config'
+
 
 
 
@@ -8,7 +8,8 @@ export type IUser = Document & {
     username: string;
     email: string
     password?: string;
-    googleId?: string
+    googleId?: string,
+    id?: string
 }
 
 const UserSchema = new Schema<IUser>({

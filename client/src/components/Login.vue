@@ -3,16 +3,18 @@ import GoogleSvg from '@/assets/imgs/google.svg'
 import EmailSvg from '@/assets/imgs/email.svg'
 import { reactive } from 'vue';
 defineProps<{ isWithEmail: Boolean, user: any }>()
-const emits = defineEmits(['emailLogin'])
+const emits = defineEmits(['setEmailOption', 'emailLogin', 'loginWithGoogle'])
 
 const loginInputs = reactive({
-    email: '',
+    username: '',
     password: ''
 })
 
+
+
 function login() {
     emits('emailLogin', loginInputs)
-    loginInputs.email = ''
+    loginInputs.username = ''
     loginInputs.password = ''
 }
 </script>
@@ -22,7 +24,7 @@ function login() {
     <section v-if="!user" class="login-signup-page">
         <h2 class="login-title">Log in to Typester</h2>
         <div v-if="!isWithEmail" class="login-with-options flex-column">
-            <div class="login-option google flex">
+            <div @click="$emit('loginWithGoogle')" class="login-option google flex">
                 <GoogleSvg />
                 <h2>continue with google</h2>
             </div>
@@ -33,7 +35,7 @@ function login() {
 
         </div>
         <form v-if="isWithEmail" class="login-form">
-            <input v-model="loginInputs.email" name="email" type="text" placeholder="Email Adress" required>
+            <input v-model="loginInputs.username" name="text" type="text" placeholder="Username" required>
             <input v-model="loginInputs.password" name="password" type="password" placeholder="Password" required>
             <button @click.prevent="login" class="login-btn">Login</button>
             <p @click="$emit('setEmailOption', false)">&leftarrow; Other Login Options</p>
