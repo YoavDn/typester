@@ -57,3 +57,12 @@
 
     }
 }
+
+
+.text-gradient {
+    background: -webkit-linear-gradient(left, var(--theme), var(--sub-theme));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 3px 0px 15px var(--text);
+
+}

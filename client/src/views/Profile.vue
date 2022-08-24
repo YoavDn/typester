@@ -3,6 +3,8 @@
 import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/user';
 import Login from '@/components/Login.vue';
+import UserInfo from '@/components/UserInfo.vue'
+
 defineEmits(['loginWithEmail', 'loginWithGoogle'])
 const userStore = useUserStore()
 const loggedInUser = computed(() => userStore.getLoggedInUser)
@@ -21,7 +23,7 @@ async function loginWithGoogle() {
 
 
 <template>
-    <section v-if="loggedInUser" class="user-page"></section>
+    <UserInfo v-if="loggedInUser" :user="loggedInUser" />
     <Login v-else :isWithEmail="isWithEmail" :user="loggedInUser"
         @setEmailOption="(isEmail: boolean) => isWithEmail = isEmail" @emailLogin="loginWithEmail"
         @loginWithGoogle="loginWithGoogle" />
