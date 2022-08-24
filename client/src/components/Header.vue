@@ -2,6 +2,7 @@
     
 <script setup lang='ts'>
 import AppLogo from '@/assets/imgs/typesterLogo.svg'
+import { ArrowRightOnRectangleIcon } from '@heroicons/vue/24/solid'
 import Crown from '@/assets/imgs/crown.svg'
 import User from '@/assets/imgs/user.svg'
 import Settings from '@/assets/imgs/settings.svg'
@@ -30,6 +31,8 @@ function hendleChangeOption(newOption: optionsType) {
 
 
 console.log(route.name);
+const isOnProfilePage = computed(() => route.name === 'profile' && userStore.getLoggedInUser ? true : false)
+
 function goToPage(page: pagesType) {
     router.push(page)
 }
@@ -61,7 +64,7 @@ const username = computed(() => {
                 </div>
 
             </nav>
-            <div class="test-options flex">
+            <div v-if="!isOnProfilePage" class="test-options flex">
                 <div class="time-or-number-option test-option flex">
                     <h2 class="txt-light" @click="hendleChangeOption('time')"
                         :class="{ 'active-option': testMode === 'time' }">time</h2>
@@ -73,6 +76,9 @@ const username = computed(() => {
                         :class="{ 'active-option': testLevel === i * 15 }">{{ i * 15 }}</h2>
                 </div>
             </div>
+            <button class="logout-btn flex" v-else>Logout
+                <ArrowRightOnRectangleIcon class="logout-svg" />
+            </button>
         </div>
     </header>
 </template>
@@ -85,6 +91,27 @@ const username = computed(() => {
 
 .hidden {
     display: none;
+}
+
+
+.logout-btn {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    gap: 4px;
+
+    color: var(--text-dull);
+
+    .logout-svg {
+        display: inline;
+
+        width: 20px;
+    }
+
+    &:hover {
+        color: var(--text);
+    }
 }
 
 .user-nav-link {
