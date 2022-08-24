@@ -8,14 +8,14 @@ import Settings from '@/assets/imgs/settings.svg'
 import Keyboard from '@/assets/imgs/keyboard.svg'
 import type { optionsType, testLevelType, pagesType } from '@/types'
 import { useRouter, useRoute } from 'vue-router'
-
-
 import { useTestOptionsStore } from '@/stores/testOptions'
-
 import { computed } from 'vue'
 import router from '@/router'
+import { useUserStore } from '@/stores/user'
 
 const testOptionsStore = useTestOptionsStore()
+const userStore = useUserStore()
+const user = computed(() => userStore.getLoggedInUser)
 const route = useRoute()
 const testMode = computed(() => testOptionsStore.getTestMode)
 const testLevel = computed(() => testOptionsStore.getTestLevel)
@@ -38,6 +38,10 @@ const isOnHomeRoute = computed(() => {
     return { hidden: route.name === 'Home' }
 })
 
+const username = computed(() => {
+    const firstLetter = user.value?.username[0].toUpperCase() as string
+    return firstLetter + user.value?.username.split(' ').slice(0, 1).join().slice(1)
+})
 
 </script>
     
@@ -50,7 +54,10 @@ const isOnHomeRoute = computed(() => {
                     <Keyboard @click="goToPage('/test')" class="nav-svg keyboard" />
                     <Crown @click="goToPage('/leaderboard')" class="nav-svg" />
                     <Settings @click="goToPage('/settings')" class="nav-svg" />
-                    <User @click="goToPage('/profile')" class="nav-svg" />
+                    <div @click="goToPage('/profile')" class="user-nav-link flex align-center">
+                        <User class="nav-svg" />
+                        <span class="username" v-if="user">{{ username }}</span>
+                    </div>
                 </div>
 
             </nav>
@@ -78,6 +85,26 @@ const isOnHomeRoute = computed(() => {
 
 .hidden {
     display: none;
+}
+
+.user-nav-link {
+    cursor: pointer;
+
+    .username {
+        color: var(--text-dull);
+        font-weight: 700;
+        font-size: 1.3rem;
+    }
+
+    &:hover {
+        .username {
+            color: var(--text);
+        }
+
+        .nav-svg {
+            fill: var(--text) !important
+        }
+    }
 }
 
 .active-option {

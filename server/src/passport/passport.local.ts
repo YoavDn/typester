@@ -21,8 +21,8 @@ passport.use(new localStrategy(function verify(username: string, password: strin
     })
 }))
 
-passport.serializeUser((user, done: any) => {
-    done(null, user.id)
+passport.serializeUser((user, done) => {
+    done(null, user)
 })
 
 passport.deserializeUser((_id, done: any) => {
