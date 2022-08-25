@@ -28,14 +28,14 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
         testService.saveLocalOption({ mode: testMode.value, level: testLevel.value })
 
         testStore.setNewTest()
-        router.push('/')
+        router.push('/test')
     }
 
     function setTestLevel(level: testLevelType) {
         testLevel.value = level
         testService.saveLocalOption({ mode: testMode.value, level: testLevel.value })
         testStore.setNewTest()
-        router.push('/')
+        router.push('/test')
     }
 
     return {
