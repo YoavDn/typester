@@ -3,16 +3,22 @@ import { SunIcon } from '@heroicons/vue/24/outline';
 import { MoonIcon } from '@heroicons/vue/24/outline'
 import { computed, ref, onMounted, watchEffect } from 'vue';
 
+import { useThemeStore } from '@/stores/theme'
+
+const themeStore = useThemeStore()
+const appTheme = computed(() => themeStore.getAppTheme)
 const ElBody = ref<HTMLElement | null>(document.querySelector('body'))
-const isDark = ref(true)
 
 
+function toggleTheme() {
+    const themeToSet = appTheme.value === 'dark' ? 'light' : 'dark'
+    themeStore.setTheme(themeToSet)
+}
 
-const isDarkTheme = computed(() => ElBody.value?.classList.contains('dark'))
 
 watchEffect(() => {
-    console.log(isDark.value);
-    if (isDark.value) {
+    console.log(appTheme.value);
+    if (appTheme.value == 'dark') {
         document.querySelector('body')?.classList.remove('dark')
         document.querySelector('body')?.classList.add('light')
     } else {
@@ -26,9 +32,9 @@ watchEffect(() => {
 
 
 <template>
-    <input v-model="isDark" type="checkbox" id="switch" :checked="isDark" />
+    <input @change="toggleTheme" type="checkbox" id="switch" :checked="appTheme === 'dark'" />
     <label for="switch">
-        <MoonIcon v-if="!isDark" class="moon-svg" />
+        <MoonIcon v-if="appTheme !== 'dark'" class="moon-svg" />
         <SunIcon v-else class="sun-svg" />
     </label>
 </template>
