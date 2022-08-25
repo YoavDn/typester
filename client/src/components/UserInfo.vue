@@ -132,12 +132,41 @@ const CapitalizeUsername = computed(() => {
                 font-weight: 900;
             }
         }
+
+        @media (max-width: 550px) {
+            width: 100%;
+
+            .user-info-stat {
+
+                h1 {
+                    line-height: 4rem;
+                    font-size: 2rem !important;
+                }
+
+                h2 {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        @media (max-width: 550px) {
+            width: 100%;
+
+            flex-direction: column;
+
+            .user-info-stat {
+                margin-top: 2rem;
+            }
+        }
     }
 
 }
 
 @media (max-width: 700px) {
     .user-info {
+        .user-profile-header {
+            margin-bottom: 3rem;
+        }
 
         .user-profile-main {
             .user-info-stat {
