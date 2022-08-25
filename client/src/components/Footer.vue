@@ -2,6 +2,7 @@
 <script setup lang='ts'>
 
 import ColorTheme from '@/assets/imgs/colorTheme.svg'
+import CustomToggleSwitch from './CustomToggleSwitch.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
@@ -28,10 +29,7 @@ const isOnHomeRoute = computed(() => {
                 </div>
 
             </div>
-            <div class="game-theme flex">
-                <colorTheme class="color-theme-svg" />
-                <h2 class="txt-light">Theme</h2>
-            </div>
+            <CustomToggleSwitch />
         </footer>
     </section>
 
