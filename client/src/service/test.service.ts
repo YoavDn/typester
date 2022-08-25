@@ -1,4 +1,4 @@
-import type { testType, wordType } from '@/types'
+import type { testLevelType, testModeType, testType, wordType } from '@/types'
 import { commonEnWords } from '../wordsData/commonWords'
 import { testUtils } from './test.utils'
 
@@ -9,8 +9,26 @@ export const testService = {
     countAllTypos,
     calcWordWpm,
     calcTestWpm,
-    saveTestToLocalStorage
+    saveTestToLocalStorage,
+    localOption,
+    saveLocalOption
 }
+
+function localOption() {
+    const localOptions: string | null = (localStorage.getItem('testOptions'))
+    if (!localOptions) {
+        localStorage.setItem('testOptions', JSON.stringify({ mode: 'time', level: 15 }))
+        return { mode: 'time', level: 15 }
+    }
+
+    return JSON.parse(localOptions as string)
+
+}
+
+function saveLocalOption(options: { mode: string, level: number }) {
+    localStorage.setItem('testOptions', JSON.stringify(options))
+}
+
 
 function generateNewTest(lang = 'english') {
     const wordsMap = randomTxt().map(word => {

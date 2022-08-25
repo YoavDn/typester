@@ -1,21 +1,55 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import { useUserStore } from './stores/user';
 
+const prevHeight = ref<string | number>(0)
 const userStore = useUserStore()
 
 userStore.setLoggedInUser()
+
+function beforeLeave(element: HTMLElement) {
+  prevHeight.value = getComputedStyle(element).height;
+}
+function enter(element: HTMLElement) {
+  const { height } = getComputedStyle(element);
+  setTimeout(() => {
+    element.style.height = height;
+  });
+}
+function afterEnter(element: HTMLElement) {
+  element.style.height = 'auto';
+}
+
 </script>
+
+<!-- <template>
+
+  <main class="main-app">
+    <Header />
+    <transition name="fade" mode="out-in" @beforeLeave="beforeLeave" @enter="enter" @afterEnter="afterEnter">
+      <RouterView />
+    </transition>
+    <Footer />
+  </main>
+</template> -->
+
 
 <template>
 
   <main class="main-app">
     <Header />
-    <RouterView />
+    <RouterView v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </RouterView>
+
     <Footer />
   </main>
 </template>
+
 
 <style lang="scss">
 @import '@/assets/style/main.scss';
@@ -39,7 +73,18 @@ userStore.setLoggedInUser()
 
 }
 
-// @media (max-width: 1100px {
-//     .main-app {}
-//   })
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .25s ease;
+
+}
+
+.fade-enter-active {
+  transition-delay: .25s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

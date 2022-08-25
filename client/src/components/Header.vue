@@ -2,6 +2,8 @@
     
 <script setup lang='ts'>
 import AppLogo from '@/assets/imgs/typesterLogo.svg'
+import AppLogoLight from '@/assets/imgs/logoLight.svg'
+
 import { ArrowRightOnRectangleIcon } from '@heroicons/vue/24/solid'
 import Crown from '@/assets/imgs/crown.svg'
 import User from '@/assets/imgs/user.svg'
@@ -29,8 +31,8 @@ function hendleChangeOption(newOption: optionsType) {
     }
 }
 
+const isDarkTheme = computed(() => document.querySelector('body')?.classList.contains('dark'))
 
-console.log(route.name);
 const isOnProfilePage = computed(() => route.name === 'profile' && userStore.getLoggedInUser ? true : false)
 
 function goToPage(page: pagesType) {
@@ -52,7 +54,8 @@ const username = computed(() => {
     <header :class="isOnHomeRoute" class="app-header">
         <div class="header-contianer flex">
             <nav class="logo-and-nav flex">
-                <AppLogo @click="goToPage('/')" class="logo" />
+                <AppLogo v-if="isDarkTheme" @click="goToPage('/')" class="logo" />
+                <AppLogoLight v-else @click="goToPage('/')" class="logo" />
                 <div class="nav flex">
                     <Keyboard @click="goToPage('/test')" class="nav-svg keyboard" />
                     <Crown @click="goToPage('/leaderboard')" class="nav-svg" />

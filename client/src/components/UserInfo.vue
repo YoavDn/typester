@@ -1,10 +1,18 @@
 <script setup lang='ts'>
-import { UserIcon } from '@heroicons/vue/24/solid'
+import { computed } from 'vue';
+import { UserIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
 import type { HtmlAttributes } from 'csstype';
 
 //TODO: make proper type for user
 const props = defineProps<{ user: any }>()
 
+const isDarkTheme = computed(() => document.querySelector('body')?.classList.contains('dark'))
+
+const CapitalizeUsername = computed(() => {
+    return props.user.username.split(' ')
+        .map((word: string) => word[0].toUpperCase() + word.slice(1))
+        .join(' ')
+})
 
 </script>
 
@@ -12,8 +20,10 @@ const props = defineProps<{ user: any }>()
 <template>
     <section class="user-info">
         <header class="user-profile-header flex-column">
-            <UserIcon class="user-avatar w-3 h-4  text-white-500" />
-            <h2 class="user-username">{{ props.user.username }}</h2>
+
+            <UserIcon class="user-avatar w-3 h-4  text-white-500"
+                :class="{ 'user-dark': isDarkTheme, 'user-light': !isDarkTheme }" />
+            <h2 class="user-username">{{ CapitalizeUsername }}</h2>
             <h3 class="user-email">{{ props.user.email }}</h3>
         </header>
         <main class="user-profile-main flex">
@@ -45,10 +55,6 @@ const props = defineProps<{ user: any }>()
 
         .user-avatar {
             font-size: 16px;
-            // border: solid 2px;
-            background:
-                linear-gradient(var(--bg), var(--bg)) padding-box,
-                linear-gradient(to right, var(--theme), var(--sub-theme)) border-box;
             border-radius: 50em;
             border: 2px solid transparent;
             border-radius: 50%;
@@ -56,11 +62,23 @@ const props = defineProps<{ user: any }>()
             height: 100px;
             padding: 2rem;
             margin-bottom: 1rem;
-            color: var(--text);
+            color: var(--bg);
             box-shadow: var(--theme) 0px 0px 70px;
-
-
             -webkit-text-fill-color: transparent;
+
+            &.user-dark {
+                background:
+                    linear-gradient(var(--bg), var(--bg)) padding-box,
+                    linear-gradient(to right, var(--theme), var(--sub-theme)) border-box;
+                color: var(--text);
+            }
+
+            &.user-light {
+                background:
+                    linear-gradient(var(--text), var(--text)) padding-box,
+                    linear-gradient(to right, var(--theme), var(--sub-theme)) border-box;
+                color: var(--bg);
+            }
         }
 
         .user-username {

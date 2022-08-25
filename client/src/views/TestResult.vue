@@ -34,29 +34,31 @@ function reapetTest() {
 
 
 <template>
-    <section class="test-result" ref="testResRef">
-        <div class="gradient-wapper">
-            <div class="gradient1"></div>
-            <div class="gradient2"></div>
-            <div class="gradient3"></div>
-        </div>
-        <MainStats :test='test' />
-        <div class="btns-bar flex">
-            <button @click="reapetTest" class="btn-replay">
-                <ReplaySvg class="btn-svg" />
-                Reapet Test
-            </button>
-            <button @click="setNewTest" class="btn-next">Next Test
-                <NextArrowSvg class="btn-svg-next" />
-            </button>
-        </div>
-        <a class="more-details-link" href="#test-details">For more Details &#8595</a>
-    </section>
+    <div>
+        <section class="test-result">
+            <div class="gradient-wapper">
+                <div class="gradient1"></div>
+                <div class="gradient2"></div>
+                <div class="gradient3"></div>
+            </div>
+            <MainStats :test='test' />
+            <div class="btns-bar flex">
+                <button @click="reapetTest" class="btn-replay">
+                    <ReplaySvg class="btn-svg" />
+                    Reapet Test
+                </button>
+                <button @click="setNewTest" class="btn-next">Next Test
+                    <NextArrowSvg class="btn-svg-next" />
+                </button>
+            </div>
+            <a class="more-details-link" href="#test-details">For more Details &#8595</a>
+        </section>
 
-    <section id="test-details" class="details">
-        <h2>hi</h2>
-        <Chart class="chart" :test="test" />
-    </section>
+        <section id="test-details" class="details">
+            <h2>hi</h2>
+            <Chart class="chart" :test="test" />
+        </section>
+    </div>
 
 </template>
 
