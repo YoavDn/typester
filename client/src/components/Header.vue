@@ -15,9 +15,13 @@ import { useTestOptionsStore } from '@/stores/testOptions'
 import { computed } from 'vue'
 import router from '@/router'
 import { useUserStore } from '@/stores/user'
+import { useThemeStore } from '@/stores/theme'
 
 const testOptionsStore = useTestOptionsStore()
 const userStore = useUserStore()
+const themeStore = useThemeStore()
+
+const appTheme = computed(() => themeStore.getAppTheme)
 const user = computed(() => userStore.getLoggedInUser)
 const route = useRoute()
 const testMode = computed(() => testOptionsStore.getTestMode)
@@ -31,7 +35,7 @@ function hendleChangeOption(newOption: optionsType) {
     }
 }
 
-const isDarkTheme = computed(() => document.querySelector('body')?.classList.contains('dark'))
+
 
 const isOnProfilePage = computed(() => route.name === 'profile' && userStore.getLoggedInUser ? true : false)
 
@@ -54,7 +58,7 @@ const username = computed(() => {
     <header :class="isOnHomeRoute" class="app-header">
         <div class="header-contianer flex">
             <nav class="logo-and-nav flex">
-                <AppLogo v-if="isDarkTheme" @click="goToPage('/')" class="logo" />
+                <AppLogo v-if="appTheme === 'light'" @click="goToPage('/')" class="logo" />
                 <AppLogoLight v-else @click="goToPage('/')" class="logo" />
                 <div class="nav flex">
                     <Keyboard @click="goToPage('/test')" class="nav-svg keyboard" />

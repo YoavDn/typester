@@ -2,11 +2,16 @@
 import { computed } from 'vue';
 import { UserIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
 import type { HtmlAttributes } from 'csstype';
+import { useThemeStore } from '@/stores/theme';
+
+const themeStore = useThemeStore()
+
 
 //TODO: make proper type for user
 const props = defineProps<{ user: any }>()
 
-const isDarkTheme = computed(() => document.querySelector('body')?.classList.contains('dark'))
+
+const appTheme = computed(() => themeStore.getAppTheme)
 
 const CapitalizeUsername = computed(() => {
     return props.user.username.split(' ')
@@ -22,7 +27,7 @@ const CapitalizeUsername = computed(() => {
         <header class="user-profile-header flex-column">
 
             <UserIcon class="user-avatar w-3 h-4  text-white-500"
-                :class="{ 'user-dark': isDarkTheme, 'user-light': !isDarkTheme }" />
+                :class="{ 'user-dark': appTheme === 'light', 'user-light': appTheme === 'dark' }" />
             <h2 class="user-username">{{ CapitalizeUsername }}</h2>
             <h3 class="user-email">{{ props.user.email }}</h3>
         </header>
