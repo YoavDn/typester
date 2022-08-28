@@ -17,15 +17,14 @@ export async function signup(req: Request, res: Response) {
     try {
         const user: IUser = req.body
         const Saveduser = await userService.signup(user)
+        console.log(Saveduser);
         login(req, res)
-        res.json(Saveduser)
     } catch (err) {
         console.log(err);
     }
 }
 
 export function getCurrUser(req: Request, res: Response) {
-    console.log(req);
     if (!req.user) {
         res.send(null)
     } else {

@@ -20,7 +20,7 @@ async function loginWithGoogle() {
 }
 
 async function register(registerInputs: { password: string, email: string, username: string }) {
-    await userStore.register(registerInputs)
+    await userStore.signup(registerInputs)
 }
 
 </script>

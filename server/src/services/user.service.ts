@@ -18,7 +18,7 @@ export async function signup(user: IUser) {
             email: user.email,
             password: await bcrypt.hash(user.password, 10)
         })
-        newUser.save()
+        return newUser.save()
             .then(() => newUser)
             .catch((err) => err)
 

@@ -22,6 +22,7 @@ export async function login(user: { username: string, password: string }) {
 }
 
 export async function signup(user: { username: string, password: string, email: string }) {
+
     return axios.post(`${API}/signup`, user, { withCredentials: true }).then(({ data }) => data)
 }
 
