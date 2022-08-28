@@ -7,8 +7,10 @@ import { userService } from '../services/user.service'
 
 
 export function logout(req: Request, res: Response) {
-    console.log(req);
-    res.send(req.user)
+    req.logout(function (err) {
+        if (err) { return err }
+    })
+
 }
 
 export async function signup(req: Request, res: Response) {

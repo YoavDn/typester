@@ -10,7 +10,7 @@ const router = express.Router()
 router.get('/current_user', getCurrUser)
 router.post('/signin', login)
 router.post('/signup', passport.authenticate('local'), signup)
-router.get('/logout', logout)
+router.post('/logout', logout)
 router.get('/google/login', passport.authenticate('google', {
     scope: ['email', "profile"]
 }))

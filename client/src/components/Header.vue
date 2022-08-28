@@ -35,6 +35,10 @@ function hendleChangeOption(newOption: optionsType) {
     }
 }
 
+function handleLogout() {
+    userStore.logout()
+    document.location.reload()
+}
 
 
 const isOnProfilePage = computed(() => route.name === 'profile' && userStore.getLoggedInUser ? true : false)
@@ -83,7 +87,7 @@ const username = computed(() => {
                         :class="{ 'active-option': testLevel === i * 15 }">{{ i * 15 }}</h2>
                 </div>
             </div>
-            <button class="logout-btn flex" v-else>Logout
+            <button @click="handleLogout" class="logout-btn flex" v-else>Logout
                 <ArrowRightOnRectangleIcon class="logout-svg" />
             </button>
         </div>

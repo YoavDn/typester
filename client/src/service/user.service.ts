@@ -13,7 +13,7 @@ export const userService = {
 }
 
 export async function logout() {
-
+    return axios.post(`${API}/logout`).then(({ data }) => data)
 }
 
 
