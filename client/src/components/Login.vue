@@ -1,46 +1,62 @@
 <script setup lang='ts'>
+import Register from './Register.vue';
 import GoogleSvg from '@/assets/imgs/google.svg'
-import EmailSvg from '@/assets/imgs/email.svg'
-import { reactive } from 'vue';
+import { EnvelopeIcon } from '@heroicons/vue/24/outline';
+import { reactive, ref } from 'vue';
+
 defineProps<{ isWithEmail: Boolean, user: any }>()
-const emits = defineEmits(['setEmailOption', 'emailLogin', 'loginWithGoogle'])
+const emits = defineEmits(['setEmailOption',
+    'emailLogin',
+    'loginWithGoogle',
+    'handleRegister',
+    'register'])
+
+const isRegister = ref(false)
 
 const loginInputs = reactive({
     username: '',
     password: ''
 })
 
-
-
 function login() {
     emits('emailLogin', loginInputs)
     loginInputs.username = ''
     loginInputs.password = ''
 }
+
+function register(registerInputs: { email: string, password: string, username: string }) {
+    emits('register', registerInputs)
+}
+
 </script>
 
 
 <template>
     <section v-if="!user" class="login-signup-page">
-        <h2 class="login-title">Log in to Typester</h2>
+        <h2 class="login-title">{{ isRegister ? 'Resgister' : 'Log in' }} to Typester</h2>
         <div v-if="!isWithEmail" class="login-with-options flex-column">
             <div @click="$emit('loginWithGoogle')" class="login-option google flex">
                 <GoogleSvg />
                 <h2>continue with google</h2>
             </div>
             <div @click="$emit('setEmailOption', true)" class="login-option email flex">
-                <EmailSvg class="email-svg" />
+                <EnvelopeIcon class="email-svg" />
                 <h2>continue with Email</h2>
             </div>
 
         </div>
-        <form v-if="isWithEmail" class="login-form">
+        <form v-if="isWithEmail && !isRegister" class="login-form">
             <input v-model="loginInputs.username" name="text" type="text" placeholder="Username" required>
             <input v-model="loginInputs.password" name="password" type="password" placeholder="Password" required>
             <button @click.prevent="login" class="login-btn">Login</button>
-            <p @click="$emit('setEmailOption', false)">&leftarrow; Other Login Options</p>
         </form>
+        <Register v-if="isRegister" @handleRegister="register" />
 
+        <p v-if="isWithEmail && !isRegister" class="sign-up-p">Doe'nst have an account ?</p>
+        <button v-if="isWithEmail && !isRegister" @click="isRegister = true" class="sign-up-btn">Sign up</button>
+        <p v-if="isWithEmail" class="other-login-options" @click="$emit('setEmailOption', false), isRegister = false">
+            &leftarrow; Other
+            Login Options</p>
     </section>
 
 </template>
@@ -98,7 +114,8 @@ function login() {
                 background-color: var(--theme);
 
                 .email-svg {
-                    fill: var(--text)
+                    color: white;
+                    width: 24px;
                 }
 
                 &:hover {
@@ -153,18 +170,46 @@ function login() {
             }
         }
 
-        p {
-            cursor: pointer;
-            text-align: center;
-            line-height: 50px;
-            font-size: 1.5rem;
-            color: var(--text);
 
-            &:hover {
-                text-decoration: underline;
-            }
+
+    }
+
+    .other-login-options {
+        cursor: pointer;
+        text-align: center;
+        line-height: 50px;
+        font-size: 1.5rem;
+        color: var(--text);
+
+        &:hover {
+            text-decoration: underline;
         }
+    }
 
+    .sign-up-p {
+        text-align: center;
+        color: var(--text);
+        font-size: 1.3rem;
+        line-height: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .sign-up-btn {
+        cursor: pointer;
+        display: block;
+        padding: .7rem 2.3rem;
+        font-family: "Inter", sans-serif;
+        border-radius: .3rem;
+        border: solid 1px var(--text);
+        color: var(--text);
+        margin: auto;
+        background-color: transparent;
+        margin-bottom: 1rem;
+
+        &:hover {
+            color: var(--bg);
+            background-color: var(--text);
+        }
     }
 }
 </style>

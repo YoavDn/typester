@@ -19,6 +19,10 @@ async function loginWithGoogle() {
     await userStore.loginWithGoogle()
 }
 
+async function register(registerInputs: { password: string, email: string, username: string }) {
+    await userStore.register(registerInputs)
+}
+
 </script>
 
 
@@ -26,7 +30,7 @@ async function loginWithGoogle() {
     <UserInfo v-if="loggedInUser" :user="loggedInUser" />
     <Login v-else :isWithEmail="isWithEmail" :user="loggedInUser"
         @setEmailOption="(isEmail: boolean) => isWithEmail = isEmail" @emailLogin="loginWithEmail"
-        @loginWithGoogle="loginWithGoogle" />
+        @loginWithGoogle="loginWithGoogle" @register="register" />
 
 </template>
 

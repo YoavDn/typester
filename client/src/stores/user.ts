@@ -21,6 +21,10 @@ export const useUserStore = defineStore('user', () => {
         user.value = await userService.login(inputs)
     }
 
+    async function register(registerInputs: { username: string, email: string, password: string }) {
+        await userService.signup(registerInputs)
+    }
+
     async function logout() {
         await userService.logout()
     }
@@ -31,6 +35,7 @@ export const useUserStore = defineStore('user', () => {
         login,
         setLoggedInUser,
         loginWithGoogle,
-        logout
+        logout,
+        register
     }
 })
