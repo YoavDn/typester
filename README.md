@@ -13,6 +13,6 @@ Typester is a modern design typing test application inspired by Monkeytype. It f
 - Vue + Vite
 - Pinia 
 - Sass
-- Node 
+- Node.js
 - Mongoose
 - Passport.js
