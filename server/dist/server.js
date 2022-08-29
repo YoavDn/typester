@@ -47,7 +47,7 @@ app.use('/api/user', routes_1.default);
 app.get('/**', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, 'public', 'index.html'));
 });
-app.listen(config_1.config.server.port, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('app listening on port' + config_1.config.server.port);
 });
 //# sourceMappingURL=server.js.map

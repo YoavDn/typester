@@ -60,10 +60,10 @@ const appTheme = computed(() => themeStore.getAppTheme)
             background:
                 linear-gradient(var(--bg), var(--bg)) padding-box,
                 linear-gradient(to right, var(--theme), var(--sub-theme)) border-box;
-            font-weight: 900;
+            font-weight: 500;
             color: var(--text);
-            box-shadow: var(--theme) 0px 0px 70px;
-            transition: all .2s;
+            box-shadow: var(--theme) 0px 0px 10px;
+            transition: all 0.3s;
 
             &.btn-light {
                 color: var(--bg);
@@ -73,9 +73,9 @@ const appTheme = computed(() => themeStore.getAppTheme)
             }
 
             &:hover {
-                background:
-                    linear-gradient(to bottom right, var(--theme), var(--sub-theme)) padding-box,
-                    linear-gradient(to bottom right, var(--theme), var(--sub-theme)) border-box;
+                box-shadow: var(--theme) 0px 0px 70px;
+
+                font-weight: 700;
             }
         }
 
@@ -120,5 +120,26 @@ const appTheme = computed(() => themeStore.getAppTheme)
             }
         }
     }
+}
+
+.btn-grad {
+    background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+}
+
+.btn-grad:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
 }
 </style>

@@ -75,7 +75,7 @@ export const useTestStore = defineStore({
 
 
         finishTest() {
-            console.log('finished Test !!');
+
             this.handleTime(false)
             this.test.txt = testService.calcWordWpm(this.test)
 
@@ -191,7 +191,6 @@ export const useTestStore = defineStore({
         },
 
         hendleBackspace() {
-            console.log('backspace');
             const { currWord, currLatter } = this.test
             const caretStore = useCaretStore()
 

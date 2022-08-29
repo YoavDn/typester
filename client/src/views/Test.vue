@@ -177,8 +177,8 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
         </div>
         <div class="test-options-bar flex">
             <div :style="{ opacity: isActiveTest ? 1 : 0 }" class="test-mode">
-                <h2 v-if="testMode === 'time'">{{ timeLeft }}</h2>
-                <h2 v-else>{{ testWordsComplete }}</h2>
+                <h2 v-if="testMode === 'time'">{{  timeLeft  }}</h2>
+                <h2 v-else>{{  testWordsComplete  }}</h2>
             </div>
         </div>
         <div class="words-wapper" @click="inputFocus" ref="ElMainContainer">
@@ -211,7 +211,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
         h2 {
             font-size: 2.4rem;
-            font-family: "Roboto Mono", sans-serif;
+            font-family: 'Roboto Mono', monospace;
             font-weight: 400;
             color: var(--theme);
         }
@@ -245,7 +245,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
         .word {
             display: flex;
-            font-family: "Roboto Mono", sans-serif;
+            font-family: 'Roboto Mono', monospace;
             line-height: 1.2em;
             font-size: 2.5rem;
             font-weight: 400;

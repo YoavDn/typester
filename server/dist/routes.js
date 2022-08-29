@@ -15,8 +15,8 @@ router.get('/google/login', passport_1.default.authenticate('google', {
     scope: ['email', "profile"]
 }));
 router.get('/google/callback', passport_1.default.authenticate('google', {
-    successRedirect: process.env.NODE_ENV === 'production' ? '/profile' : 'http://localhost:5173/profile',
-    failureRedirect: process.env.NODE_ENV === 'production' ? '/profile' : 'http://localhost:5173/profile',
+    successRedirect: process.env.NODE_ENV === 'production' ? 'https://typester-app.herokuapp.com/profile' : 'http://localhost:5173/profile',
+    failureRedirect: process.env.NODE_ENV === 'production' ? 'https://typester-app.herokuapp.com/profile' : 'http://localhost:5173/profile',
 }));
 // module.exports = router
 exports.default = router;

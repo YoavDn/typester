@@ -201,6 +201,8 @@ const username = computed(() => {
 
             h2 {
                 font-size: 14px;
+                font-family: 'Roboto Mono', monospace;
+                font-weight: 300;
             }
 
             .test-option {

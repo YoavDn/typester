@@ -113,6 +113,7 @@ function reapetTest() {
         border-radius: .8rem;
         background-color: transparent;
         border: none;
+        transition: all .2s ease;
     }
 
     .btn-svg {

@@ -8,7 +8,9 @@ import { User } from '../models/user.model'
 passport.use(new GoogleStrategy({
     clientID: config.googleAuth.clientId,
     clientSecret: config.googleAuth.clientIdSecret,
-    callbackURL: "/api/user/google/callback",
+    callbackURL: process.env.NODE_ENV === 'production'
+        ? "https://typester-app.herokuapp.com/api/user/google/callback"
+        : 'http://localhost:3000/api/user/google/callback',
 },
     async (accessToken, refreshToken, profile, done) => {
         console.log(profile, 'provile');
