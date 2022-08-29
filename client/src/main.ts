@@ -10,6 +10,9 @@ import './assets/style/main.scss'
 const pinia = createPinia()
 const app = createApp(App)
 
+console.log(process.env.NODE_ENV);
+
+
 pinia.use(({ store }) => {
     store.$router = markRaw(router)
 });

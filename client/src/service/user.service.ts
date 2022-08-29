@@ -3,7 +3,9 @@ import type { IUser } from '@/types'
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
-const API = 'http://localhost:3000/api/user'
+
+
+const API = process.env.NODE_ENV === 'production' ? '/api/user' : 'http://localhost:3000/api/user'
 
 export const userService = {
     logout,
