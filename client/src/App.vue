@@ -9,31 +9,9 @@ const userStore = useUserStore()
 
 userStore.setLoggedInUser()
 
-function beforeLeave(element: HTMLElement) {
-  prevHeight.value = getComputedStyle(element).height;
-}
-function enter(element: HTMLElement) {
-  const { height } = getComputedStyle(element);
-  setTimeout(() => {
-    element.style.height = height;
-  });
-}
-function afterEnter(element: HTMLElement) {
-  element.style.height = 'auto';
-}
+
 
 </script>
-
-<!-- <template>
-
-  <main class="main-app">
-    <Header />
-    <transition name="fade" mode="out-in" @beforeLeave="beforeLeave" @enter="enter" @afterEnter="afterEnter">
-      <RouterView />
-    </transition>
-    <Footer />
-  </main>
-</template> -->
 
 
 <template>

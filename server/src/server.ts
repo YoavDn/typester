@@ -1,9 +1,10 @@
 import express from 'express'
 import session from 'express-session'
-// import mongoose from 'mongoose'
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import cookieSession from 'cookie-session'
 import passport from 'passport'
-import cookieParser from 'cookie-parser'
+import MongoStore from 'connect-mongo'
+
 import bodyParser from 'body-parser'
 import path from 'path'
 import cors from 'cors'
@@ -31,6 +32,7 @@ app.use(session({
     secret: config.session.secret,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: config.mongo.url }),
 }));
 
 app.use(passport.session())

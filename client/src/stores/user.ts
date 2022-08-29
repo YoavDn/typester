@@ -13,7 +13,11 @@ export const useUserStore = defineStore('user', () => {
     }
 
     async function loginWithGoogle() {
-        window.open('http://localhost:3000/api/user/google/login')
+        if (process.env.NODE_ENV === 'production') {
+            window.open('/api/user/google/login')
+        } else {
+            window.open('http://localhost:3000/api/user/google/login')
+        }
         // user.value = await userService.loginWithGoogle()
     }
 
