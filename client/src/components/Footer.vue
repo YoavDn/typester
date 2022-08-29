@@ -1,7 +1,6 @@
     
 <script setup lang='ts'>
-
-import ColorTheme from '@/assets/imgs/colorTheme.svg'
+import { CodeBracketIcon } from '@heroicons/vue/24/solid';
 import CustomToggleSwitch from './CustomToggleSwitch.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
@@ -9,6 +8,14 @@ const route = useRoute()
 const isOnHomeRoute = computed(() => {
     return { hidden: route.name === 'Home' }
 })
+
+function linkToReop() {
+    window.open('https://github.com/YoavDn/typester')
+}
+function linkToLinkedin() {
+    window.open('https://www.linkedin.com/in/yoav-mendelson/')
+
+}
 </script>
     
 
@@ -16,18 +23,17 @@ const isOnHomeRoute = computed(() => {
 
     <section class="botton" :class="isOnHomeRoute">
         <div class="set-goal">
-            <h2>here you will set the goal</h2>
         </div>
         <footer class="main-footer flex">
             <div class="footer-links flex">
-                <div class="footer-link flex">
+                <div @click="linkToLinkedin" class="footer-link flex">
 
                     <h2 class="txt-light">Linkedin</h2>
                 </div>
-                <div class="footer-link flex">
-                    <h2 class="txt-light">&ltCode\&gt</h2>
+                <div @click="linkToReop" class="footer-link flex align-center">
+                    <CodeBracketIcon class="code-svg" />
+                    <h2 class="txt-light">code</h2>
                 </div>
-
             </div>
             <CustomToggleSwitch />
         </footer>
@@ -108,6 +114,12 @@ const isOnHomeRoute = computed(() => {
                  }
              }
  
+         }
+ 
+         .code-svg {
+             margin-inline: .4rem;
+             width: 16px;
+             height: 20px;
          }
      }
  }

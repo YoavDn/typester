@@ -55,7 +55,6 @@ function reapetTest() {
         </section>
 
         <section id="test-details" class="details">
-            <h2>hi</h2>
             <Chart class="chart" :test="test" />
         </section>
     </div>

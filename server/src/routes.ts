@@ -15,8 +15,8 @@ router.get('/google/login', passport.authenticate('google', {
     scope: ['email', "profile"]
 }))
 router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: 'http://localhost:5173/profile',
-    failureRedirect: 'http://localhost/5173/profile'
+    successRedirect: process.env.NODE_ENV === 'production' ? 'http://localhost:3000/profile' : 'http://localhost:5173/profile',
+    failureRedirect: process.env.NODE_ENV === 'production' ? 'http://localhost:3000/profile' : 'http://localhost:5173/profile',
 }))
 
 

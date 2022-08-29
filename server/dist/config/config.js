@@ -8,16 +8,12 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 3000;
 exports.config = {
-    auth: {
-        authRequired: false,
-        auth0Logout: true,
-        secret: process.env.SECRET || '',
-        baseURL: process.env.BASE_URL || '',
-        clientId: process.env.CLIENT_ID || '',
-        issuerBaseUrl: process.env.ISSIER_BASE_URL || ''
-    },
-    server: {
-        port: SERVER_PORT
+    mongo: { url: process.env.MONGO_CONNECT },
+    server: { port: SERVER_PORT },
+    session: { secret: process.env.SESSION_SECRET },
+    googleAuth: {
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientIdSecret: process.env.GOOGLE_CLIENT_SECRET
     }
 };
 //# sourceMappingURL=config.js.map

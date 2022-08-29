@@ -33,7 +33,7 @@ function register(registerInputs: { email: string, password: string, username: s
 
 <template>
     <section v-if="!user" class="login-signup-page">
-        <h2 class="login-title">{{ isRegister ? 'Resgister' : 'Log in' }} to Typester</h2>
+        <h2 class="login-title">{{  isRegister ? 'Resgister' : 'Log in'  }} to Typester</h2>
         <div v-if="!isWithEmail" class="login-with-options flex-column">
             <div @click="$emit('loginWithGoogle')" class="login-option google flex">
                 <GoogleSvg />
@@ -52,7 +52,7 @@ function register(registerInputs: { email: string, password: string, username: s
         </form>
         <Register v-if="isRegister" @handleRegister="register" />
 
-        <p v-if="isWithEmail && !isRegister" class="sign-up-p">Doe'nst have an account ?</p>
+        <p v-if="isWithEmail && !isRegister" class="sign-up-p">Doesn't have an account ?</p>
         <button v-if="isWithEmail && !isRegister" @click="isRegister = true" class="sign-up-btn">Sign up</button>
         <p v-if="isWithEmail" class="other-login-options" @click="$emit('setEmailOption', false), isRegister = false">
             &leftarrow; Other
@@ -159,13 +159,14 @@ function register(registerInputs: { email: string, password: string, username: s
             margin-block: 1rem;
             border: solid 1px var(--theme);
             font-size: 16px;
-            color: var(--text);
+            color: white;
             border-radius: .6rem;
             padding: 1rem;
             transition: all .2s;
             background-color: var(--theme);
 
             &:hover {
+                color: var(--text);
                 background-color: transparent;
             }
         }
@@ -205,6 +206,7 @@ function register(registerInputs: { email: string, password: string, username: s
         margin: auto;
         background-color: transparent;
         margin-bottom: 1rem;
+        transition: background-color .3s ease;
 
         &:hover {
             color: var(--bg);

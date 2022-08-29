@@ -1,7 +1,7 @@
 <script lang='ts'>
 import VueApexCharts from 'vue3-apexcharts'
 import { defineComponent, reactive, ref, computed } from 'vue';
-import type { testType } from '@/types';
+import type { testType, wordType } from '@/types';
 import { useTestStore } from '@/stores/test';
 
 
@@ -13,7 +13,7 @@ export default defineComponent({
 
     props: ['test'],
     setup(props) {
-        const wordsWpm = computed(() => props.test.txt.map(({ wpm }) => wpm).slice(0, props.test.currWord.idx))
+        const wordsWpm = computed(() => props.test.txt.map((txt: wordType) => txt.wpm).slice(0, props.test.currWord.idx))
 
         const series = ref([{
             name: 'word',
@@ -24,6 +24,9 @@ export default defineComponent({
                 chart: {
                     height: 350,
                     type: 'area',
+                    toolbar: {
+                        show: false,
+                    },
                 },
                 dataLabels: {
                     enabled: false,
@@ -90,13 +93,6 @@ export default defineComponent({
                         shadeTo: 'light',
                         shadeIntensity: 0.65
                     }
-                },
-
-
-                chart: {
-                    toolbar: {
-                        show: false,
-                    },
                 },
 
                 grid: {
