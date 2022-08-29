@@ -9,13 +9,16 @@ import Crown from '@/assets/imgs/crown.svg'
 import User from '@/assets/imgs/user.svg'
 import Settings from '@/assets/imgs/settings.svg'
 import Keyboard from '@/assets/imgs/keyboard.svg'
+
 import type { optionsType, testLevelType, pagesType } from '@/types'
+
 import { useRouter, useRoute } from 'vue-router'
 import { useTestOptionsStore } from '@/stores/testOptions'
-import { computed } from 'vue'
-import router from '@/router'
 import { useUserStore } from '@/stores/user'
 import { useThemeStore } from '@/stores/theme'
+
+import { computed } from 'vue'
+import router from '@/router'
 
 const testOptionsStore = useTestOptionsStore()
 const userStore = useUserStore()
@@ -70,7 +73,7 @@ const username = computed(() => {
                     <Settings @click="goToPage('/settings')" class="nav-svg" />
                     <div @click="goToPage('/profile')" class="user-nav-link flex align-center">
                         <User class="nav-svg" />
-                        <span class="username" v-if="user">{{ username }}</span>
+                        <span class="username" v-if="user">{{  username  }}</span>
                     </div>
                 </div>
 
@@ -84,7 +87,7 @@ const username = computed(() => {
                 </div>
                 <div class="numbers-options test-option flex">
                     <h2 v-for="i  in 4" :key="i" @click="hendleChangeOption(i * 15 as testLevelType)" class="txt-light"
-                        :class="{ 'active-option': testLevel === i * 15 }">{{ i * 15 }}</h2>
+                        :class="{ 'active-option': testLevel === i * 15 }">{{  i * 15  }}</h2>
                 </div>
             </div>
             <button @click="handleLogout" class="logout-btn flex" v-else>Logout
