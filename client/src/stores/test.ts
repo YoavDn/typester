@@ -1,17 +1,19 @@
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
 import type { testType } from "@/types";
+import { testLogic } from "@/service/testLogic";
 import { testService } from "@/service/test.service";
 import { useCaretStore } from "./caret";
 import { useTestOptionsStore } from "./testOptions";
 import { testUtils } from '@/service/test.utils'
+import { useUserStore } from "./user";
 
 
 
 export const useTestStore = defineStore({
     id: 'test',
     state: () => ({
-        test: testService.generateNewTest() as testType,
+        test: testLogic.generateNewTest() as testType,
         isActive: false,
         AFKtimeout: null as null | ReturnType<typeof setTimeout>,
         testTimeInterval: null as null | ReturnType<typeof setInterval>,
@@ -32,7 +34,8 @@ export const useTestStore = defineStore({
         cutWordsToRender() {
             this.wordsToCut = this.test.currWord.idx
         },
-        loadTest() { this.test = testService.generateNewTest() },
+        loadTest() { this.test = testLogic.generateNewTest() },
+
         setNewTest() { this.isNewTest = true },
 
         activateTest() {
@@ -41,7 +44,7 @@ export const useTestStore = defineStore({
         },
 
         newTest() {
-            this.test = testService.generateNewTest()
+            this.test = testLogic.generateNewTest()
             this.test.time = 0
             this.isNewTest = false
             this.handleTime(false)
@@ -53,7 +56,7 @@ export const useTestStore = defineStore({
             this.test!.time = 0
 
             this.handleTime(false)
-            this.test = testService.retest(this.test)
+            this.test = testLogic.retest(this.test)
         },
 
         setAFK() {
@@ -71,23 +74,26 @@ export const useTestStore = defineStore({
             }
         },
 
-
-
-
         finishTest() {
+            const userStore = useUserStore()
             this.handleTime(false)
-            this.test.txt = testService.calcWordWpm(this.test)
+            this.test.txt = testLogic.calcWordWpm(this.test)
 
             this.test.realAcc = Math.round(100 - (this.test.typoCount * 100) / this.test.sumType)
-            this.test.acc = Math.round(100 - (testService.countAllTypos(this.test) * 100) / this.test.sumType)
+            this.test.acc = Math.round(100 - (testLogic.countAllTypos(this.test) * 100) / this.test.sumType)
 
-            const [testWpm, testWpmRaw] = testService.calcTestWpm(this.test)
+            const [testWpm, testWpmRaw] = testLogic.calcTestWpm(this.test)
             this.test.wpm = testWpm
             this.test.wpmRaw = testWpmRaw
-            testService.saveTestToLocalStorage(this.test)
+            testLogic.saveTestToLocalStorage(this.test)
+
 
             //  @ts-ignore
             this.$router.push('/testResult')
+
+            if (userStore.getLoggedInUser) {
+                testService.saveTest(this.test, userStore.getLoggedInUser.id)
+            }
         },
 
         handleType(latter: string) {

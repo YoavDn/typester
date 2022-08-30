@@ -1,5 +1,5 @@
 import type { testLevelType, testModeType, testType, wordType } from "@/types";
-import { testService } from "./test.service";
+import { testLogic } from "./testLogic";
 
 export const testUtils = {
     checkTestEnd,

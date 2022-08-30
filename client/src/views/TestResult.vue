@@ -7,9 +7,13 @@ import ReplaySvg from '@/assets/imgs/replay.svg'
 
 import { useTestStore } from '@/stores/test';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
 import { computed, onMounted, ref } from 'vue';
 
 const testResRef = ref<HTMLElement | null>(null)
+
+const userStore = useUserStore()
+const loggedInuUser = computed(() => userStore.getLoggedInUser)
 
 window.scrollTo({
     top: 0,
@@ -56,6 +60,9 @@ function reapetTest() {
 
         <section id="test-details" class="details">
             <Chart class="chart" :test="test" />
+            <router-link v-if="!loggedInuUser" class="sign-in-link" to="/profile"><span>Sign in</span> to save your
+                result
+            </router-link>
         </section>
     </div>
 
@@ -64,6 +71,27 @@ function reapetTest() {
 
 <style lang='scss'>
 @import '@/assets/style/main.scss';
+
+.sign-in-link {
+    color: var(--text-dull);
+    text-align: center;
+    display: block;
+    font-family: "Inter", sans-serif;
+    text-decoration: none;
+    font-size: 1.4rem;
+    margin: auto;
+
+    span {
+        text-decoration: underline;
+    }
+
+    &:hover {
+        span {
+
+            color: var(--text)
+        }
+    }
+}
 
 .more-details-link {
     z-index: 2;

@@ -5,7 +5,6 @@ import Footer from './components/Footer.vue';
 import { useUserStore } from './stores/user';
 import { useThemeStore } from './stores/theme'
 
-const prevHeight = ref<string | number>(0)
 const userStore = useUserStore()
 const themeStore = useThemeStore()
 
@@ -15,9 +14,7 @@ themeStore.localTheme()
 
 </script>
 
-
 <template>
-
   <main class="main-app">
     <Header />
     <RouterView v-slot="{ Component }">
@@ -25,7 +22,6 @@ themeStore.localTheme()
         <component :is="Component" />
       </transition>
     </RouterView>
-
     <Footer />
   </main>
 </template>

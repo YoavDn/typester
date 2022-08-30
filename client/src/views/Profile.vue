@@ -8,6 +8,7 @@ import UserInfo from '@/components/UserInfo.vue'
 defineEmits(['loginWithEmail', 'loginWithGoogle'])
 const userStore = useUserStore()
 const loggedInUser = computed(() => userStore.getLoggedInUser)
+const userTests = computed(() => userStore.getUserTests)
 
 const isWithEmail = ref<boolean>(false)
 
@@ -27,7 +28,7 @@ async function register(registerInputs: { password: string, email: string, usern
 
 
 <template>
-    <UserInfo v-if="loggedInUser" :user="loggedInUser" />
+    <UserInfo v-if="loggedInUser" :user="loggedInUser" :userTests="userTests" />
     <Login v-else :isWithEmail="isWithEmail" :user="loggedInUser"
         @setEmailOption="(isEmail: boolean) => isWithEmail = isEmail" @emailLogin="loginWithEmail"
         @loginWithGoogle="loginWithGoogle" @register="register" />

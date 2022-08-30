@@ -53,7 +53,9 @@ onMounted(() => {
 })
 
 const finishWatch = watchEffect(() => {
-    if (testMode.value === 'time' && testRef.value!.time > testLevel.value) testStore.finishTest()
+    if (testMode.value === 'time' && testRef.value!.time > testLevel.value) {
+        setTimeout(() => testStore.finishTest())
+    }
 })
 
 const newTestWatch = watchEffect(() => {

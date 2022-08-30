@@ -27,7 +27,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((_id, done: any) => {
     User.findOne({ _id: _id }, (err: Error, user: IUser) => {
-        const userInfo = { username: user.username, email: user.email }
+        const userInfo = { username: user.username, email: user.email, id: user._id }
         done(null, userInfo)
     })
 })

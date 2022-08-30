@@ -1,24 +1,26 @@
-
-
 import express from 'express'
 import passport from 'passport'
 import { login, logout, signup, getCurrUser } from './controllers/user.controller'
+import { saveTest, getUserTests } from './controllers/test.contorller'
 import { authMiddleware } from './middlewares/user.middleware'
 const router = express.Router()
 
-
-router.get('/current_user', getCurrUser)
-router.post('/signin', login)
-router.post('/signup', signup)
-router.post('/logout', logout)
-router.get('/google/login', passport.authenticate('google', {
+//users
+router.get('/user/current_user', getCurrUser)
+router.post('/user/signin', login)
+router.post('/user/signup', signup)
+router.post('/user/logout', logout)
+router.get('/user/google/login', passport.authenticate('google', {
     scope: ['email', "profile"]
 }))
-router.get('/google/callback', passport.authenticate('google', {
+router.get('/user/google/callback', passport.authenticate('google', {
     successRedirect: process.env.NODE_ENV === 'production' ? 'https://typester-app.herokuapp.com/profile' : 'http://localhost:5173/profile',
     failureRedirect: process.env.NODE_ENV === 'production' ? 'https://typester-app.herokuapp.com/profile' : 'http://localhost:5173/profile',
 }))
 
+//test
+router.get('/test/:userId', getUserTests)
+router.post('/test/save', saveTest)
 
-// module.exports = router
+
 export default router

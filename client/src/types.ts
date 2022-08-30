@@ -6,6 +6,10 @@ export interface IUser {
     username: string,
 }
 
+export interface IUserTest extends testType {
+    uid: string
+}
+
 export type latterType = {
     latter: string,
     isCorrect: boolean | null

@@ -32,7 +32,7 @@ app.use(session({
     secret: config.session.secret,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: config.mongo.url }),
+    // store: MongoStore.create({ mongoUrl: config.mongo.url }),
 }));
 
 app.use(passport.session())
@@ -40,13 +40,15 @@ app.use(passport.initialize())
 import './passport/passport.local'
 import './passport/passport.google'
 
-mongoose.connect(config.mongo.url)
+mongoose.connect(config.mongo.url,)
     .then(() => console.log('connected to mongo'))
     .catch(() => console.log('feild to connect'))
 
+mongoose.connection.on('err', console.error.bind(console, 'Mongo Connection error'))
+
 // const routes = require('./routes')÷
 import routes from './routes'
-app.use('/api/user', routes)
+app.use('/api', routes)
 
 
 app.get('/**', (req, res) => {

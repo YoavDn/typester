@@ -19,11 +19,13 @@ import { useThemeStore } from '@/stores/theme'
 
 import { computed } from 'vue'
 import router from '@/router'
+import { useTestStore } from '@/stores/test'
 
 const testOptionsStore = useTestOptionsStore()
 const userStore = useUserStore()
 const themeStore = useThemeStore()
 
+const testStore = useTestStore()
 const appTheme = computed(() => themeStore.getAppTheme)
 const user = computed(() => userStore.getLoggedInUser)
 const route = useRoute()
@@ -47,6 +49,7 @@ function handleLogout() {
 const isOnProfilePage = computed(() => route.name === 'profile' && userStore.getLoggedInUser ? true : false)
 
 function goToPage(page: pagesType) {
+    if (page === '/test') testStore.setNewTest()
     router.push(page)
 }
 

@@ -1,5 +1,5 @@
 import { useRouter, useRoute } from 'vue-router'
-import { testService } from '@/service/test.service'
+import { testLogic } from '@/service/testLogic'
 import { defineStore } from 'pinia'
 import { useTestStore, } from './test'
 import { ref, computed } from 'vue'
@@ -10,10 +10,8 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
     const testStore = useTestStore()
     const router = useRouter()
 
-    // const testMode = ref<testModeType>('words')
-    // const testLevel = ref<testLevelType>(30)
-    const testMode = ref<testModeType>(testService.localOption().mode)
-    const testLevel = ref<testLevelType>(testService.localOption().level)
+    const testMode = ref<testModeType>(testLogic.localOption().mode)
+    const testLevel = ref<testLevelType>(testLogic.localOption().level)
 
     // getters
     const getTestMode = computed(() => testMode.value)
@@ -25,7 +23,7 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
     //actions 
     function setTestMode(mode: testModeType) {
         testMode.value = mode
-        testService.saveLocalOption({ mode: testMode.value, level: testLevel.value })
+        testLogic.saveLocalOption({ mode: testMode.value, level: testLevel.value })
 
         testStore.setNewTest()
         router.push('/test')
@@ -33,7 +31,7 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
 
     function setTestLevel(level: testLevelType) {
         testLevel.value = level
-        testService.saveLocalOption({ mode: testMode.value, level: testLevel.value })
+        testLogic.saveLocalOption({ mode: testMode.value, level: testLevel.value })
         testStore.setNewTest()
         router.push('/test')
     }

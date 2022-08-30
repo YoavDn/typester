@@ -1,15 +1,26 @@
 import { defineStore } from 'pinia'
 import { ref, computed, reactive } from 'vue'
-import type { IUser } from '@/types'
+import type { IUser, testType, IUserTest } from '@/types'
+
 import { userService } from '@/service/user.service'
+import { testService } from '@/service/test.service'
 
 export const useUserStore = defineStore('user', () => {
 
     const user = ref<IUser | null>(null)
+    const userTests = ref<IUserTest[] | null>(null)
+
     const getLoggedInUser = computed(() => user.value)
+    const getUserTests = computed(() => userTests.value)
+
+    async function setUserTests() {
+        if (!user.value) return
+        userTests.value = await testService.getUserTests(user.value.id)
+    }
 
     async function setLoggedInUser() {
         user.value = await userService.getLoggedInUser()
+        setUserTests()
     }
 
     async function loginWithGoogle() {
@@ -36,11 +47,13 @@ export const useUserStore = defineStore('user', () => {
 
     return {
         user,
+        userTests,
         getLoggedInUser,
         login,
         setLoggedInUser,
         loginWithGoogle,
         logout,
-        signup
+        signup,
+        getUserTests
     }
 })
