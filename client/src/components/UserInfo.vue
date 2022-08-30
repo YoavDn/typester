@@ -1,16 +1,12 @@
 <script setup lang='ts'>
 import { computed } from 'vue';
-import { UserIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
-import type { HtmlAttributes } from 'csstype';
+import { UserIcon } from '@heroicons/vue/24/solid'
 import { useThemeStore } from '@/stores/theme';
+import type { IUser, IUserTest } from '@/types';
+
 
 const themeStore = useThemeStore()
-
-
-//TODO: make proper type for user
-const props = defineProps<{ user: any }>()
-
-
+const props = defineProps<{ user: IUser, userTests: IUserTest[] }>()
 const appTheme = computed(() => themeStore.getAppTheme)
 
 const CapitalizeUsername = computed(() => {
@@ -18,6 +14,24 @@ const CapitalizeUsername = computed(() => {
         .map((word: string) => word[0].toUpperCase() + word.slice(1))
         .join(' ')
 })
+
+
+const averageWpm = computed(() => {
+    return props.userTests.reduce((sum: number, test: IUserTest) => {
+        sum += test.wpm
+        return sum / props.userTests.length
+    }, 0).toFixed(1)
+})
+
+const timeTyping = computed(() => {
+    const sumTestsSeconds = props.userTests.reduce((sumSeconds, test) => {
+        sumSeconds += test.time
+        return sumSeconds
+    }, 0)
+    return new Date(sumTestsSeconds * 1000).toISOString().slice(11, 19);
+})
+
+
 
 </script>
 
@@ -28,21 +42,21 @@ const CapitalizeUsername = computed(() => {
 
             <UserIcon class="user-avatar w-3 h-4  text-white-500"
                 :class="{ 'user-dark': appTheme === 'light', 'user-light': appTheme === 'dark' }" />
-            <h2 class="user-username">{{ CapitalizeUsername }}</h2>
-            <h3 class="user-email">{{ props.user.email }}</h3>
+            <h2 class="user-username">{{  CapitalizeUsername  }}</h2>
+            <h3 class="user-email">{{  props.user.email  }}</h3>
         </header>
         <main class="user-profile-main flex">
             <div class="user-info-stat average-wpm flex-column">
                 <h2 class="user-stat-title"> Average wpm</h2>
-                <h1>34</h1>
+                <h1>{{  props.userTests ? averageWpm : '--'  }}</h1>
             </div>
             <div class="user-info-stat   flex-column">
                 <h2 class=" user-stat-title  ">Time typing</h2>
-                <h1 class="  time-typing">3h 39m 3s</h1>
+                <h1 class="  time-typing">{{  props.userTests ? timeTyping : '--'  }}</h1>
             </div>
             <div class="user-info-stat tests-completed flex-column">
                 <h2 class="user-stat-title">Tests completed</h2>
-                <h1> 49</h1>
+                <h1>{{  props.userTests ? props.userTests.length : '--'  }}</h1>
             </div>
         </main>
     </section>
