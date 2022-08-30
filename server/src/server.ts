@@ -27,12 +27,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-// app.use(require('serve-static')(__dirname + '/../../public'));
+app.use(require('serve-static')(__dirname + '/../../public'));
 app.use(session({
     secret: config.session.secret,
     resave: false,
     saveUninitialized: false,
-    // store: MongoStore.create({ mongoUrl: config.mongo.url }),
+    store: MongoStore.create({ mongoUrl: config.mongo.url }),
 }));
 
 app.use(passport.session())

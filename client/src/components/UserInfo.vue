@@ -6,7 +6,7 @@ import type { IUser, IUserTest } from '@/types';
 
 
 const themeStore = useThemeStore()
-const props = defineProps<{ user: IUser, userTests: IUserTest[] }>()
+const props = defineProps<{ user: IUser, userTests: IUserTest[] | null }>()
 const appTheme = computed(() => themeStore.getAppTheme)
 
 const CapitalizeUsername = computed(() => {
@@ -15,23 +15,27 @@ const CapitalizeUsername = computed(() => {
         .join(' ')
 })
 
+console.log(props.userTests);
 
 const averageWpm = computed(() => {
-    return props.userTests.reduce((sum: number, test: IUserTest) => {
+    if (!props.userTests || !Array.isArray(props.userTests)) return '--'
+
+    const averageWpm = props.userTests!.reduce((sum: number, test: IUserTest) => {
         sum += test.wpm
-        return sum / props.userTests.length
-    }, 0).toFixed(1)
+        return sum
+    }, 0)
+
+    return Math.round(averageWpm / props.userTests.length)
 })
 
 const timeTyping = computed(() => {
-    const sumTestsSeconds = props.userTests.reduce((sumSeconds, test) => {
+    if (!props.userTests || !Array.isArray(props.userTests)) return '--'
+    const sumTestsSeconds = props.userTests!.reduce((sumSeconds, test) => {
         sumSeconds += test.time
         return sumSeconds
     }, 0)
     return new Date(sumTestsSeconds * 1000).toISOString().slice(11, 19);
 })
-
-
 
 </script>
 
@@ -48,15 +52,16 @@ const timeTyping = computed(() => {
         <main class="user-profile-main flex">
             <div class="user-info-stat average-wpm flex-column">
                 <h2 class="user-stat-title"> Average wpm</h2>
-                <h1>{{  props.userTests ? averageWpm : '--'  }}</h1>
+                <h1>{{  averageWpm  }}</h1>
             </div>
             <div class="user-info-stat   flex-column">
                 <h2 class=" user-stat-title  ">Time typing</h2>
-                <h1 class="  time-typing">{{  props.userTests ? timeTyping : '--'  }}</h1>
+                <h1 class="  time-typing">{{  timeTyping  }}</h1>
             </div>
             <div class="user-info-stat tests-completed flex-column">
                 <h2 class="user-stat-title">Tests completed</h2>
-                <h1>{{  props.userTests ? props.userTests.length : '--'  }}</h1>
+                <h1>{{  props.userTests === null || !Array.isArray(props.userTests) ? '--' : props.userTests.length  }}
+                </h1>
             </div>
         </main>
     </section>

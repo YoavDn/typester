@@ -7,7 +7,6 @@ const express_1 = __importDefault(require("express"));
 const express_session_1 = __importDefault(require("express-session"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const passport_1 = __importDefault(require("passport"));
-const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
@@ -32,7 +31,7 @@ app.use((0, express_session_1.default)({
     secret: config_1.config.session.secret,
     resave: false,
     saveUninitialized: false,
-    store: connect_mongo_1.default.create({ mongoUrl: config_1.config.mongo.url }),
+    // store: MongoStore.create({ mongoUrl: config.mongo.url }),
 }));
 app.use(passport_1.default.session());
 app.use(passport_1.default.initialize());
