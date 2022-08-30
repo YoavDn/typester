@@ -111,13 +111,17 @@ export function calcTestWpm(test: testType): number {
 function calcWordWpm(test: testType) {
     const newWords = test.txt.map((word, idx) => {
         let wordsTypos = 0
+        let wordCorrectChars = 0
 
         for (let i = 0; i < idx; i++) {
-            wordsTypos += testUtils.countTypos(test.txt[i])
+            // wordsTypos += testUtils.countTypos(test.txt[i])
+            wordCorrectChars += testUtils.countCorrectChars(test.txt[i])
         }
         if (idx < test.currWord.idx) {
-            word.wpm = testUtils.calcWpm(wordsTypos, word.typeCount, word.time)
+            word.wpm = testUtils.calcWpm(wordCorrectChars, idx, word.time)
+            word.wpmRaw = testUtils.calcWpmRaw(word.word.length, idx, word.time)
         }
+
         return word
     })
 

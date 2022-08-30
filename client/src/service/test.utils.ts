@@ -4,7 +4,9 @@ import { testService } from "./test.service";
 export const testUtils = {
     checkTestEnd,
     countTypos,
-    calcWpm
+    calcWpm,
+    countCorrectChars,
+    calcWpmRaw,
 }
 
 export function checkTestEnd(test: testType, latterEnd: boolean, level: testLevelType) {
@@ -15,10 +17,12 @@ export function checkTestEnd(test: testType, latterEnd: boolean, level: testLeve
     return true
 }
 
-export function calcWpm(typos: number, sumType: number, time: number) {
-    const grossWpm = (sumType / 5) / (time / 60)
-    const netWpm = grossWpm - (typos / time / 60)
-    return Math.round(netWpm)
+export function calcWpmRaw(chars: number, spaces: number, testSeconds: number) {
+    return Math.round((chars + spaces) * (60 / testSeconds)) / 5
+}
+
+export function calcWpm(correctChars: number, spaces: number, testSeconds: number) {
+    return Math.round((correctChars + spaces) * (60 / testSeconds)) / 5
 }
 
 
@@ -26,5 +30,12 @@ export function countTypos(word: wordType) {
     return word.latters.reduce((typos, latter) => {
         if (latter.isCorrect === false) typos++
         return typos
+    }, 0)
+}
+
+export function countCorrectChars(word: wordType) {
+    return word.latters.reduce((correctChar, latter) => {
+        if (latter.isCorrect === true) correctChar++
+        return correctChar
     }, 0)
 }

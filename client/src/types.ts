@@ -14,6 +14,7 @@ export type latterType = {
 export type wordType = {
     word: string,
     wpm: number,
+    wpmRaw: number
     typeCount: number,
     time: number
     isCorrect: boolean | null,
