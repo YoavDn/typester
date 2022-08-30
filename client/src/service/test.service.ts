@@ -36,6 +36,7 @@ function generateNewTest(lang = 'english') {
             word,
             isCorrect: null,
             wpm: 0,
+            wpmRaw: 0,
             typeCount: 0,
             time: 0,
             latters: word.split('').map(latter => {
@@ -56,6 +57,7 @@ function generateNewTest(lang = 'english') {
         acc: 0,
         realAcc: 0,
         wpm: 0,
+        wpmRaw: 0,
         txt: wordsMap
     }
 
@@ -86,6 +88,7 @@ function _resetWordsObj(txt: wordType[]) {
             word: word.word,
             typeCount: 0,
             wpm: 0,
+            wpmRaw: 0,
             time: 0,
             isCorrect: null,
             latters: word.word.split('').map(latter => {
@@ -102,10 +105,13 @@ function saveTestToLocalStorage(test: testType): void {
     window.localStorage.setItem('test', JSON.stringify(test))
 }
 
-export function calcTestWpm(test: testType): number {
+export function calcTestWpm(test: testType): [number, number] {
     const sumWpm = test.txt.map(({ wpm }) => wpm).slice(0, test.currWord.idx).reduce((sum, num) => sum += num, 0)
+    const sumWpmRaw = test.txt.map(({ wpmRaw }) => wpmRaw).slice(0, test.currWord.idx).reduce((sum, num) => sum += num, 0)
+    const averageWpm = Math.round(sumWpm / test.currWord.idx)
+    const averageWpmRaw = Math.round(sumWpmRaw / test.currWord.idx)
 
-    return Math.round(sumWpm / test.currWord.idx)
+    return [averageWpm, averageWpmRaw]
 }
 
 function calcWordWpm(test: testType) {
@@ -114,12 +120,12 @@ function calcWordWpm(test: testType) {
         let wordCorrectChars = 0
 
         for (let i = 0; i < idx; i++) {
-            // wordsTypos += testUtils.countTypos(test.txt[i])
+            wordsTypos += testUtils.countTypos(test.txt[i])
             wordCorrectChars += testUtils.countCorrectChars(test.txt[i])
         }
         if (idx < test.currWord.idx) {
             word.wpm = testUtils.calcWpm(wordCorrectChars, idx, word.time)
-            word.wpmRaw = testUtils.calcWpmRaw(word.word.length, idx, word.time)
+            word.wpmRaw = testUtils.calcWpmRaw(word.typeCount, idx, word.time)
         }
 
         return word

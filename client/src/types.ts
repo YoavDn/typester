@@ -27,6 +27,7 @@ export interface IcurrWordOrLetter {
 
 export type testType = {
     wpm: number,
+    wpmRaw: number,
     acc: number,
     realAcc: number,
     time: number,

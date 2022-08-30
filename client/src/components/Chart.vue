@@ -14,26 +14,40 @@ export default defineComponent({
     props: ['test'],
     setup(props) {
         const wordsWpm = computed(() => props.test.txt.map((txt: wordType) => txt.wpm).slice(0, props.test.currWord.idx))
+        const wordsWpmRaw = computed(() => props.test.txt.map((txt: wordType) => txt.wpmRaw).slice(0, props.test.currWord.idx))
 
-        const series = ref([{
-            name: 'word',
-            data: wordsWpm
-        }])
+        const series = ref([
+            {
+                name: 'Wpm',
+                type: 'area',
+                data: wordsWpm,
+                color: '#6e45e2'
+            },
+            {
+                name: 'Raw',
+                type: 'area',
+                data: wordsWpmRaw,
+                color: 'gray',
+            }
+        ])
         const chartOptions = reactive({
             chartOptions: {
                 chart: {
                     height: 350,
                     type: 'area',
+
+                    stacked: false,
                     toolbar: {
                         show: false,
                     },
                 },
+
                 dataLabels: {
                     enabled: false,
                 },
                 stroke: {
-                    width: 1.5,
-                    curve: 'smooth'
+                    width: 2,
+                    curve: 'straight'
                 },
                 xaxis: {
                     type: 'numeric',
@@ -57,6 +71,7 @@ export default defineComponent({
                     }
                 },
                 yaxis: {
+                    type: 'numeric',
                     title: {
                         text: 'Words per minute',
                         style: {
@@ -67,7 +82,7 @@ export default defineComponent({
                     }
                 },
                 markers: {
-                    size: 3,
+                    size: 5,
                     strokeWidth: 0,
 
                     hover: {
@@ -86,13 +101,15 @@ export default defineComponent({
                 toolbar: {
                     show: false,
                 },
-                theme: {
-                    monochrome: {
-                        enabled: true,
-                        color: '#255aee',
-                        shadeTo: 'light',
-                        shadeIntensity: 0.65
-                    }
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        inverseColors: false,
+                        opacityFrom: 0.45,
+                        opacityTo: 0.05,
+                        stops: [20, 100, 100, 100]
+                    },
                 },
 
                 grid: {
