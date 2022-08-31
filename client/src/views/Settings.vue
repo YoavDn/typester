@@ -12,12 +12,10 @@ function isActiveLang(lang: string) {
     return { 'setting-btn-active': lang.toLowerCase() === testSettings.value.lang }
 }
 
-console.log(testSettings.value.difficulty);
+
 
 function saveTestSettings(option: "lang" | 'smoothCaret' | 'difficulty', newSetting: string | boolean) {
-    console.log('hii');
     const newSettings: dictType = { ...testSettings.value }
-
     newSettings[option] = newSetting
     testOptionsStore.setNewSettings(newSettings as ITestSettings)
 }
