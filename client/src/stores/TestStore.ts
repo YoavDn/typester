@@ -97,7 +97,7 @@ export const useTestStore = defineStore({
             //  @ts-ignore
             this.$router.push('/testResult')
 
-            if (userStore.getLoggedInUser && this.test.acc > 90) {
+            if (userStore.getLoggedInUser && this.test.acc > 90 && this.test.passed) {
                 testService.saveTest(this.test, userStore.getLoggedInUser.id)
             }
         },
@@ -106,10 +106,12 @@ export const useTestStore = defineStore({
             if (this.test === null) return
             const testOptionsStore = useTestOptionsStore()
             const caretStore = useCaretStore()
+
             const { currLatter, currWord } = this.test
             const activeLatter = this.test.txt[currWord.idx].latters[currLatter.idx]
-            if (!this.isActive) this.handleTime(true)
+            const testDiff = testOptionsStore.getTestSettings.difficulty
 
+            if (!this.isActive) this.handleTime(true)
 
             //whether to check on finish
             if (testOptionsStore.getTestMode === 'words') {
@@ -129,17 +131,25 @@ export const useTestStore = defineStore({
 
             // when correct
             if (latter === this.test?.currLatter.str) {
-                if (currLatter.str === 'space') this.setNextWord(true)
+                if (currLatter.str === ' ') this.setNextWord(true)
                 else this.setLatterNewStatus(true)
 
             } else { //when wrong
+                if (testDiff === 'expert') {
+                    this.test.passed = false
+                    this.finishTest()
+                    return
+                }
                 this.test.typoCount++
-                if (currLatter.str === 'space') this.setNextWord(false)
+                if (currLatter.str === ' ') this.setNextWord(false)
                 else this.setLatterNewStatus(false)
             }
         },
 
         finishWord() {
+            const testOptionsStore = useTestOptionsStore()
+            const testSettings = testOptionsStore.testSettings
+
             const { currWord } = this.test
             this.test.txt[currWord.idx].time = this.test.time
             this.test.txt[currWord.idx].typeCount = this.test.sumType
@@ -148,6 +158,10 @@ export const useTestStore = defineStore({
                 this.test.txt[currWord.idx].isCorrect = true
             } else {
                 this.test.txt[currWord.idx].isCorrect = false
+                if (testSettings.difficulty === 'hard')
+                    this.test.passed = false
+                this.finishTest()
+                return
             }
         },
 
@@ -185,7 +199,7 @@ export const useTestStore = defineStore({
             this.test.txt[currWord.idx].latters[currLatter.idx].isCorrect = lStatus ? true : false
 
             if (currLatter.idx === currWord.str.length - 1) {
-                currLatter.str = 'space'
+                currLatter.str = ' '
                 caretStore.setLatterEnd(true)
 
             } else {

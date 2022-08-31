@@ -15,8 +15,6 @@ const CapitalizeUsername = computed(() => {
         .join(' ')
 })
 
-console.log(props.userTests);
-
 const averageWpm = computed(() => {
     if (!props.userTests || !Array.isArray(props.userTests)) return '--'
 

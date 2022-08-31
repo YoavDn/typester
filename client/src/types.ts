@@ -30,6 +30,7 @@ export interface IcurrWordOrLetter {
 }
 
 export type testType = {
+    passed: null | boolean
     wpm: number,
     wpmRaw: number,
     acc: number,

@@ -86,6 +86,7 @@ function generateNewTest(lang: langType) {
         currLatter: { idx: 0, str: wordsMap[0].latters[0].latter },
         currWord: { idx: 0, str: wordsMap[0].word },
         time: 0,
+        passed: null,
         typoCount: 0,
         sumType: 0,
         acc: 0,

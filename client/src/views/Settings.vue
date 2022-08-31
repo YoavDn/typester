@@ -12,6 +12,7 @@ function isActiveLang(lang: string) {
     return { 'setting-btn-active': lang.toLowerCase() === testSettings.value.lang }
 }
 
+console.log(testSettings.value.difficulty);
 
 function saveTestSettings(option: "lang" | 'smoothCaret' | 'difficulty', newSetting: string | boolean) {
     console.log('hii');
@@ -37,11 +38,11 @@ function saveTestSettings(option: "lang" | 'smoothCaret' | 'difficulty', newSett
         </div>
         <div class="test-diff setting-option">
             <h2>Test difficulty</h2>
-            <p>Normal is the classic type test experience. Expert fails the test if you submit (press space) an
-                incorrect word. Master fails if you press a single incorrect key (meaning you have to achieve 100%
+            <p>Normal is the classic type test experience. Hard fails the test if you submit an
+                incorrect word. Expert fails if you press a single incorrect key (meaning you have to achieve 100%
                 accuracy).</p>
             <div class="options flex ">
-                <button @click="saveTestSettings('difficulty', 'noraml')"
+                <button @click="saveTestSettings('difficulty', 'normal')"
                     :class="{ 'setting-btn-active': testSettings.difficulty === 'normal' }">Normal</button>
                 <button @click="saveTestSettings('difficulty', 'hard')"
                     :class="{ 'setting-btn-active': testSettings.difficulty === 'hard' }">Hard</button>

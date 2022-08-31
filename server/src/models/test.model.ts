@@ -22,6 +22,7 @@ export interface IcurrWordOrLetter {
 
 export type testType = {
     wpm: number,
+    passed: boolean
     wpmRaw: number,
     acc: number,
     realAcc: number,
@@ -39,6 +40,7 @@ export interface ITest extends testType {
 const TestSchema = new Schema<ITest>({
     wpm: { type: Number, },
     wpmRaw: { type: Number },
+    passed: { type: Boolean },
     acc: { type: Number },
     realAcc: { type: Number },
     time: { type: Number },
