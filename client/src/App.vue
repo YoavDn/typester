@@ -63,4 +63,10 @@ themeStore.localTheme()
 .fade-leave-to {
   opacity: 0;
 }
+
+@media (max-width: 550px) {
+  .main-app {
+    padding: 16px;
+  }
+}
 </style>

@@ -46,7 +46,11 @@ function handleLogout() {
 }
 
 
-const isOnProfilePage = computed(() => route.name === 'profile' && userStore.getLoggedInUser ? true : false)
+
+const isOnMobile = computed(() => window.innerWidth < 550)
+const isShowLogout = computed(() => {
+    return route.name === 'profile' && user.value
+})
 
 function goToPage(page: pagesType) {
     if (page === '/test') testStore.setNewTest()
@@ -78,10 +82,15 @@ const username = computed(() => {
                         <User class="nav-svg" />
                         <span class="username" v-if="user">{{ username }}</span>
                     </div>
+                    <button @click="handleLogout" class="logout-btn flex" v-if="isShowLogout && isOnMobile">
+                        Logout
+                        <ArrowRightOnRectangleIcon class="logout-svg" />
+                    </button>
                 </div>
 
             </nav>
-            <div v-if="!isOnProfilePage" class="test-options flex">
+            <div v-if="(route.name === 'Test' || route.name === 'test result') && !isOnMobile"
+                class="test-options flex">
                 <div class="time-or-number-option test-option flex">
                     <h2 class="txt-light" @click="hendleChangeOption('time')"
                         :class="{ 'active-option': testMode === 'time' }">time</h2>
@@ -93,7 +102,8 @@ const username = computed(() => {
                         :class="{ 'active-option': testLevel === i * 15 }">{{ i * 15 }}</h2>
                 </div>
             </div>
-            <button @click="handleLogout" class="logout-btn flex" v-else>Logout
+            <button @click="handleLogout" class="logout-btn flex" v-if="isShowLogout && !isOnMobile">
+                Logout
                 <ArrowRightOnRectangleIcon class="logout-svg" />
             </button>
         </div>
@@ -230,7 +240,9 @@ const username = computed(() => {
         }
 
         .header-contianer {
-
+            display: flex;
+            align-items: baseline;
+            flex-direction: column;
 
             .logo-and-nav {
                 flex-direction: column;
@@ -247,6 +259,8 @@ const username = computed(() => {
                     }
                 }
             }
+
+
         }
     }
 }

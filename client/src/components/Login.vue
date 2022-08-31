@@ -33,7 +33,7 @@ function register(registerInputs: { email: string, password: string, username: s
 
 <template>
     <section v-if="!user" class="login-signup-page">
-        <h2 class="login-title">{{  isRegister ? 'Resgister' : 'Log in'  }} to Typester</h2>
+        <h2 class="login-title">{{ isRegister ? 'Resgister' : 'Log in' }} to Typester</h2>
         <div v-if="!isWithEmail" class="login-with-options flex-column">
             <div @click="$emit('loginWithGoogle')" class="login-option google flex">
                 <GoogleSvg />
@@ -122,6 +122,10 @@ function register(registerInputs: { email: string, password: string, username: s
                     background-color: var(--theme);
                 }
             }
+        }
+
+        @media (max-width: 500px) {
+            width: 280px;
         }
     }
 

@@ -97,7 +97,7 @@ export const useTestStore = defineStore({
             //  @ts-ignore
             this.$router.push('/testResult')
 
-            if (userStore.getLoggedInUser && this.test.acc > 90) {
+            if (userStore.getLoggedInUser && this.test.acc > 90 && this.test.passed !== false) {
                 testService.saveTest(this.test, userStore.getLoggedInUser.id)
             }
         },

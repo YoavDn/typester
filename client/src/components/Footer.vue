@@ -93,6 +93,8 @@ function linkToLinkedin() {
                  align-items: flex-end;
  
                  h2 {
+                     font-family: 'Roboto Mono', monospace;
+                     font-weight: 400;
                      font-size: 1.3rem;
                      line-height: 23px;
                  }
