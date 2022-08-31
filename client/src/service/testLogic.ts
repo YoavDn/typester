@@ -1,6 +1,10 @@
 import type { ITestSettings, testType, wordType, Dict, langType } from '@/types'
 import { englishWords } from '@/wordsData/english'
 import { frenchWords } from '@/wordsData/french'
+import { hebrewWords } from '@/wordsData/hebrew'
+import { russianWords } from '@/wordsData/russian'
+import { spanishWords } from '@/wordsData/spanish'
+import { germanWords } from '@/wordsData/german'
 import { testUtils } from './test.utils'
 
 
@@ -21,10 +25,10 @@ export const testLogic = {
 const testLang: Dict = {
     english: englishWords,
     french: frenchWords,
-    spanish: englishWords,
-    russian: englishWords,
-    german: englishWords,
-    hebrew: englishWords,
+    spanish: spanishWords,
+    russian: russianWords,
+    german: germanWords,
+    hebrew: hebrewWords,
 
 }
 
@@ -35,7 +39,7 @@ function localSettings(): ITestSettings {
     const defaultSettings: ITestSettings = {
         difficulty: 'medium',
         smoothCaret: true,
-        lang: 'french'
+        lang: 'english'
     }
     localStorage.setItem('testSettings', JSON.stringify(defaultSettings))
 

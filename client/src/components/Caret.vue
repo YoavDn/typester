@@ -3,17 +3,29 @@
 import { computed } from 'vue';
 import { useCaretStore } from '@/stores/CaretStore'
 import { useTestStore } from '@/stores/TestStore'
+import { useTestOptionsStore } from '@/stores/TestSettings';
 
+const testOptionsStore = useTestOptionsStore()
 const testStore = useTestStore()
 const caretStore = useCaretStore()
+
 const caretPos = computed(() => caretStore.getCaretPos)
 const isLatterEnd = computed(() => caretStore.getIslatterEnd)
+const rlt = computed(() => testOptionsStore.getRtl)
+
 
 const caretCssPos = computed(() => {
     if (caretPos.value !== null) {
         const { top, left, leftEnd, right, } = caretPos.value
-        if (isLatterEnd.value) return { top: top + 'px', left: leftEnd + 'px' }
-        return { top: top + 'px', left: left + 'px' }
+        if (rlt) {
+            if (isLatterEnd.value) return { top: top + 'px', left: left + 'px' }
+            return { top: top + 'px', left: leftEnd + 'px' }
+
+        } else {
+            if (isLatterEnd.value) return { top: top + 'px', left: leftEnd + 'px' }
+            return { top: top + 'px', left: left + 'px' }
+        }
+
     }
 })
 

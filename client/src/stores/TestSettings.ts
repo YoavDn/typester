@@ -14,9 +14,11 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
     const testMode = ref<testModeType>(testLogic.localTestMode().mode)
     const testLevel = ref<testLevelType>(testLogic.localTestMode().level)
     const testSettings = reactive<ITestSettings>(testLogic.localSettings())
+    const rtl = ref(testSettings.lang === 'hebrew')
 
     // getters
     const getTestSettings = computed(() => testSettings)
+    const getRtl = computed(() => rtl.value)
     const getTestMode = computed(() => testMode.value)
     const getTestLevel = computed(() => testLevel.value)
     const getIsOnMinWords = computed(() => testLevel.value === 15 && testMode.value === 'words')
@@ -44,6 +46,7 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
 
     return {
         getTestLevel,
+        getRtl,
         getTestSettings,
         testSettings,
         getTestMode,

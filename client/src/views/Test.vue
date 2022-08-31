@@ -21,6 +21,7 @@ const isActiveTest = computed(() => testStore.getIsActiveTest)
 const isReloadTest = computed(() => testStore.getIsNewTest)
 const testLevel = computed(() => testOptionsStore.getTestLevel)
 const testMode = computed(() => testOptionsStore.getTestMode)
+const rtl = computed(() => testOptionsStore.getRtl)
 const caretPos = computed(() => caretStore.getCaretPos)
 
 //refs
@@ -187,8 +188,8 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
             <Caret />
             <input class="game-input" tabindex="0" ref="ElGameInput" @keydown="handleSpicialKeys"
                 @input.stop="handleInput" type="text">
-            <main class="word-container flex" ref="ElWordsContainer">
-                <div class="word flex" v-for="(wordObj, idx) in wordsToRender"
+            <main class="word-container flex" :class="{ 'flex-reverse': rtl }" ref="ElWordsContainer">
+                <div class="word flex" :class="{ 'flex-reverse': rtl }" v-for="(wordObj, idx) in wordsToRender"
                     :ref="(el) => updateWordsRefs(el as HTMLElement | null, idx)" :key="wordObj.word">
                     <Word :word="wordObj" />
                 </div>
@@ -247,6 +248,7 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
 
         .word {
             display: flex;
+
             font-family: 'Roboto Mono', monospace;
             line-height: 1.2em;
             font-size: 2.5rem;
