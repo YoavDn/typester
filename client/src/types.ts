@@ -51,9 +51,18 @@ export type caretPosType = {
     leftEnd: number,
 }
 
+export type ITestSettings = {
+    difficulty: 'easy' | 'medium' | 'hard',
+    smoothCaret: boolean,
+    lang: langType
+}
+
+export type Dict = { [key: string]: string };
+
 
 export type testModeType = 'time' | 'words'
 export type testLevelType = 15 | 30 | 45 | 60
 export type optionsType = testModeType | testLevelType
 export type pagesType = "/test" | "/leaderboard" | "/profile" | "/settings" | '/'
 
+export type langType = 'english' | 'french' | 'german' | 'hebrew' | 'russian' | 'spanish'

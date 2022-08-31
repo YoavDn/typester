@@ -2,8 +2,8 @@
 import { ref } from 'vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
-import { useUserStore } from './stores/user';
-import { useThemeStore } from './stores/theme'
+import { useUserStore } from './stores/UserStore';
+import { useThemeStore } from './stores/ThemeStore'
 
 const userStore = useUserStore()
 const themeStore = useThemeStore()

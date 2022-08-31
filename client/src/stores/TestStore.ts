@@ -3,17 +3,17 @@ import { useRouter } from "vue-router";
 import type { testType } from "@/types";
 import { testLogic } from "@/service/testLogic";
 import { testService } from "@/service/test.service";
-import { useCaretStore } from "./caret";
-import { useTestOptionsStore } from "./testOptions";
+import { useCaretStore } from "./CaretStore";
+import { useTestOptionsStore } from "./TestSettings";
 import { testUtils } from '@/service/test.utils'
-import { useUserStore } from "./user";
+import { useUserStore } from "./UserStore";
 
 
 
 export const useTestStore = defineStore({
     id: 'test',
     state: () => ({
-        test: testLogic.generateNewTest() as testType,
+        test: testLogic.generateNewTest(testLogic.localSettings().lang) as testType,
         isActive: false,
         AFKtimeout: null as null | ReturnType<typeof setTimeout>,
         testTimeInterval: null as null | ReturnType<typeof setInterval>,
@@ -34,7 +34,11 @@ export const useTestStore = defineStore({
         cutWordsToRender() {
             this.wordsToCut = this.test.currWord.idx
         },
-        loadTest() { this.test = testLogic.generateNewTest() },
+        loadTest() {
+            const testOptionsStore = useTestOptionsStore()
+            const testSettings = testOptionsStore.getTestSettings
+            this.test = testLogic.generateNewTest(testSettings.lang)
+        },
 
         setNewTest() { this.isNewTest = true },
 
@@ -44,7 +48,9 @@ export const useTestStore = defineStore({
         },
 
         newTest() {
-            this.test = testLogic.generateNewTest()
+            const testOptionsStore = useTestOptionsStore()
+            const testSettings = testOptionsStore.getTestSettings
+            this.test = testLogic.generateNewTest(testSettings.lang)
             this.test.time = 0
             this.isNewTest = false
             this.handleTime(false)

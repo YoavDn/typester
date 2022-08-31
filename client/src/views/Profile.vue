@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 
 import { ref, computed } from 'vue'
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/UserStore';
 import Login from '@/components/Login.vue';
 import UserInfo from '@/components/UserInfo.vue'
 

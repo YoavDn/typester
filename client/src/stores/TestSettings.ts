@@ -1,19 +1,22 @@
 import { useRouter, useRoute } from 'vue-router'
 import { testLogic } from '@/service/testLogic'
 import { defineStore } from 'pinia'
-import { useTestStore, } from './test'
-import { ref, computed } from 'vue'
-import type { testModeType, testLevelType } from '@/types'
+import { useTestStore, } from './TestStore'
+import { ref, computed, reactive } from 'vue'
+import type { testModeType, testLevelType, ITestSettings } from '@/types'
+
 
 
 export const useTestOptionsStore = defineStore("testPtions", () => {
     const testStore = useTestStore()
     const router = useRouter()
 
-    const testMode = ref<testModeType>(testLogic.localOption().mode)
-    const testLevel = ref<testLevelType>(testLogic.localOption().level)
+    const testMode = ref<testModeType>(testLogic.localTestMode().mode)
+    const testLevel = ref<testLevelType>(testLogic.localTestMode().level)
+    const testSettings = reactive<ITestSettings>(testLogic.localSettings())
 
     // getters
+    const getTestSettings = computed(() => testSettings)
     const getTestMode = computed(() => testMode.value)
     const getTestLevel = computed(() => testLevel.value)
     const getIsOnMinWords = computed(() => testLevel.value === 15 && testMode.value === 'words')
@@ -23,7 +26,7 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
     //actions 
     function setTestMode(mode: testModeType) {
         testMode.value = mode
-        testLogic.saveLocalOption({ mode: testMode.value, level: testLevel.value })
+        testLogic.saveLocalTestMode({ mode: testMode.value, level: testLevel.value })
 
         testStore.setNewTest()
         router.push('/test')
@@ -31,13 +34,18 @@ export const useTestOptionsStore = defineStore("testPtions", () => {
 
     function setTestLevel(level: testLevelType) {
         testLevel.value = level
-        testLogic.saveLocalOption({ mode: testMode.value, level: testLevel.value })
+        testLogic.saveLocalTestMode({ mode: testMode.value, level: testLevel.value })
         testStore.setNewTest()
         router.push('/test')
     }
 
+
+
+
     return {
         getTestLevel,
+        getTestSettings,
+        testSettings,
         getTestMode,
         setTestMode,
         setTestLevel,

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 //@ts-ignore
 
-import { useThemeStore } from '@/stores/theme';
+import { useThemeStore } from '@/stores/ThemeStore';
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 const themeStore = useThemeStore()

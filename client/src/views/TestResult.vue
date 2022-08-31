@@ -5,9 +5,9 @@ import NextArrowSvg from '@/assets/imgs/left-arrow.svg'
 import MainStats from '@/components/MainStats.vue'
 import ReplaySvg from '@/assets/imgs/replay.svg'
 
-import { useTestStore } from '@/stores/test';
+import { useTestStore } from '@/stores/TestStore';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/UserStore';
 import { computed, onMounted, ref } from 'vue';
 
 const testResRef = ref<HTMLElement | null>(null)

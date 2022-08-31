@@ -2,7 +2,7 @@
 import VueApexCharts from 'vue3-apexcharts'
 import { defineComponent, reactive, ref, computed } from 'vue';
 import type { testType, wordType } from '@/types';
-import { useTestStore } from '@/stores/test';
+import { useTestStore } from '@/stores/TestStore';
 
 
 export default defineComponent({

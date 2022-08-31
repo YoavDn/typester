@@ -2,13 +2,13 @@
 <script setup lang='ts'>
 
 import { ref, onMounted, computed, watchEffect, watch, onUnmounted } from 'vue';
-import { useTestStore } from '@/stores/test';
-import { useCaretStore } from '@/stores/caret';
+import { useTestStore } from '@/stores/TestStore';
+import { useCaretStore } from '@/stores/CaretStore';
 
 //cmps
 import Word from '@/components/Word.vue';
 import Caret from '@/components/Caret.vue'
-import { useTestOptionsStore } from '@/stores/testOptions';
+import { useTestOptionsStore } from '@/stores/TestSettings';
 //stores
 const caretStore = useCaretStore()
 const testStore = useTestStore()
@@ -179,8 +179,8 @@ const testWordsComplete = computed(() => testRef.value?.currWord.idx + "/" + tes
         </div>
         <div class="test-options-bar flex">
             <div :style="{ opacity: isActiveTest ? 1 : 0 }" class="test-mode">
-                <h2 v-if="testMode === 'time'">{{  timeLeft  }}</h2>
-                <h2 v-else>{{  testWordsComplete  }}</h2>
+                <h2 v-if="testMode === 'time'">{{ timeLeft }}</h2>
+                <h2 v-else>{{ testWordsComplete }}</h2>
             </div>
         </div>
         <div class="words-wapper" @click="inputFocus" ref="ElMainContainer">

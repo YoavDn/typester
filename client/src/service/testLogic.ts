@@ -1,5 +1,6 @@
-import type { testType, wordType } from '@/types'
-import { commonEnWords } from '../wordsData/commonWords'
+import type { ITestSettings, testType, wordType, Dict, langType } from '@/types'
+import { englishWords } from '@/wordsData/english'
+import { frenchWords } from '@/wordsData/french'
 import { testUtils } from './test.utils'
 
 
@@ -10,14 +11,41 @@ export const testLogic = {
     calcWordWpm,
     calcTestWpm,
     saveTestToLocalStorage,
-    localOption,
-    saveLocalOption
+    localTestMode,
+    saveLocalTestMode,
+    localSettings
 }
 
-function localOption() {
-    const localOptions: string | null = (localStorage.getItem('testOptions'))
+
+
+const testLang: Dict = {
+    english: englishWords,
+    french: frenchWords,
+    spanish: englishWords,
+    russian: englishWords,
+    german: englishWords,
+    hebrew: englishWords,
+
+}
+
+function localSettings(): ITestSettings {
+    const localSettings = localStorage.getItem('testSettings')
+    if (localSettings) return JSON.parse(localSettings)
+
+    const defaultSettings: ITestSettings = {
+        difficulty: 'medium',
+        smoothCaret: true,
+        lang: 'french'
+    }
+    localStorage.setItem('testSettings', JSON.stringify(defaultSettings))
+
+    return defaultSettings
+}
+
+function localTestMode() {
+    const localOptions: string | null = (localStorage.getItem('testMode'))
     if (!localOptions) {
-        localStorage.setItem('testOptions', JSON.stringify({ mode: 'time', level: 15 }))
+        localStorage.setItem('testMode', JSON.stringify({ mode: 'time', level: 15 }))
         return { mode: 'time', level: 15 }
     }
 
@@ -25,13 +53,15 @@ function localOption() {
 
 }
 
-function saveLocalOption(options: { mode: string, level: number }) {
-    localStorage.setItem('testOptions', JSON.stringify(options))
+
+
+function saveLocalTestMode(options: { mode: string, level: number }) {
+    localStorage.setItem('testMode', JSON.stringify(options))
 }
 
 
-function generateNewTest(lang = 'english') {
-    const wordsMap = randomTxt().map(word => {
+function generateNewTest(lang: langType) {
+    const wordsMap = randomTxt(lang).map(word => {
         return {
             word,
             isCorrect: null,
@@ -78,7 +108,8 @@ export function retest(test: testType): testType {
 }
 
 export function randomTxt(lang = 'english') {
-    const txtBody = commonEnWords.split('\n').sort(() => Math.random() - .5).slice(0, 100)
+    const txtBody = testLang[lang].split('\n').sort(() => Math.random() - .5).slice(0, 100)
+    // const txtBody = englishWords.split('\n').sort(() => Math.random() - .5).slice(0, 100)
     return txtBody
 }
 

@@ -3,7 +3,7 @@ import { SunIcon } from '@heroicons/vue/24/outline';
 import { MoonIcon } from '@heroicons/vue/24/outline'
 import { computed, ref, onMounted, watchEffect } from 'vue';
 
-import { useThemeStore } from '@/stores/theme'
+import { useThemeStore } from '@/stores/ThemeStore'
 
 const themeStore = useThemeStore()
 const appTheme = computed(() => themeStore.getAppTheme)

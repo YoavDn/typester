@@ -1,8 +1,8 @@
 
 <script setup lang='ts'>
 import { computed } from 'vue';
-import { useCaretStore } from '@/stores/caret'
-import { useTestStore } from '@/stores/test'
+import { useCaretStore } from '@/stores/CaretStore'
+import { useTestStore } from '@/stores/TestStore'
 
 const testStore = useTestStore()
 const caretStore = useCaretStore()

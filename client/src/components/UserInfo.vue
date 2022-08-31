@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { computed } from 'vue';
 import { UserIcon } from '@heroicons/vue/24/solid'
-import { useThemeStore } from '@/stores/theme';
+import { useThemeStore } from '@/stores/ThemeStore';
 import type { IUser, IUserTest } from '@/types';
 
 
@@ -46,21 +46,21 @@ const timeTyping = computed(() => {
 
             <UserIcon class="user-avatar w-3 h-4  text-white-500"
                 :class="{ 'user-dark': appTheme === 'light', 'user-light': appTheme === 'dark' }" />
-            <h2 class="user-username">{{  CapitalizeUsername  }}</h2>
-            <h3 class="user-email">{{  props.user.email  }}</h3>
+            <h2 class="user-username">{{ CapitalizeUsername }}</h2>
+            <h3 class="user-email">{{ props.user.email }}</h3>
         </header>
         <main class="user-profile-main flex">
             <div class="user-info-stat average-wpm flex-column">
                 <h2 class="user-stat-title"> Average wpm</h2>
-                <h1>{{  averageWpm  }}</h1>
+                <h1>{{ averageWpm }}</h1>
             </div>
             <div class="user-info-stat   flex-column">
                 <h2 class=" user-stat-title  ">Time typing</h2>
-                <h1 class="  time-typing">{{  timeTyping  }}</h1>
+                <h1 class="  time-typing">{{ timeTyping }}</h1>
             </div>
             <div class="user-info-stat tests-completed flex-column">
                 <h2 class="user-stat-title">Tests completed</h2>
-                <h1>{{  props.userTests === null || !Array.isArray(props.userTests) ? '--' : props.userTests.length  }}
+                <h1>{{ props.userTests === null || !Array.isArray(props.userTests) ? '--' : props.userTests.length }}
                 </h1>
             </div>
         </main>

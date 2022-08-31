@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 
 import type { caretPosType } from '@/types'
 import { useLatterPos } from '@/features/useLatterPos'
-import { useTestOptionsStore } from './testOptions'
-import { useTestStore } from './test'
+import { useTestOptionsStore } from './TestSettings'
+import { useTestStore } from './TestStore'
 type initalCaretpos = caretPosType | null
 
 export const useCaretStore = defineStore({
