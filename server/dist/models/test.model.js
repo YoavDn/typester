@@ -5,6 +5,7 @@ const mongoose_1 = require("mongoose");
 const TestSchema = new mongoose_1.Schema({
     wpm: { type: Number, },
     wpmRaw: { type: Number },
+    passed: { type: Boolean },
     acc: { type: Number },
     realAcc: { type: Number },
     time: { type: Number },

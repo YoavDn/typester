@@ -6,6 +6,7 @@ const props = defineProps<{ test?: testType }>()
 
 <template>
     <main class="main-stats flex">
+        <h2 v-if="props.test && props.test.passed === false" class="test-failed-msg">FAILED</h2>
         <article class="wpm-box stat-box">
             <div>
                 <p>Wpm</p>
@@ -33,6 +34,16 @@ const props = defineProps<{ test?: testType }>()
 
 <style lang='scss'>
 @import '@/assets/style/main.scss';
+
+.test-failed-msg {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    font-size: 3rem;
+    transform: translateX(-50%);
+    text-transform: capitalize;
+    color: var(--text-typo);
+}
 
 .stat-box {
     display: flex;

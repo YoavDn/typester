@@ -18,14 +18,14 @@ export function checkTestEnd(test: testType, latterEnd: boolean, level: testLeve
 }
 
 export function calcWpmRaw(chars: number, spaces: number, testSeconds: number) {
-    return Math.round(((chars - spaces) * (60 / testSeconds)) / 5)
-    // const grossWpm = (chars / 5) / (testSeconds / 60)
-    // const netWpm = grossWpm - (typos / testSeconds / 60)
-    // return Math.round(netWpm)
+    const wpmRaw = Math.round(((chars - spaces) * (60 / testSeconds)) / 5)
+    return wpmRaw
 }
 
 export function calcWpm(correctChars: number, spaces: number, testSeconds: number) {
-    return Math.round(((correctChars + spaces) * (60 / testSeconds)) / 5)
+    const wpm = Math.round(((correctChars + spaces) * (60 / testSeconds)) / 5)
+    if (isNaN(wpm)) return 0
+    return wpm
 }
 
 

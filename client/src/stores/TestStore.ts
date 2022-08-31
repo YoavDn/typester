@@ -150,6 +150,7 @@ export const useTestStore = defineStore({
             const testOptionsStore = useTestOptionsStore()
             const testSettings = testOptionsStore.testSettings
 
+
             const { currWord } = this.test
             this.test.txt[currWord.idx].time = this.test.time
             this.test.txt[currWord.idx].typeCount = this.test.sumType
@@ -158,10 +159,11 @@ export const useTestStore = defineStore({
                 this.test.txt[currWord.idx].isCorrect = true
             } else {
                 this.test.txt[currWord.idx].isCorrect = false
-                if (testSettings.difficulty === 'hard')
+                if (testSettings.difficulty === 'hard') {
                     this.test.passed = false
-                this.finishTest()
-                return
+                    this.finishTest()
+                    return
+                }
             }
         },
 
