@@ -23,6 +23,11 @@
     display: none !important;
 }
 
+.setting-btn-active {
+    background-color: var(--text) !important;
+    color: var(--bg) !important
+}
+
 .overlay {
     position: absolute;
     padding-top: 3rem;

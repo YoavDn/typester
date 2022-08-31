@@ -37,7 +37,7 @@ function localSettings(): ITestSettings {
     if (localSettings) return JSON.parse(localSettings)
 
     const defaultSettings: ITestSettings = {
-        difficulty: 'medium',
+        difficulty: 'normal',
         smoothCaret: true,
         lang: 'english'
     }

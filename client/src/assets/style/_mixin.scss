@@ -1,4 +1,6 @@
 @mixin settings-btn {
+
+    cursor: pointer;
     background-color: var(--bg);
     color: var(--text);
     border: solid 1px var(--text);
@@ -8,11 +10,35 @@
 
     &:hover {
         background-color: var(--text);
-        color: var(--text)
+        color: var(--bg)
     }
 
 }
 
-@mixin setting-btn-active {
-    background-color: var(--text);
+
+
+@mixin settign-option-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto 1fr;
+
+    align-items: flex-start;
+    align-items: flex-start;
+    grid-template-areas:
+        "title .  . "
+        "txt txt options";
+
+
+    @media (max-width: 700px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr 1fr;
+        grid-template-areas:
+            "title  "
+            "txt "
+            "options";
+
+        p {
+            margin-bottom: 1rem;
+        }
+    }
 }

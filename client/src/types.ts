@@ -52,7 +52,7 @@ export type caretPosType = {
 }
 
 export type ITestSettings = {
-    difficulty: 'easy' | 'medium' | 'hard',
+    difficulty: 'normal' | 'hard' | 'expert',
     smoothCaret: boolean,
     lang: langType
 }

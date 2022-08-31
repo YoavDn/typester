@@ -11,13 +11,12 @@ const caretStore = useCaretStore()
 
 const caretPos = computed(() => caretStore.getCaretPos)
 const isLatterEnd = computed(() => caretStore.getIslatterEnd)
-const rlt = computed(() => testOptionsStore.getRtl)
-
+const rtl = computed(() => testOptionsStore.getRtl)
 
 const caretCssPos = computed(() => {
     if (caretPos.value !== null) {
         const { top, left, leftEnd, right, } = caretPos.value
-        if (rlt) {
+        if (rtl.value) {
             if (isLatterEnd.value) return { top: top + 'px', left: left + 'px' }
             return { top: top + 'px', left: leftEnd + 'px' }
 
