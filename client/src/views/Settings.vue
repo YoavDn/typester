@@ -26,8 +26,8 @@ function saveTestSettings(option: "lang" | 'smoothCaret' | 'difficulty', newSett
 <template>
     <section class="test-settings">
         <div class="test-lang setting-option">
-            <h2>Language</h2>
-            <p>Change the Test language</p>
+            <h2>Test language</h2>
+            <p>Change the Test language.</p>
             <div class="language-container">
                 <button v-for="lang in langs" :class="isActiveLang(lang)"
                     @click="saveTestSettings('lang', lang.toLowerCase())">{{
@@ -36,7 +36,7 @@ function saveTestSettings(option: "lang" | 'smoothCaret' | 'difficulty', newSett
             </div>
         </div>
         <div class="test-diff setting-option">
-            <h2>Difficulty</h2>
+            <h2>Test difficulty</h2>
             <p>Normal is the classic type test experience. Expert fails the test if you submit (press space) an
                 incorrect word. Master fails if you press a single incorrect key (meaning you have to achieve 100%
                 accuracy).</p>

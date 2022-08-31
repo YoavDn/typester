@@ -12,6 +12,7 @@ const caretStore = useCaretStore()
 const caretPos = computed(() => caretStore.getCaretPos)
 const isLatterEnd = computed(() => caretStore.getIslatterEnd)
 const rtl = computed(() => testOptionsStore.getRtl)
+const testSettings = computed(() => testOptionsStore.getTestSettings)
 
 const caretCssPos = computed(() => {
     if (caretPos.value !== null) {
@@ -29,11 +30,15 @@ const caretCssPos = computed(() => {
 })
 
 const caretDisplay = computed(() => ({ 'caret-key-frame': !testStore.isActive }))
+
+const isSmoothCaret = computed(() => {
+    return { 'smooth-caret-trans': testSettings.value.smoothCaret }
+})
 </script>
 
 
 <template>
-    <div :class="['caret', caretDisplay]" :style="caretCssPos">
+    <div :class="['caret', caretDisplay, isSmoothCaret]" :style="caretCssPos">
     </div>
 </template>
     
@@ -45,13 +50,12 @@ const caretDisplay = computed(() => ({ 'caret-key-frame': !testStore.isActive })
     position: absolute;
     width: 2px;
     border-radius: 2px;
-    // top: 10px;
-    // transform: translateY(-10%);
+
     height: 4rem;
     background-color: var(--theme);
     z-index: 299;
     transform-origin: top left;
-    transition: all .20s ease 0s;
+    // transition: all .20s ease 0s;
 }
 
 .caret-key-frame {

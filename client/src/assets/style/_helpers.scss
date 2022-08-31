@@ -23,6 +23,10 @@
     display: none !important;
 }
 
+.smooth-caret-trans {
+    transition: all .20s ease 0s;
+}
+
 .setting-btn-active {
     background-color: var(--text) !important;
     color: var(--bg) !important
