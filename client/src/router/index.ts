@@ -28,6 +28,11 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: () => import('@/views/Settings.vue')
+    },
+    {
+      path: '/leaderboard',
+      name: 'leaderboard',
+      component: () => import('@/views/Leaderboard.vue')
     }
   ]
 })

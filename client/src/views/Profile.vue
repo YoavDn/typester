@@ -10,6 +10,8 @@ const userStore = useUserStore()
 const loggedInUser = computed(() => userStore.getLoggedInUser)
 const userTests = computed(() => userStore.getUserTests)
 
+userStore.setLoggedInUser()
+
 const isWithEmail = ref<boolean>(false)
 
 async function loginWithEmail(inputs: { username: string, password: string }) {

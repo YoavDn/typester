@@ -72,8 +72,8 @@ const username = computed(() => {
     <header :class="isOnHomeRoute" class="app-header">
         <div class="header-contianer flex">
             <nav class="logo-and-nav flex">
-                <AppLogo v-if="appTheme === 'light'" @click="goToPage('/')" class="logo" />
-                <AppLogoLight v-else @click="goToPage('/')" class="logo" />
+                <AppLogo v-if="appTheme === 'light'" @click="goToPage('/test')" class="logo" />
+                <AppLogoLight v-else @click="goToPage('/test')" class="logo" />
                 <div class="nav flex">
                     <Keyboard @click="goToPage('/test')" class="nav-svg keyboard" />
                     <Crown @click="goToPage('/leaderboard')" class="nav-svg" />

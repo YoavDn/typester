@@ -1,5 +1,4 @@
-export const hebrewWords = `
-את
+export const hebrewWords = `את
 לא
 זה
 אני
@@ -33,7 +32,6 @@ export const hebrewWords = `
 יותר
 אותי
 הזה
-ג
 כאן
 למה
 הם
@@ -159,14 +157,11 @@ export const hebrewWords = `
 תמיד
 שהם
 הנה
-ו
 אחרי
 בו
 בגלל
 בן
-צ
 מבין
-י
 רגע
 טובה
 בזה
@@ -300,7 +295,6 @@ export const hebrewWords = `
 בא
 מחר
 מאמין
-ע
 ממך
 מתי
 תגיד
@@ -365,7 +359,6 @@ export const hebrewWords = `
 הראשון
 הדברים
 השני
-כ
 לבוא
 איש
 מגיע
@@ -383,7 +376,6 @@ export const hebrewWords = `
 אחרת
 מוזר
 לשמוע
-ון
 היינו
 בין
 הן

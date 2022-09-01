@@ -5,7 +5,9 @@ import { useThemeStore } from '@/stores/ThemeStore';
 import type { IUser, IUserTest } from '@/types';
 
 
+
 const themeStore = useThemeStore()
+
 const props = defineProps<{ user: IUser, userTests: IUserTest[] | null }>()
 const appTheme = computed(() => themeStore.getAppTheme)
 

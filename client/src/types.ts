@@ -4,6 +4,7 @@ export interface IUser {
     email: string,
     id: string,
     username: string,
+    imgUrl?: string
 }
 
 export interface IUserTest extends testType {
@@ -56,6 +57,13 @@ export type ITestSettings = {
     difficulty: 'normal' | 'hard' | 'expert',
     smoothCaret: boolean,
     lang: langType
+}
+
+export type leaderboardItem = {
+    name: IUser,
+    wpm: number,
+    acc: number,
+    timestamp: number,
 }
 
 export type Dict = { [key: string]: string };
