@@ -7,13 +7,13 @@ import LeaderboardTable from '../components/LeaderboardTable.vue';
 <template>
     <section class="leaderboard-page">
         <LeaderboardStage v-if="true" />
-        <!-- <LeaderboardTable /> -->
+        <LeaderboardTable />
     </section>
 </template>
 
 
 <style lang='scss'>
 .leader-board-page {
-    // width: 100px;
+    width: 100%;
 }
 </style>

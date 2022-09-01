@@ -13,8 +13,8 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
                     <th>#</th>
                     <th>name</th>
                     <th>wpm</th>
-                    <th>accuracy</th>
-                    <th>Date</th>
+                    <th class="t-head-acc">accuracy</th>
+                    <th class="t-head-date">Date</th>
 
                 </tr>
             </thead>
@@ -25,9 +25,9 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
                         <UserCircleIcon class="user-table-svg" />
                         <h2>Yoav Mendelson</h2>
                     </td>
-                    <td>89</td>
-                    <td>89%</td>
-                    <td>Aug 02 2022</td>
+                    <td class="wpm">89</td>
+                    <td class="table-acc">89%</td>
+                    <td class="table-date">Aug 02 2022</td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -35,9 +35,9 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
                         <UserCircleIcon class="user-table-svg" />
                         <h2>Yoav Mendelson</h2>
                     </td>
-                    <td>89</td>
+                    <td class="table-acc">89</td>
                     <td>89%</td>
-                    <td>Aug 02 2022</td>
+                    <td class="table-date">Aug 02 2022</td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -45,9 +45,9 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
                         <UserCircleIcon class="user-table-svg" />
                         <h2>Yoav Mendelson</h2>
                     </td>
-                    <td>89</td>
-                    <td>89%</td>
-                    <td>Aug 02 2022</td>
+                    <td class="table-wpm">89</td>
+                    <td class="table-acc">89%</td>
+                    <td class="table-date">Aug 02 2022</td>
                 </tr>
             </tbody>
         </table>
@@ -69,7 +69,7 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
         border-bottom: solid 2px white;
         text-align: center;
         font-weight: 500;
-        padding: 2rem;
+        padding: 1em;
         font-size: 2.3rem;
         // line-height: 6rem;
     }
@@ -87,6 +87,10 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
             align-items: center;
             gap: 1.5rem;
             place-items: center left;
+
+            h2 {
+                font-weight: 400;
+            }
 
             .user-table-svg {
                 font-size: 16px;
@@ -106,7 +110,7 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
         th {
             font-weight: 400;
             font-size: 1.5rem;
-            padding: 1rem 4rem;
+            padding: 1rem;
             color: var(--text-dull)
         }
 
@@ -115,6 +119,44 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
             text-align: center;
             font-size: 1.5rem;
             color: white;
+        }
+
+
+        @media (max-width: 730px) {
+
+            td {
+                font-size: 1.2rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 530px) {
+
+            .table-user {
+
+                h2 {
+                    font-size: 1.3rem;
+                    font-weight: 400;
+
+                }
+
+            }
+
+            .table-date {
+                display: none;
+            }
+
+            .table-acc {
+                display: none;
+            }
+
+            .t-head-acc {
+                display: none;
+            }
+
+            .t-head-date {
+                display: none;
+            }
         }
     }
 }
