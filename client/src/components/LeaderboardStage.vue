@@ -42,6 +42,7 @@ import CrownSvg from '@/assets/imgs/crown.svg'
 @import '@/assets/style/main.scss';
 
 .leaderboard-stage {
+    width: 100%;
 
     .main-title {
         color: var(--text);
@@ -54,7 +55,6 @@ import CrownSvg from '@/assets/imgs/crown.svg'
 
         grid-template-areas:
             ".    .      ."
-            ".    .      ."
             ".    king   ."
             ".    uf     us"
             "ut   uf     us"
@@ -64,8 +64,8 @@ import CrownSvg from '@/assets/imgs/crown.svg'
             "t    f      s"
         ;
 
-        grid-template-columns: repeat(3, minmax(150px, 1fr));
-        grid-auto-rows: minmax(50px, auto);
+        grid-template-columns: repeat(3, minmax(30%, 1fr));
+        grid-auto-rows: minmax(40px, auto);
 
 
 
@@ -113,7 +113,7 @@ import CrownSvg from '@/assets/imgs/crown.svg'
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-bottom: 1rem;
+
 
             h2 {
                 color: var(--text);
@@ -194,6 +194,55 @@ import CrownSvg from '@/assets/imgs/crown.svg'
             grid-area: king;
             width: 60px;
             fill: #ffc300
+        }
+    }
+}
+
+@media (max-width: 420px) {
+
+    .leaderboard-stage {
+
+
+        .leaderboard-stage-grid {
+            display: grid;
+            grid-auto-rows: minmax(20px, auto);
+
+            // background-color: red;
+            .stage {
+
+                h2 {
+                    font-size: 3rem;
+                }
+            }
+
+
+            .user-champ {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+
+                h2 {
+                    color: var(--text);
+                    font-size: 1.2rem;
+                    margin-block: 1rem;
+                    line-height: 1.4rem;
+                    text-align: center;
+                }
+
+                .user-icon {
+                    padding: 1rem;
+                    max-width: 60px;
+
+                }
+
+            }
+
+            .king {
+                width: 30px;
+            }
+
         }
     }
 }
