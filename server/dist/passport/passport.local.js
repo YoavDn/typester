@@ -36,15 +36,15 @@ passport_1.default.use(new localStrategy(function verify(username, password, don
 passport_1.default.serializeUser((user, done) => {
     done(null, user);
 });
-// passport.deserializeUser((_id, done: any) => {
-//     User.findOne({ _id: _id }, (err: Error, user: IUser) => {
-//         const userInfo = { username: user.username, email: user.email, id: user._id }
-//         done(null, userInfo)
-//     })
-// })
 passport_1.default.deserializeUser((_id, done) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const user = yield user_model_1.User.findOne({ _id: _id });
-    const userToSend = { id: user._id, email: user.email, username: user.username };
+    const userToSend = {
+        id: user._id,
+        email: user.email,
+        username: user.username,
+        imgUrl: (_a = user.imgUrl) !== null && _a !== void 0 ? _a : ''
+    };
     done(null, userToSend);
 }));
 //# sourceMappingURL=passport.local.js.map

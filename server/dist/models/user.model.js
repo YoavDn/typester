@@ -21,6 +21,9 @@ const UserSchema = new mongoose_1.Schema({
     googleId: {
         type: String,
         unique: true
+    },
+    imgUrl: {
+        type: String,
     }
 });
 exports.User = (0, mongoose_1.model)('User', UserSchema);

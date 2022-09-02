@@ -14,6 +14,7 @@ const TestSchema = new mongoose_1.Schema({
     currWord: { type: Object },
     currLatter: { type: Object },
     txt: { type: mongoose_1.Schema.Types.Mixed },
+    timestamp: { type: Number },
     uid: { type: String }
 });
 exports.Test = (0, mongoose_1.model)('Test', TestSchema);

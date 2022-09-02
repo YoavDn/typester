@@ -33,6 +33,7 @@ passport_1.default.use(new GoogleStrategy({
             googleId: profile.id,
             username: profile.displayName,
             email: (_a = profile.emails) === null || _a === void 0 ? void 0 : _a[0].value,
+            imgUrl: profile.photos[0].value
             // we are using optional chaining because profile.emails may be undefined.
         });
         if (newUser) {
