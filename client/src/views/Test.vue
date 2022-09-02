@@ -42,7 +42,7 @@ ElMainContainer.value?.scrollTo({
 })
 
 onUnmounted(() => {
-    finishWatch()
+    // finishWatch()
     newTestWatch()
     scrollWatch()
     wordsStyleWatch()
@@ -53,8 +53,15 @@ onMounted(() => {
     initTest()
 })
 
-const finishWatch = watchEffect(() => {
-    if (testMode.value === 'time' && testRef.value!.time > testLevel.value) {
+// const finishWatch = watchEffect(() => {
+//     if (testMode.value === 'time' && testRef.value!.time > testLevel.value) {
+//         setTimeout(() => testStore.finishTest())
+//     }
+// })
+
+watch(() => testRef.value.time, (time): void => {
+    if (testMode.value === 'time' && time > testLevel.value) {
+        console.log('finish');
         setTimeout(() => testStore.finishTest())
     }
 })

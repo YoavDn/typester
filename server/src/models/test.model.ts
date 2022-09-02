@@ -32,6 +32,7 @@ export type testType = {
     currWord: IcurrWordOrLetter,
     currLatter: IcurrWordOrLetter,
     txt: wordType[]
+    timestamp?: Number
 }
 export interface ITest extends testType {
     uid: string
@@ -49,6 +50,7 @@ const TestSchema = new Schema<ITest>({
     currWord: { type: Object },
     currLatter: { type: Object },
     txt: { type: Schema.Types.Mixed },
+    timestamp: { type: Number },
     uid: { type: String }
 })
 

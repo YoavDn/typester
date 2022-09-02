@@ -41,7 +41,8 @@ export type testType = {
     sumType: number,
     currWord: IcurrWordOrLetter,
     currLatter: IcurrWordOrLetter,
-    txt: wordType[]
+    txt: wordType[],
+    timestamp?: number
 }
 
 
