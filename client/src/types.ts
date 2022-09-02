@@ -45,6 +45,15 @@ export type testType = {
     timestamp?: number
 }
 
+export type miniTestType = {
+    wpm: number,
+    wpmRaw: number,
+    passed: boolean | null,
+    acc: number,
+    realAcc: number,
+    time: number,
+    timestamp: number,
+}
 
 export type caretPosType = {
     top: number,

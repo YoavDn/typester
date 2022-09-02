@@ -26,6 +26,7 @@ export async function signup(req: Request, res: Response) {
 
 export function getCurrUser(req: Request, res: Response) {
     if (!req.user) {
+        console.log('hello');
         res.send(null)
     } else {
         res.send(req.user)

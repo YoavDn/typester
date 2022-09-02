@@ -1,7 +1,7 @@
 import express from 'express'
 import passport from 'passport'
 import { login, logout, signup, getCurrUser } from './controllers/user.controller'
-import { saveTest, getUserTests } from './controllers/test.contorller'
+import { saveTest, getUserTests, topTests } from './controllers/test.contorller'
 import { authMiddleware } from './middlewares/user.middleware'
 const router = express.Router()
 
@@ -19,7 +19,12 @@ router.get('/user/google/callback', passport.authenticate('google', {
 }))
 
 //test
+router.get('/test/top_tests', topTests)
 router.get('/test/:userId', getUserTests)
+// router.get('/test/top_tests', (req, res) => {
+//     console.log('hii');
+//     res.send('hiiii')
+// })
 router.post('/test/save', saveTest)
 
 

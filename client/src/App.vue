@@ -4,11 +4,14 @@ import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import { useUserStore } from './stores/UserStore';
 import { useThemeStore } from './stores/ThemeStore'
+import { useLeaderboardStore } from './stores/LeaderboardStore';
 
 const userStore = useUserStore()
+const LeaderboardStore = useLeaderboardStore()
 const themeStore = useThemeStore()
 
 userStore.setLoggedInUser()
+// LeaderboardStore.getLeaderboardTests()
 themeStore.localTheme()
 
 

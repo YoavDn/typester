@@ -98,7 +98,17 @@ export const useTestStore = defineStore({
             this.$router.push('/testResult')
 
             if (userStore.getLoggedInUser && this.test.acc > 90 && this.test.passed !== false) {
-                testService.saveTest(this.test, userStore.getLoggedInUser.id)
+                const testToSave = {
+                    wpm: this.test.wpm,
+                    wpmRaw: this.test.wpmRaw,
+                    passed: this.test.passed,
+                    acc: this.test.acc,
+                    realAcc: this.test.realAcc,
+                    time: this.test.time,
+                    timestamp: Date.now()
+
+                }
+                testService.saveTest(testToSave, userStore.getLoggedInUser.id)
             }
         },
 

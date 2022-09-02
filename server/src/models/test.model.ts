@@ -1,24 +1,6 @@
 
 import { Schema, model, connect, Document, InferSchemaType } from 'mongoose';
 
-export type latterType = {
-    latter: string,
-    isCorrect: boolean | null
-}
-
-export type wordType = {
-    word: string,
-    wpm: number,
-    wpmRaw: number
-    typeCount: number,
-    time: number
-    isCorrect: boolean | null,
-    latters: latterType[]
-}
-export interface IcurrWordOrLetter {
-    idx: number,
-    str: string
-}
 
 export type testType = {
     wpm: number,
@@ -27,11 +9,6 @@ export type testType = {
     acc: number,
     realAcc: number,
     time: number,
-    typoCount: number,
-    sumType: number,
-    currWord: IcurrWordOrLetter,
-    currLatter: IcurrWordOrLetter,
-    txt: wordType[]
     timestamp?: Number
 }
 export interface ITest extends testType {
@@ -45,11 +22,6 @@ const TestSchema = new Schema<ITest>({
     acc: { type: Number },
     realAcc: { type: Number },
     time: { type: Number },
-    typoCount: { type: Number },
-    sumType: { type: Number },
-    currWord: { type: Object },
-    currLatter: { type: Object },
-    txt: { type: Schema.Types.Mixed },
     timestamp: { type: Number },
     uid: { type: String }
 })

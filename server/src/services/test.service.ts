@@ -4,7 +4,8 @@ import { Test } from '../models/test.model'
 
 export const testService = {
     saveTest,
-    userTests
+    userTests,
+    getTopTests
 }
 
 export async function saveTest(test: testType, userID: string) {
@@ -22,3 +23,17 @@ async function userTests(userID: string) {
         return console.log(err);
     }
 }
+
+
+async function getTopTests() {
+    try {
+        const topTests = await Test.find().sort({ 'wpm': -1 })
+        // console.log('hi');
+        // const topTests = await Test.find()
+        return topTests.slice(0, 10)
+
+    } catch (err) {
+        return console.log(err);
+    }
+}
+

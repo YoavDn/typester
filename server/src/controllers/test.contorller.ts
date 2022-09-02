@@ -19,3 +19,16 @@ export async function getUserTests(req: Request, res: Response) {
         return console.log(err);
     }
 }
+
+
+export async function topTests(req: Request, res: Response) {
+    try {
+
+        const topTests = await testService.getTopTests()
+
+        return res.send(topTests)
+
+    } catch (err) {
+        return console.log(err);
+    }
+}
