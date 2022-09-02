@@ -4,12 +4,10 @@ import { UserIcon } from '@heroicons/vue/24/solid'
 import { useThemeStore } from '@/stores/ThemeStore';
 import type { IUser, IUserTest } from '@/types';
 
-
-
 const themeStore = useThemeStore()
-
 const props = defineProps<{ user: IUser, userTests: IUserTest[] | null }>()
 const appTheme = computed(() => themeStore.getAppTheme)
+
 
 const CapitalizeUsername = computed(() => {
     return props.user.username.split(' ')
@@ -19,6 +17,7 @@ const CapitalizeUsername = computed(() => {
 
 const averageWpm = computed(() => {
     if (!props.userTests || !Array.isArray(props.userTests)) return '--'
+    if (props.userTests.length === 0) return 0
 
     const averageWpm = props.userTests!.reduce((sum: number, test: IUserTest) => {
         sum += test.wpm
@@ -45,7 +44,9 @@ const timeTyping = computed(() => {
         <header class="user-profile-header flex-column">
 
             <UserIcon class="user-avatar w-3 h-4  text-white-500"
-                :class="{ 'user-dark': appTheme === 'light', 'user-light': appTheme === 'dark' }" />
+                :class="{ 'user-dark': appTheme === 'light', 'user-light': appTheme === 'dark' }"
+                v-if="!props.user.imgUrl" />
+            <img class="user-imgurl" :src="props.user.imgUrl" alt="user image url">
             <h2 class="user-username">{{ CapitalizeUsername }}</h2>
             <h3 class="user-email">{{ props.user.email }}</h3>
         </header>
@@ -76,6 +77,19 @@ const timeTyping = computed(() => {
     .user-profile-header {
         align-items: center;
         margin-bottom: 6rem;
+
+        .user-imgurl {
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border-width: 2px;
+            width: 100px;
+            height: 100px;
+            border: 2px solid transparent;
+            background:
+                linear-gradient(var(--bg), var(--bg)) padding-box,
+                linear-gradient(to right, var(--theme), var(--sub-theme)) border-box;
+            box-shadow: var(--theme) 0px 0px 70px;
+        }
 
         .user-avatar {
             font-size: 16px;

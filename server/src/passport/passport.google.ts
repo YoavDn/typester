@@ -22,6 +22,7 @@ passport.use(new GoogleStrategy({
                 googleId: profile.id,
                 username: profile.displayName,
                 email: profile.emails?.[0].value,
+                imgUrl: profile.photos[0].value
                 // we are using optional chaining because profile.emails may be undefined.
             });
             if (newUser) {

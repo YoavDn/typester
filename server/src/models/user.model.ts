@@ -9,7 +9,8 @@ export type IUser = Document & {
     email: string
     password?: string;
     googleId?: string,
-    id?: string
+    id?: string,
+    imgUrl?: string
 }
 
 const UserSchema = new Schema<IUser>({
@@ -31,6 +32,9 @@ const UserSchema = new Schema<IUser>({
     googleId: {
         type: String,
         unique: true
+    },
+    imgUrl: {
+        type: String,
     }
 })
 
