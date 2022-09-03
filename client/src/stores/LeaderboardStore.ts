@@ -7,12 +7,16 @@ export const useLeaderboardStore = defineStore('leaderboard', () => {
 
     const leaderboardList = ref<leaderboardItem[]>([])
 
-    async function getLeaderboardTests() {
+    const getLeaderboardTests = computed(() => leaderboardList.value)
+
+    async function setLeaderboardTests() {
         leaderboardList.value = await testService.getTopTests()
         // const res: leaderboardItem[] = await testService.getTopTests()
     }
 
+
     return {
+        setLeaderboardTests,
         getLeaderboardTests,
         leaderboardList,
     }

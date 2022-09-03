@@ -1,6 +1,9 @@
 <script setup lang='ts'>
+import type { leaderboardItem } from '@/types';
 import { UserIcon } from '@heroicons/vue/24/solid';
 import CrownSvg from '@/assets/imgs/crown.svg'
+
+const props = defineProps<{ leaderboardList: leaderboardItem[] }>()
 
 </script>
 
@@ -18,16 +21,20 @@ import CrownSvg from '@/assets/imgs/crown.svg'
                 <h2>3</h2>
             </div>
             <div class="first-user user-champ">
-                <UserIcon class="user-icon" />
-                <h2>Yoav Mendelson</h2>
+                <UserIcon class="user-icon" v-if="!props.leaderboardList[0].user.imgUrl" />
+                <img class="user-img" :src="props.leaderboardList[0].user.imgUrl" alt="">
+
+                <h2>{{ props.leaderboardList[0].user.username }}</h2>
             </div>
             <div class="second-user user-champ">
-                <UserIcon class="user-icon" />
-                <h2>user second</h2>
+                <UserIcon class="user-icon" v-if="!props.leaderboardList[1].user.imgUrl" />
+                <img class="user-img" :src="props.leaderboardList[1].user.imgUrl" alt="" />
+                <h2>{{ props.leaderboardList[1].user.username }}</h2>
             </div>
             <div class="third-user user-champ">
-                <UserIcon class="user-icon" />
-                <h2>user third</h2>
+                <UserIcon class="user-icon" v-if="!props.leaderboardList[2].user.imgUrl" />
+                <img class="user-img" :src="props.leaderboardList[2].user.imgUrl" alt="" />
+                <h2>{{ props.leaderboardList[2].user.username }}</h2>
             </div>
             <div class="king">
                 <CrownSvg />
@@ -140,6 +147,19 @@ import CrownSvg from '@/assets/imgs/crown.svg'
 
             }
 
+            .user-img {
+                max-width: 325px;
+                width: 125px;
+                border: solid 2px transparent;
+                background-color: black;
+                background:
+                    linear-gradient(black, black) padding-box,
+                    white;
+                -webkit-text-fill-color: transparent;
+                -webkit-text-fill-color: transparent;
+                border-radius: 50%;
+            }
+
             @media (max-width: 670px) {
                 margin-bottom: 0;
 
@@ -170,6 +190,16 @@ import CrownSvg from '@/assets/imgs/crown.svg'
                     linear-gradient(to top right, #ffea00, #ff7b00) border-box;
                 -webkit-text-fill-color: transparent;
                 border-radius: 50%;
+                box-shadow: rgb(216, 157, 47) 0px 0px 70px;
+
+            }
+
+            .user-img {
+                background:
+                    linear-gradient(black, black) padding-box,
+                    linear-gradient(to top right, #ffea00, #ff7b00) border-box;
+                -webkit-text-fill-color: transparent;
+
                 box-shadow: rgb(216, 157, 47) 0px 0px 70px;
             }
 

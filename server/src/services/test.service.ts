@@ -29,7 +29,7 @@ async function userTests(userID: string) {
 async function getTopTests() {
     try {
         const topTests = await Test.find().sort({ 'wpm': -1 })
-        const topTestsMap = topTests.map(async (test) => {
+        const topTestsMap = topTests.slice(topTests.length < 50 ? 0 : 50).map(async (test) => {
             return {
                 // @ts-ignore
                 user: await User.findById(test.uid),
@@ -38,7 +38,7 @@ async function getTopTests() {
                 timestamp: test.timestamp
             }
         })
-        // const topTests = await Test.find()
+
         return Promise.all(topTestsMap)
 
     } catch (err) {
