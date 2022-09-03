@@ -1,6 +1,16 @@
 <script setup lang='ts'>
+import { defineProps } from 'vue';
+import type { leaderboardItem } from '@/types';
 import { UserCircleIcon } from '@heroicons/vue/24/solid';
+import CrownSvg from '@/assets/imgs/crown.svg'
 
+const props = defineProps<{ leaderboardList: leaderboardItem[] }>()
+
+
+function timeStampToDate(timeStamp: number): string {
+    const date = new Date(timeStamp)
+    return date.toDateString().split(' ').slice(-3).join(' ')
+}
 </script>
 
 
@@ -19,7 +29,7 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <!-- <tr>
                     <td>1</td>
                     <td class="table-user flex">
                         <UserCircleIcon class="user-table-svg" />
@@ -28,26 +38,20 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
                     <td class="wpm">89</td>
                     <td class="table-acc">89%</td>
                     <td class="table-date">Aug 02 2022</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td class="table-user flex">
-                        <UserCircleIcon class="user-table-svg" />
-                        <h2>Yoav Mendelson</h2>
+                </tr> -->
+                <tr v-for="(leaderboardItem, idx) in props.leaderboardList">
+                    <td>
+                        <CrownSvg class="table-king-svg" v-if="idx === 0" />
+                        <p v-else>{{ idx + 1 }}</p>
                     </td>
-                    <td class="table-acc">89</td>
-                    <td>89%</td>
-                    <td class="table-date">Aug 02 2022</td>
-                </tr>
-                <tr>
-                    <td>1</td>
                     <td class="table-user flex">
-                        <UserCircleIcon class="user-table-svg" />
-                        <h2>Yoav Mendelson</h2>
+                        <UserCircleIcon class="user-table-svg" v-if="!leaderboardItem.user.imgUrl" />
+                        <img class="table-user-img" :src="leaderboardItem.user.imgUrl" alt="">
+                        <h2>{{ leaderboardItem.user.username }}</h2>
                     </td>
-                    <td class="table-wpm">89</td>
-                    <td class="table-acc">89%</td>
-                    <td class="table-date">Aug 02 2022</td>
+                    <td class="wpm">{{ leaderboardItem.wpm }}</td>
+                    <td class="table-acc">{{ leaderboardItem.acc }}</td>
+                    <td class="table-date">{{ timeStampToDate(leaderboardItem.timestamp) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -90,6 +94,7 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
 
             h2 {
                 font-weight: 400;
+                text-transform: capitalize;
             }
 
             .user-table-svg {
@@ -121,6 +126,15 @@ import { UserCircleIcon } from '@heroicons/vue/24/solid';
             color: white;
         }
 
+        .table-user-img {
+            width: 30px;
+            border-radius: 50%;
+        }
+
+        .table-king-svg {
+            fill: #ffc300;
+            width: 1.8rem
+        }
 
         @media (max-width: 730px) {
 

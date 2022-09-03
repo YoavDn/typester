@@ -22,18 +22,18 @@ const props = defineProps<{ leaderboardList: leaderboardItem[] }>()
             </div>
             <div class="first-user user-champ">
                 <UserIcon class="user-icon" v-if="!props.leaderboardList[0].user.imgUrl" />
-                <img class="user-img" :src="props.leaderboardList[0].user.imgUrl" alt="">
+                <img v-else class="user-img" :src="props.leaderboardList[0].user.imgUrl" alt="">
 
                 <h2>{{ props.leaderboardList[0].user.username }}</h2>
             </div>
             <div class="second-user user-champ">
                 <UserIcon class="user-icon" v-if="!props.leaderboardList[1].user.imgUrl" />
-                <img class="user-img" :src="props.leaderboardList[1].user.imgUrl" alt="" />
+                <img v-else class="user-img" :src="props.leaderboardList[1].user.imgUrl" alt="" />
                 <h2>{{ props.leaderboardList[1].user.username }}</h2>
             </div>
             <div class="third-user user-champ">
                 <UserIcon class="user-icon" v-if="!props.leaderboardList[2].user.imgUrl" />
-                <img class="user-img" :src="props.leaderboardList[2].user.imgUrl" alt="" />
+                <img v-else class="user-img" :src="props.leaderboardList[2].user.imgUrl" alt="" />
                 <h2>{{ props.leaderboardList[2].user.username }}</h2>
             </div>
             <div class="king">
@@ -87,6 +87,7 @@ const props = defineProps<{ leaderboardList: leaderboardItem[] }>()
             h2 {
                 font-family: 'Courier New', Courier, monospace;
                 align-self: center;
+
                 font-weight: 500;
             }
         }
@@ -126,6 +127,7 @@ const props = defineProps<{ leaderboardList: leaderboardItem[] }>()
                 color: var(--text);
                 font-size: 2.5rem;
                 line-height: 5rem;
+                text-transform: capitalize;
             }
 
             .user-icon {
@@ -172,6 +174,10 @@ const props = defineProps<{ leaderboardList: leaderboardItem[] }>()
 
                     max-width: 70px;
                     padding: 1rem;
+                }
+
+                .user-img {
+                    width: 70px;
                 }
             }
         }
