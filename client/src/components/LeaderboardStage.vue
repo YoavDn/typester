@@ -128,6 +128,7 @@ const props = defineProps<{ leaderboardList: leaderboardItem[] }>()
                 font-size: 2.5rem;
                 line-height: 5rem;
                 text-transform: capitalize;
+
             }
 
             .user-icon {
@@ -156,7 +157,7 @@ const props = defineProps<{ leaderboardList: leaderboardItem[] }>()
                 background-color: black;
                 background:
                     linear-gradient(black, black) padding-box,
-                    white;
+                    linear-gradient(to right, var(--theme), var(--sub-theme)) border-box;
                 -webkit-text-fill-color: transparent;
                 -webkit-text-fill-color: transparent;
                 border-radius: 50%;

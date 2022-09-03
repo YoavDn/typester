@@ -21,7 +21,7 @@ function timeStampToDate(timeStamp: number): string {
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>name</th>
+                    <th class="t-head-name">name</th>
                     <th>wpm</th>
                     <th class="t-head-acc">accuracy</th>
                     <th class="t-head-date">Date</th>
@@ -90,10 +90,12 @@ function timeStampToDate(timeStamp: number): string {
         .table-user {
             align-items: center;
             gap: 1.5rem;
-            place-items: center left;
+            padding-inline: 1rem;
+            justify-content: flex-start;
 
             h2 {
                 font-weight: 400;
+                text-align: start;
                 text-transform: capitalize;
             }
 
@@ -119,8 +121,12 @@ function timeStampToDate(timeStamp: number): string {
             color: var(--text-dull)
         }
 
+        .t-head-name {
+            text-align: start;
+        }
+
         td {
-            padding: 1rem 4rem;
+            padding: 1rem 1rem;
             text-align: center;
             font-size: 1.5rem;
             color: white;
