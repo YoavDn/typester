@@ -21,7 +21,12 @@ router.get('/user/google/callback', passport_1.default.authenticate('google', {
     failureRedirect: process.env.NODE_ENV === 'production' ? 'https://typester-app.herokuapp.com/profile' : 'http://localhost:5173/profile',
 }));
 //test
+router.get('/test/top_tests', test_contorller_1.topTests);
 router.get('/test/:userId', test_contorller_1.getUserTests);
+// router.get('/test/top_tests', (req, res) => {
+//     console.log('hii');
+//     res.send('hiiii')
+// })
 router.post('/test/save', test_contorller_1.saveTest);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

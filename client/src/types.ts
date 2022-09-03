@@ -70,7 +70,7 @@ export type ITestSettings = {
 }
 
 export type leaderboardItem = {
-    name: IUser,
+    user: IUser,
     wpm: number,
     acc: number,
     timestamp: number,

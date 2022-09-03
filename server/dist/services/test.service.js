@@ -13,7 +13,8 @@ exports.saveTest = exports.testService = void 0;
 const test_model_1 = require("../models/test.model");
 exports.testService = {
     saveTest,
-    userTests
+    userTests,
+    getTopTests
 };
 function saveTest(test, userID) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -30,6 +31,19 @@ function userTests(userID) {
             if (!userTests)
                 return null;
             return userTests;
+        }
+        catch (err) {
+            return console.log(err);
+        }
+    });
+}
+function getTopTests() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const topTests = yield test_model_1.Test.find().sort({ 'wpm': -1 });
+            // console.log('hi');
+            // const topTests = await Test.find()
+            return topTests.slice(0, 10);
         }
         catch (err) {
             return console.log(err);

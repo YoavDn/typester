@@ -8,9 +8,8 @@ export const useLeaderboardStore = defineStore('leaderboard', () => {
     const leaderboardList = ref<leaderboardItem[]>([])
 
     async function getLeaderboardTests() {
-        // leaderboardList.value = await testService.getTopTests()
-        const res = await testService.getTopTests()
-        console.log(res, 'shit');
+        leaderboardList.value = await testService.getTopTests()
+        // const res: leaderboardItem[] = await testService.getTopTests()
     }
 
     return {

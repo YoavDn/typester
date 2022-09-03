@@ -9,11 +9,6 @@ const TestSchema = new mongoose_1.Schema({
     acc: { type: Number },
     realAcc: { type: Number },
     time: { type: Number },
-    typoCount: { type: Number },
-    sumType: { type: Number },
-    currWord: { type: Object },
-    currLatter: { type: Object },
-    txt: { type: mongoose_1.Schema.Types.Mixed },
     timestamp: { type: Number },
     uid: { type: String }
 });

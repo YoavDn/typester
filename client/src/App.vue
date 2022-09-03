@@ -11,7 +11,7 @@ const LeaderboardStore = useLeaderboardStore()
 const themeStore = useThemeStore()
 
 userStore.setLoggedInUser()
-// LeaderboardStore.getLeaderboardTests()
+LeaderboardStore.getLeaderboardTests()
 themeStore.localTheme()
 
 

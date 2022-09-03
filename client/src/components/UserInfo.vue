@@ -36,6 +36,7 @@ const timeTyping = computed(() => {
     return new Date(sumTestsSeconds * 1000).toISOString().slice(11, 19);
 })
 
+
 </script>
 
 
@@ -47,6 +48,7 @@ const timeTyping = computed(() => {
                 :class="{ 'user-dark': appTheme === 'light', 'user-light': appTheme === 'dark' }"
                 v-if="!props.user.imgUrl" />
             <img class="user-imgurl" :src="props.user.imgUrl" alt="user image url">
+            alt="user image url">
             <h2 class="user-username">{{ CapitalizeUsername }}</h2>
             <h3 class="user-email">{{ props.user.email }}</h3>
         </header>

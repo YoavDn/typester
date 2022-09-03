@@ -1,4 +1,6 @@
-import type { testType } from '../models/test.model'
+
+import type { ITest, testType } from '../models/test.model'
+import { User } from '../models/user.model'
 import { Test } from '../models/test.model'
 
 
@@ -24,13 +26,20 @@ async function userTests(userID: string) {
     }
 }
 
-
 async function getTopTests() {
     try {
         const topTests = await Test.find().sort({ 'wpm': -1 })
-        // console.log('hi');
+        const topTestsMap = topTests.map(async (test) => {
+            return {
+                // @ts-ignore
+                user: await User.findById(test.uid),
+                wpm: test.wpm,
+                acc: test.acc,
+                timestamp: test.timestamp
+            }
+        })
         // const topTests = await Test.find()
-        return topTests.slice(0, 10)
+        return Promise.all(topTestsMap)
 
     } catch (err) {
         return console.log(err);

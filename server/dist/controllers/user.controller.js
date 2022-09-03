@@ -39,6 +39,7 @@ function signup(req, res) {
 exports.signup = signup;
 function getCurrUser(req, res) {
     if (!req.user) {
+        console.log('hello');
         res.send(null);
     }
     else {

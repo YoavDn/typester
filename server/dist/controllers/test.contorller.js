@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserTests = exports.saveTest = void 0;
+exports.topTests = exports.getUserTests = exports.saveTest = void 0;
 const test_service_1 = require("../services/test.service");
 function saveTest(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -36,4 +36,16 @@ function getUserTests(req, res) {
     });
 }
 exports.getUserTests = getUserTests;
+function topTests(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const topTests = yield test_service_1.testService.getTopTests();
+            return res.send(topTests);
+        }
+        catch (err) {
+            return console.log(err);
+        }
+    });
+}
+exports.topTests = topTests;
 //# sourceMappingURL=test.contorller.js.map
