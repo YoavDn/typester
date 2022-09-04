@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveTest = exports.testService = void 0;
+const user_model_1 = require("../models/user.model");
 const test_model_1 = require("../models/test.model");
 exports.testService = {
     saveTest,
@@ -41,9 +42,16 @@ function getTopTests() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const topTests = yield test_model_1.Test.find().sort({ 'wpm': -1 });
-            // console.log('hi');
-            // const topTests = await Test.find()
-            return topTests.slice(0, 10);
+            const topTestsMap = topTests.slice(topTests.length < 50 ? 0 : 50).map((test) => __awaiter(this, void 0, void 0, function* () {
+                return {
+                    // @ts-ignore
+                    user: yield user_model_1.User.findById(test.uid),
+                    wpm: test.wpm,
+                    acc: test.acc,
+                    timestamp: test.timestamp
+                };
+            }));
+            return Promise.all(topTestsMap);
         }
         catch (err) {
             return console.log(err);

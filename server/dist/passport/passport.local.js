@@ -37,14 +37,15 @@ passport_1.default.serializeUser((user, done) => {
     done(null, user);
 });
 passport_1.default.deserializeUser((_id, done) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    const user = yield user_model_1.User.findOne({ _id: _id });
-    const userToSend = {
-        id: user._id,
-        email: user.email,
-        username: user.username,
-        imgUrl: (_a = user.imgUrl) !== null && _a !== void 0 ? _a : ''
-    };
-    done(null, userToSend);
+    user_model_1.User.findOne({ _id: _id }, (err, user) => {
+        var _a;
+        const userToSend = {
+            id: user._id,
+            email: user.email,
+            username: user.username,
+            imgUrl: (_a = user.imgUrl) !== null && _a !== void 0 ? _a : ''
+        };
+        done(null, userToSend);
+    });
 }));
 //# sourceMappingURL=passport.local.js.map

@@ -26,12 +26,13 @@ passport.serializeUser((user, done) => {
 
 
 passport.deserializeUser(async (_id, done: any) => {
-    const user = await User.findOne({ _id: _id })
-    const userToSend = {
-        id: user._id,
-        email: user.email,
-        username: user.username,
-        imgUrl: user.imgUrl ?? ''
-    }
-    done(null, userToSend)
+    User.findOne({ _id: _id }, (err: Error, user: IUser) => {
+        const userToSend = {
+            email: user.email,
+            username: user.username,
+            imgUrl: user.imgUrl ?? ''
+        }
+        done(null, userToSend)
+    })
+
 })
