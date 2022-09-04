@@ -28,6 +28,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (_id, done: any) => {
     User.findOne({ _id: _id }, (err: Error, user: IUser) => {
         const userToSend = {
+            id: user._id,
             email: user.email,
             username: user.username,
             imgUrl: user.imgUrl ?? ''

@@ -7,6 +7,8 @@ const leaderboardStore = useLeaderboardStore()
 
 const leaderboardList = computed(() => leaderboardStore.getLeaderboardTests)
 
+
+
 </script>
 
 <template>

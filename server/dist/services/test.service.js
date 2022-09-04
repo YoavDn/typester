@@ -41,7 +41,7 @@ function userTests(userID) {
 function getTopTests() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const topTests = yield test_model_1.Test.find().sort({ 'wpm': -1 });
+            const topTests = yield test_model_1.Test.find({ acc: { $gt: 90 } }).sort({ 'wpm': -1 });
             const topTestsMap = topTests.slice(topTests.length < 50 ? 0 : 50).map((test) => __awaiter(this, void 0, void 0, function* () {
                 return {
                     // @ts-ignore

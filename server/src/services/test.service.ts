@@ -28,7 +28,7 @@ async function userTests(userID: string) {
 
 async function getTopTests() {
     try {
-        const topTests = await Test.find().sort({ 'wpm': -1 })
+        const topTests = await Test.find({ acc: { $gt: 90 } }).sort({ 'wpm': -1 })
         const topTestsMap = topTests.slice(topTests.length < 50 ? 0 : 50).map(async (test) => {
             return {
                 // @ts-ignore

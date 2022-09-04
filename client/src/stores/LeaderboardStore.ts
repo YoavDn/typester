@@ -11,6 +11,7 @@ export const useLeaderboardStore = defineStore('leaderboard', () => {
 
     async function setLeaderboardTests() {
         leaderboardList.value = await testService.getTopTests()
+        console.log(leaderboardList.value);
         // const res: leaderboardItem[] = await testService.getTopTests()
     }
 
