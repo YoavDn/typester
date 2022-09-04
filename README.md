@@ -7,6 +7,15 @@
 
 Typester is a modern design typing test application inspired by Monkeytype. It features a variety of test modes, including a dark mode for the night owls, and also saves user typing tests history. With easy to understand approach Typester tries to help improve typing skills by giving a fun experience with live feedback.
 
+# Features 
+
+- Test modes 
+- Live errors, wpm, and accuracy displays
+- settings and customisation
+- Leaderboard 
+- Account system
+- Dark and light theme
+
 # Technologies
 
 - Typesricpt
