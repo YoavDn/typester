@@ -185,7 +185,7 @@ function reapetTest() {
 
 @media (max-width: 670px) {
     .main-stats {
-        max-width: 350px;
+        max-width: 300px;
 
         .stats-middle {
             gap: .5rem;
@@ -207,6 +207,15 @@ function reapetTest() {
         h3 {
             font-size: 2rem;
         }
+    }
+}
+
+@media (max-width: 470px) {
+    .btns-bar {
+        flex-direction: column-reverse;
+        gap: 2rem;
+        align-items: center;
+        margin-top: 2rem;
     }
 }
 </style>

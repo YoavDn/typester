@@ -101,5 +101,20 @@ const props = defineProps<{ test?: testType }>()
             justify-self: center;
         }
     }
+
+
+}
+
+@media (max-width: 470px) {
+
+
+    .main-stats {
+        width: 170px;
+
+        flex-direction: column;
+        justify-content: center;
+        gap: 3rem;
+    }
+
 }
 </style>
