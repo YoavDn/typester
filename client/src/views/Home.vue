@@ -21,9 +21,9 @@ const appTheme = computed(() => themeStore.getAppTheme)
         </div>
         <div class="main-text">
             <ul>
-                <li class="home-title" ref="typeEl">Type</li>
+                <li class="home-title" ref="typeEl">Type.</li>
                 <li class="home-title">Sleep.</li>
-                <li class="home-title">Reapet.</li>
+                <li class="home-title">Repeat.</li>
             </ul>
             <button @click="() => router.push('/test')" :class="{ 'btn-light': appTheme !== 'light' }"
                 class="start-typing-btn">Start Typing</button>

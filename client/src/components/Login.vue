@@ -52,7 +52,7 @@ function register(registerInputs: { email: string, password: string, username: s
         </form>
         <Register v-if="isRegister" @handleRegister="register" />
 
-        <p v-if="isWithEmail && !isRegister" class="sign-up-p">Doesn't have an account ?</p>
+        <p v-if="isWithEmail && !isRegister" class="sign-up-p">Don't have an account ?</p>
         <button v-if="isWithEmail && !isRegister" @click="isRegister = true" class="sign-up-btn">Sign up</button>
         <p v-if="isWithEmail" class="other-login-options" @click="$emit('setEmailOption', false), isRegister = false">
             &leftarrow; Other
