@@ -45,7 +45,6 @@ export const useCaretStore = defineStore({
                     this.caretCurrWordIdx = 0
                 }
                 this.caretPos.top = top
-                // this.caretPos.top = top + this.relativeTop
                 this.caretPos.left = left
                 this.caretPos.leftEnd = leftEnd
                 this.caretPos.bottom = bottom
