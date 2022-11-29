@@ -9,8 +9,8 @@ passport.use(new GoogleStrategy({
     clientID: config.googleAuth.clientId,
     clientSecret: config.googleAuth.clientIdSecret,
     callbackURL: process.env.NODE_ENV === 'production'
-        ? "https://typester.onrender.com/profile/callback"
-        : 'http://localhost:3000/api/user/google/callback',
+        ? 'https://typester.onrender.com/api/user/google/callback'
+        : 'http://localhost:3000/api/user/google/callback'
 },
     async (accessToken, refreshToken, profile, done) => {
         console.log(profile, 'provile');

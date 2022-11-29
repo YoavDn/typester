@@ -21,8 +21,8 @@ passport_1.default.use(new GoogleStrategy({
     clientID: config_1.config.googleAuth.clientId,
     clientSecret: config_1.config.googleAuth.clientIdSecret,
     callbackURL: process.env.NODE_ENV === 'production'
-        ? "https://typester.onrender.com/profile/callback"
-        : 'http://localhost:3000/api/user/google/callback',
+        ? 'https://typester.onrender.com/api/user/google/callback'
+        : 'http://localhost:3000/api/user/google/callback'
 }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     console.log(profile, 'provile');
