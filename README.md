@@ -1,7 +1,7 @@
 
 ![Typester](https://user-images.githubusercontent.com/88082101/187229526-2ae838ab-e267-4a95-a7e8-63523e0d007d.jpg) 
 
-[Live Site](https://typester-app.herokuapp.com/)
+[Live Site](https://typester.onrender.com/)
 
 # About 
 
